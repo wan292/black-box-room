@@ -16,11 +16,7 @@
   --brass:     #D9B268;
   --brass-deep:#A8813C;
   --wood:      #A9744E;
-  --wood-dk:   #7E5638;
   --glow:      #F0D9A8;
-  --marble:    #C9C7C2;
-  --screen1:   #24384A;
-  --screen2:   #101C28;
   --step: 0.25rem;
 }
 
@@ -36,6 +32,13 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
+
+.sitenav { position: sticky; top: 0; z-index: 60; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem 1.25rem; padding: 0.55rem clamp(1rem, 4vw, 1.75rem); background: var(--bg-2); border-bottom: 1px solid var(--rule); }
+.sitenav .home { font-family: Archivo, sans-serif; font-variation-settings: "wdth" 112, "wght" 720; font-weight: 700; font-size: 0.85rem; color: var(--ink); text-decoration: none; }
+.sitenav .links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; }
+.sitenav .links a { font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase; text-decoration: none; color: var(--ink-faint); padding: 2px 0; }
+.sitenav .links a:hover { color: var(--brass); }
+.sitenav .links a.on { color: var(--brass); border-bottom: 2px solid var(--brass); }
 
 .wrap {
   max-width: 66rem;
@@ -139,12 +142,21 @@ footer {
 }
 </style>
 
+<nav class="sitenav" aria-label="Project pages">
+  <a class="home" href="index.html">&#11035; The Black Box</a>
+  <div class="links">
+    <a href="family-tour.html" class="on">Tour</a>
+    <a href="media-room.html">Build Sheet</a>
+    <a href="fitting-guide.html">Fitting</a>
+    <a href="research-hub.html">Research</a>
+  </div>
+</nav>
 <div class="wrap">
 
   <header style="display:flex; flex-direction:column; gap:calc(var(--step) * 5);">
     <p class="eyebrow">The family tour &middot; 6 &times; 4 m &middot; ready December 2026</p>
     <h1>The Black Box Tour</h1>
-    <p class="lede">One picture per idea &mdash; what goes in the black room, where it goes, and why. <span class="ar" dir="rtl" lang="ar">جولة في غرفة السينما والألعاب</span></p>
+    <p class="lede">One picture per idea &mdash; what goes in the black room, where it goes, and why. <span class="ar" dir="rtl" lang="ar">جولة على غرفة السينما والقيمنق</span></p>
   </header>
 
   <section>
@@ -207,7 +219,7 @@ footer {
           <rect x="120" y="368" width="660" height="6" fill="#242430"></rect>
         </svg>
       </div>
-      <figcaption>The wall as it will look: 77&Prime; OLED flat on the black wall, bias glow behind it, matched speakers on stands, sub in the corner, warm cove line above, and the rug pulling the marble out of the picture. <span class="ar" dir="rtl" lang="ar">هكذا سيبدو الجدار</span></figcaption>
+      <figcaption>The wall as it will look: 77&Prime; OLED flat on the black wall, a soft glow behind it, matched speakers on stands, sub in the corner, and the rug covering the marble in front. <span class="ar" dir="rtl" lang="ar">كذا بيصير شكل الجدار</span></figcaption>
     </figure>
   </section>
 
@@ -215,26 +227,30 @@ footer {
     <div class="head"><h2>The plan</h2><span class="ar" dir="rtl" lang="ar">مخطط الغرفة</span></div>
     <figure>
       <div class="figbox">
-        <svg viewBox="0 0 800 470" role="img" aria-label="Top-down plan of the six by four metre room: TV centred on the long wall, sofa opposite at three metres, desk facing the two windows on the short wall, subwoofer in the corner, surround speakers beside the sofa, two ceiling speakers in the gypsum tray slightly ahead of the sofa.">
+        <svg viewBox="0 0 800 470" role="img" aria-label="Top-down plan of the six by four metre room. The TV is centred on one long wall at the builder's receiver points. The sofa is against the opposite long wall at three metres. The L-shaped corner desk with the PC sits in the corner between the door wall and the TV wall, under the installed AC. The two windows with a full double curtain are on the left short wall. The padded door is on the right short wall. Surround speakers flank the sofa on both short walls, the subwoofer is in the left TV corner, and two ceiling speakers sit in the gypsum tray slightly ahead of the sofa.">
           <rect x="40" y="30" width="720" height="410" fill="#141418" stroke="#3A3A44" stroke-width="3"></rect>
-          <rect x="120" y="95" width="560" height="280" fill="none" stroke="#2E2E36" stroke-width="1.5" stroke-dasharray="6 5"></rect>
-          <text x="134" y="117" fill="#8D887C" font-family="IBM Plex Mono, monospace" font-size="11">gypsum tray + cove LED</text>
+          <polygon points="120,95 680,95 680,300 610,375 120,375" fill="none" stroke="#2E2E36" stroke-width="1.5" stroke-dasharray="6 5"></polygon>
+          <text x="134" y="117" fill="#8D887C" font-family="IBM Plex Mono, monospace" font-size="11">gypsum tray &middot; RGB cove installed &#10003;</text>
 
           <rect x="300" y="32" width="200" height="12" fill="#D9B268"></rect>
           <text x="400" y="64" fill="#EAE7DF" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="650" font-size="14">77&Prime; TV</text>
 
-          <rect x="250" y="48" width="18" height="18" fill="#1B1B22" stroke="#B7B2A6"></rect>
-          <rect x="532" y="48" width="18" height="18" fill="#1B1B22" stroke="#B7B2A6"></rect>
-          <rect x="391" y="48" width="18" height="18" fill="#1B1B22" stroke="#B7B2A6"></rect>
-          <rect x="60" y="48" width="24" height="24" fill="#1B1B22" stroke="#B7B2A6"></rect>
-          <text x="72" y="90" fill="#8D887C" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">SUB</text>
+          <rect x="252" y="50" width="18" height="18" fill="#1B1B22" stroke="#B7B2A6"></rect>
+          <rect x="391" y="50" width="18" height="18" fill="#1B1B22" stroke="#B7B2A6"></rect>
+          <rect x="530" y="50" width="18" height="18" fill="#1B1B22" stroke="#B7B2A6"></rect>
+          <rect x="58" y="48" width="24" height="24" fill="#1B1B22" stroke="#B7B2A6"></rect>
+          <text x="70" y="90" fill="#8D887C" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">SUB</text>
+
+          <polygon points="592,32 758,32 758,240 700,240 700,90 592,90" fill="#1B1B22" stroke="#B7B2A6"></polygon>
+          <text x="726" y="160" fill="#B7B2A6" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">DESK</text>
+          <circle cx="668" cy="130" r="15" fill="none" stroke="#B7B2A6" stroke-width="1.2"></circle>
+          <text x="590" y="118" fill="#8D887C" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10">corner desk 2&times;2 &middot; PC + PS5</text>
+          <text x="590" y="134" fill="#8D887C" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10">&rarr; TV run only ~5 m</text>
 
           <rect x="42" y="120" width="8" height="70" fill="#B7B2A6"></rect>
           <rect x="42" y="250" width="8" height="70" fill="#B7B2A6"></rect>
-          <text x="60" y="112" fill="#8D887C" font-family="IBM Plex Mono, monospace" font-size="10">windows + blackout</text>
-
-          <rect x="70" y="160" width="52" height="140" fill="#1B1B22" stroke="#B7B2A6"></rect>
-          <text x="96" y="234" fill="#B7B2A6" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">DESK</text>
+          <line x1="66" y1="60" x2="66" y2="420" stroke="#8D887C" stroke-width="1.2" stroke-dasharray="5 4"></line>
+          <text x="78" y="112" fill="#8D887C" font-family="IBM Plex Mono, monospace" font-size="10">2 windows &middot; blackout + full curtain</text>
 
           <rect x="300" y="350" width="200" height="72" fill="#1B1B22" stroke="#B7B2A6"></rect>
           <text x="400" y="390" fill="#B7B2A6" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11">SOFA</text>
@@ -242,25 +258,30 @@ footer {
           <line x1="400" y1="50" x2="400" y2="344" stroke="#D9B268" stroke-width="1.5" stroke-dasharray="4 4"></line>
           <text x="412" y="200" fill="#D9B268" font-family="IBM Plex Mono, monospace" font-size="11">&asymp; 3 m</text>
 
-          <rect x="42" y="356" width="18" height="18" fill="#1B1B22" stroke="#B7B2A6"></rect>
-          <rect x="740" y="356" width="18" height="18" fill="#1B1B22" stroke="#B7B2A6"></rect>
+          <rect x="88" y="352" width="18" height="18" fill="#1B1B22" stroke="#B7B2A6"></rect>
+          <text x="114" y="366" fill="#8D887C" font-family="IBM Plex Mono, monospace" font-size="10">SL</text>
+          <rect x="722" y="340" width="18" height="18" fill="#1B1B22" stroke="#B7B2A6"></rect>
+          <text x="716" y="354" fill="#8D887C" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10">SR</text>
 
-          <circle cx="320" cy="310" r="13" fill="none" stroke="#D9B268" stroke-width="1.5" stroke-dasharray="4 3"></circle>
-          <circle cx="480" cy="310" r="13" fill="none" stroke="#D9B268" stroke-width="1.5" stroke-dasharray="4 3"></circle>
-          <text x="400" y="314" fill="#8D887C" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">ceiling pair</text>
+          <circle cx="320" cy="300" r="13" fill="none" stroke="#D9B268" stroke-width="1.5" stroke-dasharray="4 3"></circle>
+          <circle cx="480" cy="300" r="13" fill="none" stroke="#D9B268" stroke-width="1.5" stroke-dasharray="4 3"></circle>
+          <text x="400" y="304" fill="#8D887C" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">ceiling pair</text>
 
-          <path d="M660 438 A 64 64 0 0 1 724 438" fill="none" stroke="#2E2E36" stroke-width="1.5"></path>
-          <text x="692" y="460" fill="#8D887C" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">door (confirm)</text>
+          <rect x="748" y="60" width="10" height="56" fill="none" stroke="#8D887C" stroke-width="1.2" stroke-dasharray="4 3"></rect>
+          <text x="740" y="76" fill="#8D887C" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10">AC &#10003;</text>
 
-          <text x="400" y="462" fill="#8D887C" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11">6 m &times; 4 m (to confirm)</text>
+          <path d="M690 438 A 64 64 0 0 1 754 374" fill="none" stroke="#2E2E36" stroke-width="1.5"></path>
+          <text x="700" y="458" fill="#8D887C" font-family="IBM Plex Mono, monospace" font-size="10">padded door &#10003;</text>
+
+          <text x="400" y="462" fill="#8D887C" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11">6 m &times; 4 m (tape measure to confirm)</text>
         </svg>
       </div>
-      <figcaption>Everything faces the long black wall. The desk gets the daylight and turns its back to the room &mdash; nobody at the door sees a screen. <span class="ar" dir="rtl" lang="ar">المكتب يواجه النافذة والكنبة تواجه الشاشة</span></figcaption>
+      <figcaption>Walk in: the screen is on your right, the sofa on your left, and your corner desk with the Nanoleafs above it lives by the door under the AC. From the doorway the monitors sit edge-on &mdash; private. <span class="ar" dir="rtl" lang="ar">المكتب عند الباب والكنبة قدام الشاشة على طول</span></figcaption>
     </figure>
   </section>
 
   <section>
-    <div class="head"><h2>Three moods, one room</h2><span class="ar" dir="rtl" lang="ar">الإضاءة: ثلاث حالات</span></div>
+    <div class="head"><h2>Three moods, one room</h2><span class="ar" dir="rtl" lang="ar">فلم &middot; قيمنق &middot; قعدة عائلية</span></div>
     <figure>
       <div class="figbox">
         <svg viewBox="0 0 900 300" role="img" aria-label="The same wall drawn three times with different lighting. Movie mode: everything dark except a faint glow behind the TV. Gaming mode: the bias glow is colourful and the cove line is dim. Family mode: warm cove and downlights fill the room with soft light.">
@@ -302,12 +323,12 @@ footer {
           <text x="750" y="282" fill="#B7B2A6" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="650" font-size="14">Family</text>
         </svg>
       </div>
-      <figcaption>Same room, three switch presses. Movie: near-dark with a calibrated glow behind the screen. Gaming: the backlight follows what's on screen. Family: warm cove and dimmed downlights &mdash; a normal, cozy room. <span class="ar" dir="rtl" lang="ar">فيلم &middot; ألعاب &middot; جلسة عائلية</span></figcaption>
+      <figcaption>Same room, three switch presses &mdash; and half of this already exists: the RGB cove in your ceiling is the color layer, the Govee behind the TV follows the game, and the warm downlights carry the family setting. <span class="ar" dir="rtl" lang="ar">نفس الغرفة، ثلاث قعدات &mdash; ونص الإضاءة موجودة أصلاً</span></figcaption>
     </figure>
   </section>
 
   <section>
-    <div class="head"><h2>What goes in, piece by piece</h2><span class="ar" dir="rtl" lang="ar">المكونات</span></div>
+    <div class="head"><h2>What goes in, piece by piece</h2><span class="ar" dir="rtl" lang="ar">الأغراض وحدة وحدة</span></div>
     <div class="cards">
 
       <div class="card">
@@ -319,23 +340,39 @@ footer {
         </svg></div>
         <div class="body">
           <h3>Ceiling speakers &times;2 <span class="ar" dir="rtl" lang="ar">سماعات السقف</span></h3>
-          <p>Flush in the tray, invisible until they rain on you. This is what makes Atmos real &mdash; helicopters overhead, rain from above. The hollow gypsum makes it an easy install.</p>
-          <p class="more"><a href="https://theatercalc.com/calculators/atmos-angles">placement math</a></p>
+          <p>A round speaker that sits flush inside the gypsum, invisible until it rains on you. This is what makes Atmos real &mdash; and your hollow tray ceiling makes it an easy job.</p>
         </div>
       </div>
 
       <div class="card">
-        <div class="art"><svg viewBox="0 0 300 150" role="img" aria-label="Acoustic panels: three dark fabric rectangles on the black wall and a thick wedge filling the corner.">
-          <rect x="0" y="0" width="300" height="150" fill="#141418"></rect>
-          <rect x="40" y="25" width="52" height="100" fill="#1F1F27" stroke="#2E2E36"></rect>
-          <rect x="112" y="25" width="52" height="100" fill="#1F1F27" stroke="#2E2E36"></rect>
-          <rect x="184" y="25" width="52" height="100" fill="#1F1F27" stroke="#2E2E36"></rect>
-          <polygon points="300,0 300,150 246,150" fill="#23232B" stroke="#2E2E36"></polygon>
+        <div class="art"><svg viewBox="0 0 300 150" role="img" aria-label="Product drawing of one acoustic panel: a black fabric rectangle shown at an angle so its ten centimetre thickness is visible, with dimension labels.">
+          <polygon points="60,22 200,22 200,118 60,118" fill="#23232B" stroke="#3A3A44"></polygon>
+          <polygon points="200,22 224,34 224,130 200,118" fill="#17171D" stroke="#3A3A44"></polygon>
+          <polygon points="60,22 84,10 224,10 200,22" fill="#2A2A33" stroke="#3A3A44"></polygon>
+          <line x1="60" y1="128" x2="200" y2="128" stroke="#8D887C" stroke-width="1"></line>
+          <text x="130" y="144" fill="#8D887C" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">120 &times; 60 cm</text>
+          <line x1="236" y1="34" x2="236" y2="130" stroke="#8D887C" stroke-width="1"></line>
+          <text x="244" y="86" fill="#8D887C" font-family="IBM Plex Mono, monospace" font-size="10">10 cm</text>
         </svg></div>
         <div class="body">
-          <h3>Panels + bass traps <span class="ar" dir="rtl" lang="ar">المعالجة الصوتية</span></h3>
-          <p>Black fabric panels at the reflection points, thick traps in the corners. Same material as inside your walls &mdash; but on the room side, so the sound inside stays clean instead of booming. Made in Riyadh.</p>
-          <p class="more"><a href="https://acoustic.sa/">acoustic.sa</a> &middot; <a href="https://mmtacoustixonline.com/pages/fabric-wrapped-rockwool-acoustic-panels-in-ksa-saudi-arabia">MMT Acoustix</a></p>
+          <h3>Acoustic panel <span class="ar" dir="rtl" lang="ar">لوحة عزل صوت</span></h3>
+          <p>This is the whole product: a wood frame filled with rock wool, wrapped in black fabric, hung on the wall like a picture. It stops sound bouncing back at you &mdash; the room sounds clean instead of echoey. You need 6&ndash;8 of them, made in Riyadh.</p>
+          <p class="more"><a href="https://acoustic.sa/">acoustic.sa</a> &middot; <a href="https://mmtacoustixonline.com/">MMT Acoustix</a></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="art"><svg viewBox="0 0 300 150" role="img" aria-label="Product drawing of one corner bass trap: a tall triangular column that stands in the corner where two walls meet, drawn from above and from the front.">
+          <line x1="40" y1="20" x2="40" y2="130" stroke="#3A3A44" stroke-width="3"></line>
+          <line x1="40" y1="130" x2="150" y2="130" stroke="#3A3A44" stroke-width="3"></line>
+          <polygon points="40,130 40,58 112,130" fill="#23232B" stroke="#4A4A54"></polygon>
+          <text x="66" y="118" fill="#8D887C" font-family="IBM Plex Mono, monospace" font-size="9">top view</text>
+          <polygon points="200,18 260,18 268,132 192,132" fill="#23232B" stroke="#4A4A54"></polygon>
+          <text x="230" y="146" fill="#8D887C" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">floor to ceiling</text>
+        </svg></div>
+        <div class="body">
+          <h3>Bass trap <span class="ar" dir="rtl" lang="ar">مصيدة الباص</span></h3>
+          <p>Same material as the panel but much thicker, and it stands in the corner &mdash; a tall soft column from floor to ceiling. Deep bass piles up in corners; this soaks it up so the subwoofer sounds tight, not boomy. Two corners minimum, behind the TV.</p>
         </div>
       </div>
 
@@ -357,9 +394,9 @@ footer {
           </g>
         </svg></div>
         <div class="body">
-          <h3>Walnut slat wall <span class="ar" dir="rtl" lang="ar">جدار الخشب</span></h3>
-          <p>The one warm feature that stops black feeling like a cave. Goes on the back wall behind the sofa, on black felt &mdash; it looks boutique and scatters echo at the same time.</p>
-          <p class="more"><a href="https://akuwoodpanel.ae/collections/acoustic-slat-wall-panels">GCC panels</a></p>
+          <h3>Wood slat wall &mdash; optional <span class="ar" dir="rtl" lang="ar">جدار خشب</span></h3>
+          <p>Warm walnut strips on black felt, behind the sofa. It's decoration first &mdash; <strong>this one is your mother's call</strong>, and any direction she takes the room works with the plan. If she happens to like slats, the felt backing quietly helps the echo too.</p>
+          <p class="more"><a href="https://www.amazon.sa/s?k=acoustic+wood+slat+wall+panel">amazon.sa slat panels</a></p>
         </div>
       </div>
 
@@ -375,7 +412,7 @@ footer {
         </svg></div>
         <div class="body">
           <h3>The big rug <span class="ar" dir="rtl" lang="ar">السجادة</span></h3>
-          <p>The polished marble is beautiful and it is the room's worst enemy &mdash; it echoes and it mirrors the screen. A 250&times;350 wool rug with a felt pad underneath fixes both at once.</p>
+          <p><strong>A completely normal rug</strong> &mdash; nothing special to hunt for. Just: big (about 250&times;350), thick rather than flat-woven, wool if possible, and a felt pad underneath. The shiny marble echoes and mirrors the screen; the rug fixes both.</p>
         </div>
       </div>
 
@@ -394,8 +431,8 @@ footer {
           <rect x="24" y="6" width="252" height="6" fill="#242430"></rect>
         </svg></div>
         <div class="body">
-          <h3>Blackout curtains <span class="ar" dir="rtl" lang="ar">الستائر المعتمة</span></h3>
-          <p>Wall-to-wall on the window wall, in heavy dark fabric. Daylight control for movie afternoons &mdash; and the thick pleats quietly absorb sound too.</p>
+          <h3>Curtains, double layer <span class="ar" dir="rtl" lang="ar">ستاير تعتيم</span></h3>
+          <p>Exactly the setup you already have in your bedroom and love: blackout on the windows, and the big wall-to-wall curtain over it. Same thing here on the windows wall &mdash; darkness for movie afternoons, and the heavy pleats quietly absorb sound too.</p>
         </div>
       </div>
 
@@ -415,8 +452,30 @@ footer {
         </svg></div>
         <div class="body">
           <h3>Star ceiling &mdash; optional <span class="ar" dir="rtl" lang="ar">سقف النجوم</span></h3>
-          <p>Fiber-optic stars in the tray. Your hollow ceiling is the easy case for it &mdash; but it's a construction-phase job, so the family decides this one <em>before</em> the ceiling work, or never.</p>
-          <p class="more"><a href="https://www.hometheatershack.com/threads/star-ceilings-painted-vs-fiber-optic.173425/">real examples</a></p>
+          <p>Fiber-optic stars in the ceiling tray. Your hollow ceiling is the easy case &mdash; but it means drilling the fresh gypsum, so the family decides this one <em>before</em> any ceiling work, or it stays a dream.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="art"><svg viewBox="0 0 300 150" role="img" aria-label="The corner desk setup: an L-shaped desk with three monitors, the PC tower, and triangular light panels on the wall above.">
+          <rect x="0" y="0" width="300" height="150" fill="#101014"></rect>
+          <g fill="#7BAAC6" opacity="0.85">
+            <polygon points="120,18 134,42 106,42"></polygon>
+            <polygon points="134,42 148,18 162,42"></polygon>
+            <polygon points="162,42 176,18 190,42"></polygon>
+          </g>
+          <rect x="60" y="70" width="34" height="26" fill="#0A0A0D" stroke="#3A3A44"></rect>
+          <rect x="100" y="64" width="60" height="34" fill="#0A0A0D" stroke="#3A3A44"></rect>
+          <rect x="166" y="66" width="36" height="30" fill="#0A0A0D" stroke="#3A3A44"></rect>
+          <rect x="216" y="58" width="34" height="52" fill="#15151A" stroke="#3A3A44"></rect>
+          <rect x="220" y="64" width="14" height="40" fill="#5C3A6E"></rect>
+          <rect x="46" y="102" width="216" height="8" fill="#1B1B22" stroke="#26262E"></rect>
+          <rect x="60" y="110" width="6" height="30" fill="#15151A"></rect>
+          <rect x="240" y="110" width="6" height="30" fill="#15151A"></rect>
+        </svg></div>
+        <div class="body">
+          <h3>Your corner desk stays <span class="ar" dir="rtl" lang="ar">مكتبك زي ما هو</span></h3>
+          <p>The 2&times;2 corner desk, three monitors, the NZXT and the Nanoleafs &mdash; all of it moves in as-is, into the corner by the door. Bonus: sitting near the TV wall means the PC-to-TV cable drops from 15 m to about 5 m. A console shelf under it can come later if you want one.</p>
         </div>
       </div>
 
@@ -424,12 +483,12 @@ footer {
   </section>
 
   <section>
-    <div class="head"><h2>See real rooms like this</h2><span class="ar" dir="rtl" lang="ar">غرف حقيقية مشابهة</span></div>
-    <p style="color:var(--ink-soft); font-size:0.95rem;">Web-page security stops me embedding other people's photos here, so these links open the real-photo galleries &mdash; scroll them together on a phone: <a href="https://www.houzz.com/photos/black-floor-home-theater-ideas-phbr1-bp~t_719~a_1408-15755">Houzz black theaters</a> &middot; <a href="https://hometheateracademy.com/dark-home-theater-designs/">15 dark theater designs</a> &middot; <a href="https://www.avsforum.com/threads/how-i-blackened-my-home-theater-with-velvet-evolving-from-common-mancave-into-a-batcave.3236212/">a documented batcave build</a> &middot; <a href="https://www.mycinematech.com/design/acoustic-wall-fabric-collection/">luxury fabric walls</a></p>
+    <div class="head"><h2>See real rooms like this</h2><span class="ar" dir="rtl" lang="ar">غرف حقيقية مثلها</span></div>
+    <p style="color:var(--ink-soft); font-size:0.95rem;">Web-page security stops me embedding other people's photos here, so these open the real-photo galleries &mdash; scroll them together on a phone: <a href="https://www.houzz.com/photos/black-floor-home-theater-ideas-phbr1-bp~t_719~a_1408-15755">Houzz black theaters</a> &middot; <a href="https://hometheateracademy.com/dark-home-theater-designs/">15 dark theater designs</a> &middot; <a href="https://www.avsforum.com/threads/how-i-blackened-my-home-theater-with-velvet-evolving-from-common-mancave-into-a-batcave.3236212/">a documented batcave build</a> &middot; <a href="https://www.mycinematech.com/design/acoustic-wall-fabric-collection/">luxury fabric walls</a></p>
   </section>
 
   <footer>
-    Part of the room project: <em>Media Room Build Sheet</em> (what to buy, with prices), <em>Fitting a Finished Room</em> (how it installs), and <em>The Black Box</em> (the full research). Drawings are illustrations, not to scale; the 6 &times; 4 m plan is pending a tape measure, and the door, AC, and PC positions get confirmed tomorrow.
+    Part of the room project &mdash; use the top bar to jump between pages. Drawings are illustrations, not to scale; the 6 &times; 4 m plan is pending a tape measure. Decoration decisions (slat wall, wallpaper, colors) are deliberately left open &mdash; that department has better management.
   </footer>
 
 </div>

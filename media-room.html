@@ -442,16 +442,33 @@ footer {
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 </style>
 
+<style>
+.sitenav { position: sticky; top: 0; z-index: 60; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem 1.25rem; padding: 0.55rem clamp(1rem, 4vw, 1.75rem); background: var(--paper); border-bottom: 1px solid var(--rule); }
+.sitenav .home { font-family: Archivo, sans-serif; font-variation-settings: "wdth" 112, "wght" 720; font-weight: 700; font-size: 0.85rem; color: var(--ink); text-decoration: none; }
+.sitenav .links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; }
+.sitenav .links a { font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase; text-decoration: none; color: var(--ink-faint); padding: 2px 0; }
+.sitenav .links a:hover { color: var(--brass); }
+.sitenav .links a.on { color: var(--brass); border-bottom: 2px solid var(--brass); }
+</style>
+<nav class="sitenav" aria-label="Project pages">
+  <a class="home" href="index.html">&#11035; The Black Box</a>
+  <div class="links">
+    <a href="family-tour.html">Tour</a>
+    <a href="media-room.html" class="on">Build Sheet</a>
+    <a href="fitting-guide.html">Fitting</a>
+    <a href="research-hub.html">Research</a>
+  </div>
+</nav>
 <div class="wrap">
 
   <header class="masthead">
-    <p class="eyebrow">Build sheet &middot; Rev B &middot; 21 Aug 2026 &middot; prices verified against live KSA stock</p>
+    <p class="eyebrow">Build sheet &middot; Rev C &middot; 22 Aug 2026 &middot; updated from the room photos</p>
     <h1>Media Room Build Sheet</h1>
-    <p class="lede">A 5.1.2 cinema and gaming room in a soundproofed shell &mdash; now with the PS5 at the desk, order links on every line, and 5,700 SAR of headroom back in the budget.</p>
+    <p class="lede">A 5.1.2 cinema and gaming room in a soundproofed shell &mdash; the photos found the AC installed and the RGB cove already built, so the budget drops again: <strong>~7,600 SAR of headroom</strong>.</p>
     <dl class="plate">
-      <div><dt>Room</dt><dd>4 &times; 5&ndash;6 m</dd></div>
+      <div><dt>Room</dt><dd>6 &times; 4 m</dd></div>
       <div><dt>Budget</dt><dd>&asymp; 50,000 SAR</dd></div>
-      <div><dt>Specced at</dt><dd>44,260 SAR</dd></div>
+      <div><dt>Specced at</dt><dd>42,360 SAR</dd></div>
       <div><dt>Screen</dt><dd>77&Prime; OLED</dd></div>
       <div><dt>Channels</dt><dd>5.1.2</dd></div>
       <div><dt>Sources</dt><dd>PC + PS5, both at desk</dd></div>
@@ -648,27 +665,27 @@ footer {
 
       <div class="tablewrap">
         <table>
-          <caption>Light &middot; 3,850</caption>
+          <caption>Light &middot; 1,450</caption>
           <thead><tr><th>Item</th><th>Pick</th><th class="num">SAR</th></tr></thead>
           <tbody>
-            <tr><td>Ambient</td><td>Perimeter cove LED, dimmable, 2700 K<span class="note">Electrician-installed strip in a cove or coving channel. Indirect only &mdash; nothing that can throw onto the panel or monitors.</span></td><td class="num">1,800</td></tr>
+            <tr><td>Cove + scene</td><td>Already installed<span class="note">The photos show the RGB cove (red/blue) built into the ceiling tray and working &mdash; the ambient and scene layers exist. Two lines deleted, 3,000 SAR back.</span></td><td class="num">&mdash;</td></tr>
+            <tr><td>Downlight fix</td><td>Black-baffle warm-dim trims + separate dimmer<span class="note">The 2&times;2 downlight pairs over the TV wall will glare in the panel &mdash; move them to their own dimmer and swap to low-glare black trims.</span></td><td class="num">600</td></tr>
             <tr><td>Bias light</td><td><a href="https://www.amazon.sa/s?k=govee+tv+backlight+75">Govee TV backlight, 75&ndash;85&Prime;</a><span class="note">Behind the TV. The cheapest eye-strain fix in the room.</span></td><td class="num">250</td></tr>
-            <tr><td>Scene layer</td><td><a href="https://www.amazon.sa/s?k=philips+hue+lightstrip">Philips Hue</a> or <a href="https://www.amazon.sa/s?k=govee+led+strip">Govee</a><span class="note">With a physical wall switch, not app-only.</span></td><td class="num">1,200</td></tr>
             <tr><td>Desk</td><td><a href="https://www.amazon.sa/s?k=benq+screenbar">BenQ ScreenBar</a><span class="note">Clamps to the centre monitor, lights the desk, touches no screen.</span></td><td class="num">600</td></tr>
-            <tr class="total"><td colspan="2">Subtotal</td><td class="num">3,850</td></tr>
+            <tr class="total"><td colspan="2">Subtotal</td><td class="num">1,450</td></tr>
           </tbody>
         </table>
       </div>
 
       <div class="tablewrap">
         <table>
-          <caption>Room &middot; 3,100</caption>
+          <caption>Room &middot; 3,600</caption>
           <thead><tr><th>Item</th><th>Pick</th><th class="num">SAR</th></tr></thead>
           <tbody>
             <tr><td>Credenza</td><td>Low AV unit, ventilated rear<span class="note">Now houses only the receiver, so it can be smaller and lower. IKEA BEST&Aring; with a vented back panel works; receivers need airflow above them.</span></td><td class="num">2,200</td></tr>
-            <tr><td>Blackout</td><td>Curtain, if there is a window</td><td class="num">900</td></tr>
-            <tr><td>Desk, chair, PC, monitors, PS5, seating</td><td><span class="pill own">Keeping</span><span class="note">Seating placement pending the photos.</span></td><td class="num">&mdash;</td></tr>
-            <tr class="total"><td colspan="2">Subtotal</td><td class="num">3,100</td></tr>
+            <tr><td>Curtains</td><td>Double layer, full windows wall<span class="note">Blackout on the windows plus a wall-to-wall decorative curtain over it &mdash; the same setup as the other bedroom, confirmed working. The pleats also absorb sound on the surround-left wall.</span></td><td class="num">1,400</td></tr>
+            <tr><td>Desk, chair, PC, monitors, PS5, seating</td><td><span class="pill own">Keeping</span><span class="note">Desk goes on the door wall &mdash; the builder left three power groups there for it.</span></td><td class="num">&mdash;</td></tr>
+            <tr class="total"><td colspan="2">Subtotal</td><td class="num">3,600</td></tr>
           </tbody>
         </table>
       </div>
@@ -679,26 +696,26 @@ footer {
   <section>
     <div class="head">
       <h2>Where the money goes</h2>
-      <span class="idx mono">44,260 of 50,000</span>
+      <span class="idx mono">42,360 of 50,000</span>
     </div>
     <div class="meter">
-      <div class="meter-bar" role="img" aria-label="Budget split: audio 16,811 riyals at 38 percent, display 10,199 at 23 percent, acoustics 7,400 at 17 percent, light 3,850 at 9 percent, room 3,100 at 7 percent, signal and power 2,900 at 7 percent. Total 44,260 of the 50,000 budget.">
+      <div class="meter-bar" role="img" aria-label="Budget split: audio 16,811 riyals at 40 percent, display 10,199 at 24 percent, acoustics 7,400 at 17 percent, room 3,600 at 9 percent, signal and power 2,900 at 7 percent, light 1,450 at 3 percent. Total 42,360 of the 50,000 budget.">
         <span style="flex: 16811; background: var(--seg-1);"></span>
         <span style="flex: 10199; background: var(--seg-2);"></span>
         <span style="flex: 7400;  background: var(--seg-3);"></span>
-        <span style="flex: 3850;  background: var(--seg-4);"></span>
-        <span style="flex: 3100;  background: var(--seg-5);"></span>
+        <span style="flex: 3600;  background: var(--seg-5);"></span>
         <span style="flex: 2900;  background: var(--seg-6);"></span>
+        <span style="flex: 1450;  background: var(--seg-4);"></span>
       </div>
       <div class="meter-key">
-        <div style="border-color: var(--seg-1);"><span class="k">Audio</span><span class="v">16,811 &middot; 38%</span></div>
-        <div style="border-color: var(--seg-2);"><span class="k">Display</span><span class="v">10,199 &middot; 23%</span></div>
+        <div style="border-color: var(--seg-1);"><span class="k">Audio</span><span class="v">16,811 &middot; 40%</span></div>
+        <div style="border-color: var(--seg-2);"><span class="k">Display</span><span class="v">10,199 &middot; 24%</span></div>
         <div style="border-color: var(--seg-3);"><span class="k">Acoustics</span><span class="v">7,400 &middot; 17%</span></div>
-        <div style="border-color: var(--seg-4);"><span class="k">Light</span><span class="v">3,850 &middot; 9%</span></div>
-        <div style="border-color: var(--seg-5);"><span class="k">Room</span><span class="v">3,100 &middot; 7%</span></div>
+        <div style="border-color: var(--seg-5);"><span class="k">Room</span><span class="v">3,600 &middot; 9%</span></div>
         <div style="border-color: var(--seg-6);"><span class="k">Signal &amp; power</span><span class="v">2,900 &middot; 7%</span></div>
+        <div style="border-color: var(--seg-4);"><span class="k">Light</span><span class="v">1,450 &middot; 3%</span></div>
       </div>
-      <p>Real prices came in under the estimates, which leaves <strong>~5,700 SAR of headroom</strong>. Spend it in this order if you want to: the G6 screen upgrade for the wall look (+4,700), the AVC-X3800H when it restocks (+1,850), or bank it against the acoustic quote coming in higher than planned. Don't spend it on speaker upgrades &mdash; the room treatment will do more than any speaker swap at this level.</p>
+      <p>Real prices came in under the estimates, and the photos deleted the cove and scene lines &mdash; that leaves <strong>~7,600 SAR of headroom</strong>. Spend it in this order if you want to: the G6 screen upgrade for the wall look (+4,700), the AVC-X3800H when it restocks (+1,850), or bank it against the acoustic quote coming in higher than planned. Don't spend it on speaker upgrades &mdash; the room treatment will do more than any speaker swap at this level.</p>
     </div>
   </section>
 
@@ -715,8 +732,8 @@ footer {
 
     <ol class="steps">
       <li><div class="body">
-        <h3>Now &mdash; answer the ceiling question</h3>
-        <p>Knock test, per the companion guide. Hollow ceiling &rarr; order the KEF in-ceilings (lane 2/3, longest lead). Solid &rarr; the height line changes to on-wall or gets folded into a better centre and sub.</p>
+        <h3>Answered &mdash; the ceiling is hollow</h3>
+        <p>The photos show a gypsum tray ceiling with recessed lights and a built-in RGB cove: a generous void by construction. Order the in-ceiling speakers (longest lead item) and coordinate the two cutouts with the existing downlight pairs and cove strips.</p>
       </div></li>
       <li><div class="body">
         <h3>Now &mdash; get the acoustic quote</h3>

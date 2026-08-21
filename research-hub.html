@@ -368,6 +368,23 @@ footer {
 }
 </style>
 
+<style>
+.sitenav { position: sticky; top: 0; z-index: 60; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem 1.25rem; padding: 0.55rem clamp(1rem, 4vw, 1.75rem); background: var(--bg-2); border-bottom: 1px solid var(--rule); }
+.sitenav .home { font-family: Archivo, sans-serif; font-variation-settings: "wdth" 112, "wght" 720; font-weight: 700; font-size: 0.85rem; color: var(--ink); text-decoration: none; }
+.sitenav .links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; }
+.sitenav .links a { font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase; text-decoration: none; color: var(--ink-faint); padding: 2px 0; border-bottom: none; }
+.sitenav .links a:hover { color: var(--brass); }
+.sitenav .links a.on { color: var(--brass); border-bottom: 2px solid var(--brass); }
+</style>
+<nav class="sitenav" aria-label="Project pages">
+  <a class="home" href="index.html">&#11035; The Black Box</a>
+  <div class="links">
+    <a href="family-tour.html">Tour</a>
+    <a href="media-room.html">Build Sheet</a>
+    <a href="fitting-guide.html">Fitting</a>
+    <a href="research-hub.html" class="on">Research</a>
+  </div>
+</nav>
 <div class="wrap">
 
   <header class="masthead">
@@ -502,11 +519,10 @@ footer {
           <li><span>Klipsch RP-500C II centre</span><span class="p">2,557</span></li>
           <li><span>Klipsch R-41M surrounds + brackets</span><span class="p">1,367</span></li>
           <li><span>Speaker cable 14 AWG + bananas</span><span class="p">300</span></li>
-          <li><span>2&times; RUIPRO 15 m fiber HDMI</span><span class="p">667</span></li>
+          <li><span>2&times; certified fiber HDMI (short runs &mdash; corner desk)</span><span class="p">550</span></li>
           <li><span>Cat6 runs + keystones</span><span class="p">400</span></li>
           <li><span>APC BX1600MI-MS UPS (230 V)</span><span class="p">712</span></li>
-          <li><span>Cove LED, warm dimmable</span><span class="p">1,800</span></li>
-          <li><span>Scene lighting (Govee strips)</span><span class="p">1,200</span></li>
+          <li><span>Downlight trims + dimmer (RGB cove exists &#10003;)</span><span class="p">600</span></li>
           <li><span>TV wall mount</span><span class="p">700</span></li>
           <li><span>Credenza, ventilated</span><span class="p">2,200</span></li>
           <li><span>Blackout curtain</span><span class="p">900</span></li>
@@ -870,14 +886,14 @@ footer {
   <section id="open">
     <div class="head"><h2>Open questions</h2><span class="idx">decide with the photos</span></div>
     <ul class="check">
-      <li><strong>Main listening position: sofa or desk?</strong> One Atmos pair can't serve both. Everything from ceiling cutouts to Audyssey hangs on this &mdash; it must be decided before the ceiling work.</li>
+      <li><strong>Answered &mdash; the sofa is the main listening position.</strong> It sits against the long grey wall facing the TV; the ceiling pair goes slightly ahead of it toward the screen, in line with the fronts.</li>
       <li><strong>Ceiling void depth</strong> &mdash; the KEF/Polk need ~91 mm plus back-box; coordinate with the recessed-light layout.</li>
       <li><strong>B6 panel variant &amp; warranty</strong> &mdash; is the KSA OLED77B66LA the evo B6A or plain B6G, and does the seller carry LG Saudi warranty?</li>
       <li><strong>Denon lane</strong> &mdash; local warranty at 5,938 or EU variant at 3,865? (The 2,000 SAR difference roughly funds the KEF ceiling upgrade.)</li>
       <li><strong>Acoustic quotes</strong> &mdash; the only unpriced line; ~7,400 estimated, could swing either way.</li>
       <li><strong>Wallpaper samples</strong> &mdash; matte non-woven only; low-angle light test before buying rolls.</li>
       <li><strong>PULT-to-KSA shipping</strong> &mdash; if it genuinely ships, the sub drops ~1,200 SAR; verify before assuming.</li>
-      <li><strong>Room photos + exact dimensions</strong> &mdash; still the gate for the final layout drawing and the 77 vs 83 question.</li>
+      <li><strong>Photos are in; the tape measure isn't.</strong> Working figure is 6 &times; 4 m &mdash; at ~3 m viewing, 77&Prime; stands confirmed; only a surprise measurement reopens it.</li>
     </ul>
   </section>
 
@@ -890,7 +906,7 @@ footer {
 <script>
 (function () {
   var BUDGET = 50000;
-  var FIXED = 1949 + 2557 + 1367 + 300 + 667 + 400 + 712 + 1800 + 1200 + 700 + 2200 + 900 + 7400 + 1000;
+  var FIXED = 1949 + 2557 + 1367 + 300 + 550 + 400 + 712 + 600 + 700 + 2200 + 900 + 7400 + 1000;
   var GROUPS = ['tv', 'avr', 'hts', 'sub', 'bias', 'desk'];
   var fmt = function (n) { return n.toLocaleString('en-US') + ' SAR'; };
 

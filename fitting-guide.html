@@ -258,6 +258,23 @@ footer {
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 </style>
 
+<style>
+.sitenav { position: sticky; top: 0; z-index: 60; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem 1.25rem; padding: 0.55rem clamp(1rem, 4vw, 1.75rem); background: var(--paper); border-bottom: 1px solid var(--rule); }
+.sitenav .home { font-family: Archivo, sans-serif; font-variation-settings: "wdth" 112, "wght" 720; font-weight: 700; font-size: 0.85rem; color: var(--ink); text-decoration: none; }
+.sitenav .links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; }
+.sitenav .links a { font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase; text-decoration: none; color: var(--ink-faint); padding: 2px 0; }
+.sitenav .links a:hover { color: var(--brass); }
+.sitenav .links a.on { color: var(--brass); border-bottom: 2px solid var(--brass); }
+</style>
+<nav class="sitenav" aria-label="Project pages">
+  <a class="home" href="index.html">&#11035; The Black Box</a>
+  <div class="links">
+    <a href="family-tour.html">Tour</a>
+    <a href="media-room.html">Build Sheet</a>
+    <a href="fitting-guide.html" class="on">Fitting</a>
+    <a href="research-hub.html">Research</a>
+  </div>
+</nav>
 <div class="wrap">
 
   <header style="display:flex; flex-direction:column; gap:calc(var(--step) * 5);">
@@ -435,11 +452,11 @@ footer {
       <span class="idx mono">draft layout</span>
     </div>
     <div class="stack">
-      <p>Redrawn from the first room photo, on the assumed 6 &times; 4 m (to confirm with a tape measure). The TV takes the long, windowless black wall &mdash; where the builder already left wall points at TV height &mdash; and the sofa sits against the opposite wall, viewing across the room at about 3 m: exactly right for 77&Prime;. The desk faces the window wall, which solves the privacy rule by itself: from the door you see monitor backs.</p>
+      <p>Corrected from the full photo set and your walkthrough: 6 m long, 4 m wide. The TV takes the long wall with the builder's receiver provision &mdash; visible the moment you walk in, exactly as you wanted. The sofa sits against the opposite long wall (on your left as you enter) at about 3 m: right for 77&Prime;. And the desk moves to the door wall, where three power groups are already waiting for the PC. From the doorway the monitors sit edge-on &mdash; effectively private.</p>
 
       <figure>
         <div class="figbox">
-          <svg viewBox="0 0 800 560" role="img" aria-label="Plan view of the real room, six by four metres. The 77-inch TV is centred on the long windowless wall where the builder left TV-height wall points, with front left, centre and right speakers beside it and the subwoofer in the corner. The sofa sits against the opposite long wall, about three metres from the screen. The two windows are on the short wall, with the desk in front of them facing the window so monitors are hidden from the door. Surround speakers sit on the short walls slightly behind the sofa, and two ceiling speakers sit in the gypsum tray slightly in front of the sofa. The door and AC positions are marked as unconfirmed.">
+          <svg viewBox="0 0 800 560" role="img" aria-label="Corrected plan view, six metres by four. The 77-inch TV is centred on one long wall at the builder's receiver points, with front speakers beside it and the subwoofer in the corner. The sofa is against the opposite long wall at three metres. The two windows and a full double curtain are on the left short wall. The padded door, the installed AC above it, and the desk with the PC share the right short wall, where three power groups exist. Surround speakers sit on both short walls just behind the sofa, and two ceiling speakers sit in the gypsum tray slightly ahead of the sofa. The tray has a chamfered corner near the door and its RGB cove is already installed.">
             <defs>
               <marker id="p-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                 <polygon points="0,1 10,5 0,9" fill="currentColor"></polygon>
@@ -448,20 +465,23 @@ footer {
 
             <rect x="60" y="70" width="680" height="420" class="d-room"></rect>
 
-            <rect x="140" y="140" width="520" height="280" class="d-zone"></rect>
-            <text class="d-sub" x="152" y="160">gypsum tray &middot; cove LED hides in the step</text>
+            <polygon points="140,140 660,140 660,340 590,420 140,420" class="d-zone"></polygon>
+            <text class="d-sub" x="152" y="160">gypsum tray &middot; RGB cove already installed &#10003;</text>
 
-            <line class="d-thin" x1="392" y1="272" x2="408" y2="288"></line>
-            <line class="d-thin" x1="408" y1="272" x2="392" y2="288"></line>
-            <text class="d-sub" x="418" y="284">pendant wire &mdash; cap it</text>
+            <line class="d-thin" x1="392" y1="262" x2="408" y2="278"></line>
+            <line class="d-thin" x1="408" y1="262" x2="392" y2="278"></line>
+            <text class="d-sub" x="418" y="274">pendant wire &mdash; cap it</text>
 
-            <circle cx="250" cy="118" r="4" class="d-thin"></circle>
-            <circle cx="400" cy="118" r="4" class="d-thin"></circle>
-            <circle cx="550" cy="118" r="4" class="d-thin"></circle>
+            <circle cx="240" cy="118" r="4" class="d-thin"></circle>
+            <circle cx="258" cy="118" r="4" class="d-thin"></circle>
+            <circle cx="391" cy="118" r="4" class="d-thin"></circle>
+            <circle cx="409" cy="118" r="4" class="d-thin"></circle>
+            <circle cx="540" cy="118" r="4" class="d-thin"></circle>
+            <circle cx="558" cy="118" r="4" class="d-thin"></circle>
 
             <rect x="310" y="72" width="180" height="13" class="d-solid"></rect>
             <text class="d-sub" x="400" y="103" text-anchor="middle">77&Prime; OLED</text>
-            <text class="d-sub" x="560" y="88">builder's TV points &#10003;</text>
+            <text class="d-sub" x="560" y="92">receiver + TV points &#10003;</text>
 
             <rect x="252" y="90" width="20" height="20" class="d-box"></rect>
             <text class="d-tag" x="262" y="126" text-anchor="middle">L</text>
@@ -475,13 +495,19 @@ footer {
 
             <rect x="62" y="150" width="10" height="80" class="d-solid"></rect>
             <rect x="62" y="290" width="10" height="80" class="d-solid"></rect>
-            <text class="d-sub" x="84" y="144">2 windows + blackout</text>
+            <line class="d-dash" x1="88" y1="90" x2="88" y2="470"></line>
+            <text class="d-sub" x="100" y="112">2 windows &middot; blackout +</text>
+            <text class="d-sub" x="100" y="128">full wall curtain over it</text>
 
-            <rect x="95" y="190" width="58" height="160" class="d-box"></rect>
-            <text class="d-sub" x="124" y="274" text-anchor="middle">DESK</text>
-            <circle cx="182" cy="270" r="16" class="d-thin"></circle>
-            <text class="d-sub" x="95" y="380">screens face the window &mdash;</text>
-            <text class="d-sub" x="95" y="396">hidden from the door</text>
+            <polygon points="590,72 738,72 738,270 672,270 672,140 590,140" class="d-box"></polygon>
+            <text class="d-sub" x="705" y="185" text-anchor="middle">DESK</text>
+            <circle cx="636" cy="196" r="16" class="d-thin"></circle>
+            <text class="d-sub" x="580" y="160">corner desk 2&times;2</text>
+            <text class="d-sub" x="580" y="176">PC + PS5 &middot; 3 power groups &#10003;</text>
+            <text class="d-sub" x="580" y="192">TV run drops to ~5 m</text>
+
+            <rect x="716" y="286" width="22" height="60" class="d-dash"></rect>
+            <text class="d-sub" x="708" y="320" text-anchor="end">AC &#10003; aim vanes off the desk</text>
 
             <rect x="300" y="400" width="200" height="82" class="d-box"></rect>
             <text class="d-sub" x="400" y="446" text-anchor="middle">SOFA</text>
@@ -490,25 +516,24 @@ footer {
             <text class="d-sub" x="412" y="222">&asymp; 3 m eyes-to-screen</text>
             <text class="d-sub" x="412" y="238">&rarr; 77&Prime; confirmed</text>
 
-            <rect x="62" y="408" width="20" height="20" class="d-box"></rect>
-            <text class="d-tag" x="90" y="423">SL</text>
-            <rect x="718" y="408" width="20" height="20" class="d-box"></rect>
-            <text class="d-tag" x="712" y="423" text-anchor="end">SR</text>
+            <rect x="95" y="398" width="20" height="20" class="d-box"></rect>
+            <text class="d-tag" x="123" y="413">SL</text>
+            <text class="d-sub" x="95" y="438">on a stand, clear</text>
+            <text class="d-sub" x="95" y="454">of the curtain</text>
+            <rect x="700" y="392" width="20" height="20" class="d-box"></rect>
+            <text class="d-tag" x="694" y="407" text-anchor="end">SR</text>
 
-            <circle cx="310" cy="352" r="14" class="d-dash"></circle>
-            <text class="d-sub" x="310" y="332" text-anchor="middle">TOP L</text>
-            <circle cx="490" cy="352" r="14" class="d-dash"></circle>
-            <text class="d-sub" x="490" y="332" text-anchor="middle">TOP R</text>
+            <circle cx="310" cy="350" r="14" class="d-dash"></circle>
+            <text class="d-sub" x="310" y="330" text-anchor="middle">TOP L</text>
+            <circle cx="490" cy="350" r="14" class="d-dash"></circle>
+            <text class="d-sub" x="490" y="330" text-anchor="middle">TOP R</text>
 
-            <rect x="716" y="140" width="22" height="90" class="d-dash"></rect>
-            <text class="d-sub" x="708" y="188" text-anchor="end">AC? confirm</text>
-
-            <path class="d-faint" d="M640 488 A 70 70 0 0 1 710 488"></path>
-            <line class="d-thin" x1="640" y1="488" x2="710" y2="488" stroke-dasharray="4 3"></line>
-            <text class="d-sub" x="675" y="510" text-anchor="middle">door (confirm)</text>
+            <path class="d-faint" d="M668 488 A 70 70 0 0 1 738 418"></path>
+            <line class="d-thin" x1="738" y1="418" x2="738" y2="488" stroke-dasharray="4 3"></line>
+            <text class="d-sub" x="660" y="510">padded door &#10003;</text>
 
             <line class="d-thin" x1="60" y1="530" x2="740" y2="530" marker-end="url(#p-ah)" marker-start="url(#p-ah)"></line>
-            <text class="d-sub" x="400" y="522" text-anchor="middle">&asymp; 6 m &mdash; tape-measure to confirm &middot; depth &asymp; 4 m</text>
+            <text class="d-sub" x="400" y="522" text-anchor="middle">6 m &times; 4 m &mdash; tape measure still to confirm</text>
           </svg>
         </div>
         <figcaption>The real room: TV on the long black wall at the builder's points, cross-room viewing, desk facing the windows. Dashed circles are in the ceiling tray, not on the floor. Small dots are the existing downlights &mdash; the row over the TV needs black-baffle warm-dim trims on their own dimmer.</figcaption>
@@ -521,8 +546,9 @@ footer {
         <li><strong>The polished marble floor is the room's biggest reflector</strong> &mdash; acoustically and optically. The rug grows to ~250 &times; 350 cm with a felt underlay, covering the whole zone between sofa and TV wall.</li>
         <li><strong>Downlights sit in the drop border, including over the TV wall</strong> &mdash; they need to move to their own dimmer with black-baffle, warm-dim trims, or they will glare in the panel.</li>
         <li><strong>The centre pendant wire gets capped.</strong> A hanging fixture would sit between the Atmos speakers and reflect in the screen.</li>
-        <li><strong>The tray is a gift:</strong> cove LED goes in the existing step, and the Atmos cutouts land in the flat tray field where the void is deepest.</li>
-        <li><strong>Still unseen: the AC and the door.</strong> A sealed, equipment-heavy room needs the cooling answer before December &mdash; this is now the last infrastructure unknown.</li>
+        <li><strong>The cove is already built and lit:</strong> the RGB strips in the tray are installed and working, so the ambient and scene lighting budget lines are deleted. The Atmos cutouts land in the flat tray field, coordinated with the strips and the 2&times;2 downlight pairs.</li>
+        <li><strong>AC and door: found.</strong> A Gree split sits above the door with a second AC point provisioned, and the door itself is padded &mdash; a piece of acoustic treatment in its own right. The infrastructure unknowns are closed. One rule for the second unit: never on the TV wall.</li>
+        <li><strong>The desk moves to the door wall.</strong> Three power groups there were clearly meant for the PC. The surround-left speaker goes on a stand just clear of the full-wall curtain; surround-right mounts on the door wall past the desk.</li>
       </ul>
     </div>
   </section>
