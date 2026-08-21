@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Black Box</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #0E0E12; --bg-2: #15151B; --ink: #EAE7DF; --ink-soft: #B7B2A6;
+  --ink-faint: #8D887C; --rule: #2A2A32; --brass: #D9B268; --brass-deep: #A8813C;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  min-height: 100vh; display: grid; place-items: center; padding: 2rem 1.25rem;
+}
+.wrap { max-width: 40rem; display: flex; flex-direction: column; gap: 2rem; }
+.eyebrow {
+  font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); margin: 0;
+}
+h1 {
+  font-family: Archivo, sans-serif; font-variation-settings: "wdth" 112, "wght" 780;
+  font-weight: 800; font-size: clamp(2.4rem, 8vw, 3.6rem); line-height: 1; margin: 0;
+  letter-spacing: -0.015em;
+}
+p.lede { margin: 0; color: var(--ink-soft); max-width: 46ch; }
+.pages { display: flex; flex-direction: column; border-top: 2px solid var(--brass-deep); }
+.pages a {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem;
+  padding: 1.1rem 0.25rem; border-bottom: 1px solid var(--rule);
+  color: var(--ink); text-decoration: none;
+}
+.pages a:hover { background: var(--bg-2); }
+.pages a:hover .t { color: var(--brass); }
+.pages .t {
+  font-family: Archivo, sans-serif; font-variation-settings: "wdth" 106, "wght" 680;
+  font-weight: 680; font-size: 1.05rem;
+}
+.pages .d { font-size: 0.82rem; color: var(--ink-faint); text-align: right; max-width: 18rem; }
+footer { font-size: 0.78rem; color: var(--ink-faint); }
+a:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div>
+    <p class="eyebrow">6 &times; 4 m &middot; ready December 2026</p>
+    <h1>The Black Box</h1>
+  </div>
+  <p class="lede">A black gaming &amp; cinema room, planned end to end &mdash; four pages, from the family pitch to the last cable.</p>
+  <nav class="pages">
+    <a href="family-tour.html"><span class="t">The Tour</span><span class="d">Picture-first walkthrough &mdash; start here</span></a>
+    <a href="media-room.html"><span class="t">Build Sheet</span><span class="d">Every item, price, and order link</span></a>
+    <a href="fitting-guide.html"><span class="t">Fitting Guide</span><span class="d">How it installs in the finished room</span></a>
+    <a href="research-hub.html"><span class="t">Research Hub</span><span class="d">Reviews, offers, configurator, buy calendar</span></a>
+  </nav>
+  <footer>Prices verified against KSA stock 21 Aug 2026 &middot; White Friday window Nov 20&ndash;30</footer>
+</div>
+</body>
+</html>

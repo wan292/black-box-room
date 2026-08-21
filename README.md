@@ -9,7 +9,6 @@ Private planning docs for the 6×4 m gaming / home-cinema room (ready December 2
 | [fitting-guide.html](fitting-guide.html) | How everything installs in the finished room, with the real layout plan |
 | [research-hub.html](research-hub.html) | Full research: reviews, community consensus, offers, configurator, buy calendar |
 
-**To view:** download a file and open it in any browser (GitHub shows HTML as code, not as a page).
-The same pages are also live as private Claude artifacts — links in the project chat.
+**Live site:** https://wan292.github.io/black-box-room/
 
 Prices verified against KSA stock on 21 Aug 2026. White Friday window: Nov 20–30.
