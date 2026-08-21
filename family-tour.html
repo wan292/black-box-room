@@ -1,0 +1,435 @@
+<title>The Black Box Tour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+/* Committed single-theme: the page is the room — black, brass, walnut. */
+:root {
+  --bg:        #0E0E12;
+  --bg-2:      #15151B;
+  --bg-3:      #1B1B22;
+  --ink:       #EAE7DF;
+  --ink-soft:  #B7B2A6;
+  --ink-faint: #8D887C;
+  --rule:      #2A2A32;
+  --brass:     #D9B268;
+  --brass-deep:#A8813C;
+  --wood:      #A9744E;
+  --wood-dk:   #7E5638;
+  --glow:      #F0D9A8;
+  --marble:    #C9C7C2;
+  --screen1:   #24384A;
+  --screen2:   #101C28;
+  --step: 0.25rem;
+}
+
+* { box-sizing: border-box; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 66rem;
+  margin: 0 auto;
+  padding: calc(var(--step) * 14) calc(var(--step) * 7) calc(var(--step) * 24);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--step) * 18);
+}
+
+.eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--brass);
+}
+
+h1 {
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 112, "wght" 780;
+  font-weight: 800;
+  font-size: clamp(2.2rem, 6.5vw, 3.6rem);
+  line-height: 1.0; letter-spacing: -0.015em;
+  text-wrap: balance; margin: 0;
+}
+
+h2 {
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 118, "wght" 700;
+  font-weight: 700;
+  font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase;
+  margin: 0;
+}
+
+.ar {
+  font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", sans-serif;
+  font-weight: 600;
+  color: var(--brass);
+  font-size: 1.02em;
+}
+
+p { margin: 0; max-width: 66ch; }
+a { color: var(--brass); text-underline-offset: 2px; }
+strong { color: var(--ink); }
+.lede { font-size: 1.08rem; color: var(--ink-soft); max-width: 52ch; }
+
+.head {
+  display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap;
+  gap: calc(var(--step) * 3);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: calc(var(--step) * 3);
+}
+
+section { display: flex; flex-direction: column; gap: calc(var(--step) * 6); }
+
+figure { margin: 0; display: flex; flex-direction: column; gap: calc(var(--step) * 3); }
+.figbox {
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  padding: calc(var(--step) * 4);
+  overflow-x: auto;
+}
+.figbox svg { display: block; width: 100%; height: auto; min-width: 30rem; }
+figcaption { font-size: 0.85rem; color: var(--ink-faint); max-width: 66ch; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  gap: calc(var(--step) * 4);
+}
+.card {
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  display: flex; flex-direction: column;
+}
+.card .art { padding: calc(var(--step) * 4) calc(var(--step) * 4) 0; }
+.card .art svg { display: block; width: 100%; height: auto; }
+.card .body {
+  padding: calc(var(--step) * 4);
+  display: flex; flex-direction: column; gap: calc(var(--step) * 2);
+}
+.card h3 {
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 104, "wght" 660;
+  font-weight: 660; font-size: 1rem; margin: 0;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+}
+.card p { font-size: 0.88rem; color: var(--ink-soft); }
+.card .more { font-size: 0.8rem; font-family: "IBM Plex Mono", monospace; }
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding-top: calc(var(--step) * 4);
+  font-size: 0.83rem; color: var(--ink-faint);
+  max-width: 66ch;
+}
+
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+@media (max-width: 34rem) {
+  .wrap { padding-left: calc(var(--step) * 5); padding-right: calc(var(--step) * 5); }
+}
+</style>
+
+<div class="wrap">
+
+  <header style="display:flex; flex-direction:column; gap:calc(var(--step) * 5);">
+    <p class="eyebrow">The family tour &middot; 6 &times; 4 m &middot; ready December 2026</p>
+    <h1>The Black Box Tour</h1>
+    <p class="lede">One picture per idea &mdash; what goes in the black room, where it goes, and why. <span class="ar" dir="rtl" lang="ar">جولة في غرفة السينما والألعاب</span></p>
+  </header>
+
+  <section>
+    <div class="head"><h2>The TV wall</h2><span class="ar" dir="rtl" lang="ar">جدار الشاشة</span></div>
+    <figure>
+      <div class="figbox">
+        <svg viewBox="0 0 900 430" role="img" aria-label="Elevation of the finished TV wall: a 77-inch OLED centred on the matte black wall with a soft glow behind it, front left and right speakers on stands either side, the centre speaker below the TV on a low cabinet, the subwoofer to the left, a warm cove light line at the top of the wall, and a dark rug over the marble floor in front.">
+          <defs>
+            <linearGradient id="w-glow" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#F0D9A8" stop-opacity="0.35"></stop>
+              <stop offset="1" stop-color="#F0D9A8" stop-opacity="0"></stop>
+            </linearGradient>
+            <linearGradient id="w-screen" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2E4A63"></stop>
+              <stop offset="0.55" stop-color="#16283A"></stop>
+              <stop offset="1" stop-color="#0C1622"></stop>
+            </linearGradient>
+            <radialGradient id="w-bias" cx="0.5" cy="0.5" r="0.75">
+              <stop offset="0" stop-color="#5C86A8" stop-opacity="0.5"></stop>
+              <stop offset="1" stop-color="#5C86A8" stop-opacity="0"></stop>
+            </radialGradient>
+          </defs>
+
+          <rect x="0" y="0" width="900" height="360" fill="#141418"></rect>
+          <rect x="0" y="0" width="900" height="16" fill="#1E1E24"></rect>
+          <rect x="0" y="16" width="900" height="26" fill="url(#w-glow)"></rect>
+
+          <ellipse cx="450" cy="185" rx="240" ry="150" fill="url(#w-bias)"></ellipse>
+
+          <rect x="290" y="90" width="320" height="188" fill="#050507"></rect>
+          <rect x="294" y="94" width="312" height="180" fill="url(#w-screen)"></rect>
+          <circle cx="520" cy="150" r="26" fill="#E8B54A" opacity="0.85"></circle>
+          <polygon points="294,274 420,180 520,236 606,170 606,274" fill="#0B1420" opacity="0.85"></polygon>
+
+          <rect x="180" y="150" width="52" height="86" fill="#0A0A0D" stroke="#2E2E36" stroke-width="1"></rect>
+          <circle cx="206" cy="176" r="13" fill="#1C1C22" stroke="#B08A45" stroke-width="2"></circle>
+          <circle cx="206" cy="212" r="16" fill="#15151A" stroke="#3A3A44" stroke-width="2"></circle>
+          <rect x="202" y="236" width="8" height="66" fill="#0A0A0D"></rect>
+          <rect x="188" y="302" width="36" height="6" fill="#0A0A0D"></rect>
+
+          <rect x="668" y="150" width="52" height="86" fill="#0A0A0D" stroke="#2E2E36" stroke-width="1"></rect>
+          <circle cx="694" cy="176" r="13" fill="#1C1C22" stroke="#B08A45" stroke-width="2"></circle>
+          <circle cx="694" cy="212" r="16" fill="#15151A" stroke="#3A3A44" stroke-width="2"></circle>
+          <rect x="690" y="236" width="8" height="66" fill="#0A0A0D"></rect>
+          <rect x="676" y="302" width="36" height="6" fill="#0A0A0D"></rect>
+
+          <rect x="330" y="292" width="240" height="34" fill="#101014" stroke="#2E2E36" stroke-width="1"></rect>
+          <rect x="360" y="300" width="180" height="18" fill="#0A0A0D" stroke="#3A3A44" stroke-width="1"></rect>
+          <circle cx="400" cy="309" r="7" fill="#1C1C22" stroke="#B08A45" stroke-width="1.5"></circle>
+          <circle cx="500" cy="309" r="7" fill="#1C1C22" stroke="#B08A45" stroke-width="1.5"></circle>
+
+          <rect x="84" y="240" width="66" height="66" fill="#0A0A0D" stroke="#2E2E36" stroke-width="1"></rect>
+          <circle cx="117" cy="273" r="22" fill="#15151A" stroke="#3A3A44" stroke-width="2"></circle>
+
+          <rect x="0" y="360" width="900" height="70" fill="#B9B7B2"></rect>
+          <line x1="150" y1="360" x2="150" y2="430" stroke="#A5A39E" stroke-width="1"></line>
+          <line x1="450" y1="360" x2="450" y2="430" stroke="#A5A39E" stroke-width="1"></line>
+          <line x1="750" y1="360" x2="750" y2="430" stroke="#A5A39E" stroke-width="1"></line>
+          <rect x="120" y="368" width="660" height="54" fill="#1A1A20"></rect>
+          <rect x="120" y="368" width="660" height="6" fill="#242430"></rect>
+        </svg>
+      </div>
+      <figcaption>The wall as it will look: 77&Prime; OLED flat on the black wall, bias glow behind it, matched speakers on stands, sub in the corner, warm cove line above, and the rug pulling the marble out of the picture. <span class="ar" dir="rtl" lang="ar">هكذا سيبدو الجدار</span></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="head"><h2>The plan</h2><span class="ar" dir="rtl" lang="ar">مخطط الغرفة</span></div>
+    <figure>
+      <div class="figbox">
+        <svg viewBox="0 0 800 470" role="img" aria-label="Top-down plan of the six by four metre room: TV centred on the long wall, sofa opposite at three metres, desk facing the two windows on the short wall, subwoofer in the corner, surround speakers beside the sofa, two ceiling speakers in the gypsum tray slightly ahead of the sofa.">
+          <rect x="40" y="30" width="720" height="410" fill="#141418" stroke="#3A3A44" stroke-width="3"></rect>
+          <rect x="120" y="95" width="560" height="280" fill="none" stroke="#2E2E36" stroke-width="1.5" stroke-dasharray="6 5"></rect>
+          <text x="134" y="117" fill="#8D887C" font-family="IBM Plex Mono, monospace" font-size="11">gypsum tray + cove LED</text>
+
+          <rect x="300" y="32" width="200" height="12" fill="#D9B268"></rect>
+          <text x="400" y="64" fill="#EAE7DF" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="650" font-size="14">77&Prime; TV</text>
+
+          <rect x="250" y="48" width="18" height="18" fill="#1B1B22" stroke="#B7B2A6"></rect>
+          <rect x="532" y="48" width="18" height="18" fill="#1B1B22" stroke="#B7B2A6"></rect>
+          <rect x="391" y="48" width="18" height="18" fill="#1B1B22" stroke="#B7B2A6"></rect>
+          <rect x="60" y="48" width="24" height="24" fill="#1B1B22" stroke="#B7B2A6"></rect>
+          <text x="72" y="90" fill="#8D887C" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">SUB</text>
+
+          <rect x="42" y="120" width="8" height="70" fill="#B7B2A6"></rect>
+          <rect x="42" y="250" width="8" height="70" fill="#B7B2A6"></rect>
+          <text x="60" y="112" fill="#8D887C" font-family="IBM Plex Mono, monospace" font-size="10">windows + blackout</text>
+
+          <rect x="70" y="160" width="52" height="140" fill="#1B1B22" stroke="#B7B2A6"></rect>
+          <text x="96" y="234" fill="#B7B2A6" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">DESK</text>
+
+          <rect x="300" y="350" width="200" height="72" fill="#1B1B22" stroke="#B7B2A6"></rect>
+          <text x="400" y="390" fill="#B7B2A6" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11">SOFA</text>
+
+          <line x1="400" y1="50" x2="400" y2="344" stroke="#D9B268" stroke-width="1.5" stroke-dasharray="4 4"></line>
+          <text x="412" y="200" fill="#D9B268" font-family="IBM Plex Mono, monospace" font-size="11">&asymp; 3 m</text>
+
+          <rect x="42" y="356" width="18" height="18" fill="#1B1B22" stroke="#B7B2A6"></rect>
+          <rect x="740" y="356" width="18" height="18" fill="#1B1B22" stroke="#B7B2A6"></rect>
+
+          <circle cx="320" cy="310" r="13" fill="none" stroke="#D9B268" stroke-width="1.5" stroke-dasharray="4 3"></circle>
+          <circle cx="480" cy="310" r="13" fill="none" stroke="#D9B268" stroke-width="1.5" stroke-dasharray="4 3"></circle>
+          <text x="400" y="314" fill="#8D887C" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">ceiling pair</text>
+
+          <path d="M660 438 A 64 64 0 0 1 724 438" fill="none" stroke="#2E2E36" stroke-width="1.5"></path>
+          <text x="692" y="460" fill="#8D887C" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">door (confirm)</text>
+
+          <text x="400" y="462" fill="#8D887C" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11">6 m &times; 4 m (to confirm)</text>
+        </svg>
+      </div>
+      <figcaption>Everything faces the long black wall. The desk gets the daylight and turns its back to the room &mdash; nobody at the door sees a screen. <span class="ar" dir="rtl" lang="ar">المكتب يواجه النافذة والكنبة تواجه الشاشة</span></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="head"><h2>Three moods, one room</h2><span class="ar" dir="rtl" lang="ar">الإضاءة: ثلاث حالات</span></div>
+    <figure>
+      <div class="figbox">
+        <svg viewBox="0 0 900 300" role="img" aria-label="The same wall drawn three times with different lighting. Movie mode: everything dark except a faint glow behind the TV. Gaming mode: the bias glow is colourful and the cove line is dim. Family mode: warm cove and downlights fill the room with soft light.">
+          <defs>
+            <radialGradient id="m1" cx="0.5" cy="0.5" r="0.8">
+              <stop offset="0" stop-color="#43617D" stop-opacity="0.45"></stop>
+              <stop offset="1" stop-color="#43617D" stop-opacity="0"></stop>
+            </radialGradient>
+            <radialGradient id="m2" cx="0.5" cy="0.5" r="0.8">
+              <stop offset="0" stop-color="#7B4FA8" stop-opacity="0.55"></stop>
+              <stop offset="1" stop-color="#2C8C6E" stop-opacity="0"></stop>
+            </radialGradient>
+            <linearGradient id="m3" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#F0D9A8" stop-opacity="0.6"></stop>
+              <stop offset="1" stop-color="#F0D9A8" stop-opacity="0"></stop>
+            </linearGradient>
+          </defs>
+
+          <rect x="10" y="20" width="280" height="230" fill="#0A0A0E"></rect>
+          <ellipse cx="150" cy="130" rx="110" ry="75" fill="url(#m1)"></ellipse>
+          <rect x="85" y="85" width="130" height="80" fill="#0F1B29"></rect>
+          <rect x="10" y="20" width="280" height="8" fill="#15151B"></rect>
+          <text x="150" y="282" fill="#B7B2A6" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="650" font-size="14">Movie</text>
+
+          <rect x="310" y="20" width="280" height="230" fill="#0C0C11"></rect>
+          <ellipse cx="450" cy="130" rx="120" ry="80" fill="url(#m2)"></ellipse>
+          <rect x="385" y="85" width="130" height="80" fill="#182338"></rect>
+          <rect x="310" y="20" width="280" height="8" fill="#1A1A22"></rect>
+          <rect x="310" y="28" width="280" height="10" fill="url(#m3)" opacity="0.25"></rect>
+          <text x="450" y="282" fill="#B7B2A6" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="650" font-size="14">Gaming</text>
+
+          <rect x="610" y="20" width="280" height="230" fill="#191610"></rect>
+          <rect x="610" y="20" width="280" height="8" fill="#242430"></rect>
+          <rect x="610" y="28" width="280" height="34" fill="url(#m3)"></rect>
+          <circle cx="660" cy="52" r="6" fill="#F0D9A8" opacity="0.9"></circle>
+          <circle cx="750" cy="52" r="6" fill="#F0D9A8" opacity="0.9"></circle>
+          <circle cx="840" cy="52" r="6" fill="#F0D9A8" opacity="0.9"></circle>
+          <rect x="685" y="95" width="130" height="80" fill="#0E0E13"></rect>
+          <text x="750" y="282" fill="#B7B2A6" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="650" font-size="14">Family</text>
+        </svg>
+      </div>
+      <figcaption>Same room, three switch presses. Movie: near-dark with a calibrated glow behind the screen. Gaming: the backlight follows what's on screen. Family: warm cove and dimmed downlights &mdash; a normal, cozy room. <span class="ar" dir="rtl" lang="ar">فيلم &middot; ألعاب &middot; جلسة عائلية</span></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="head"><h2>What goes in, piece by piece</h2><span class="ar" dir="rtl" lang="ar">المكونات</span></div>
+    <div class="cards">
+
+      <div class="card">
+        <div class="art"><svg viewBox="0 0 300 150" role="img" aria-label="In-ceiling speaker: a flush round grille in the gypsum ceiling firing a sound cone down toward the sofa.">
+          <rect x="0" y="20" width="300" height="14" fill="#1E1E26"></rect>
+          <ellipse cx="150" cy="34" rx="34" ry="7" fill="#0A0A0D" stroke="#3A3A44" stroke-width="1.5"></ellipse>
+          <polygon points="122,40 178,40 216,128 84,128" fill="#D9B268" opacity="0.12"></polygon>
+          <rect x="118" y="122" width="64" height="14" rx="4" fill="#1B1B22" stroke="#3A3A44"></rect>
+        </svg></div>
+        <div class="body">
+          <h3>Ceiling speakers &times;2 <span class="ar" dir="rtl" lang="ar">سماعات السقف</span></h3>
+          <p>Flush in the tray, invisible until they rain on you. This is what makes Atmos real &mdash; helicopters overhead, rain from above. The hollow gypsum makes it an easy install.</p>
+          <p class="more"><a href="https://theatercalc.com/calculators/atmos-angles">placement math</a></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="art"><svg viewBox="0 0 300 150" role="img" aria-label="Acoustic panels: three dark fabric rectangles on the black wall and a thick wedge filling the corner.">
+          <rect x="0" y="0" width="300" height="150" fill="#141418"></rect>
+          <rect x="40" y="25" width="52" height="100" fill="#1F1F27" stroke="#2E2E36"></rect>
+          <rect x="112" y="25" width="52" height="100" fill="#1F1F27" stroke="#2E2E36"></rect>
+          <rect x="184" y="25" width="52" height="100" fill="#1F1F27" stroke="#2E2E36"></rect>
+          <polygon points="300,0 300,150 246,150" fill="#23232B" stroke="#2E2E36"></polygon>
+        </svg></div>
+        <div class="body">
+          <h3>Panels + bass traps <span class="ar" dir="rtl" lang="ar">المعالجة الصوتية</span></h3>
+          <p>Black fabric panels at the reflection points, thick traps in the corners. Same material as inside your walls &mdash; but on the room side, so the sound inside stays clean instead of booming. Made in Riyadh.</p>
+          <p class="more"><a href="https://acoustic.sa/">acoustic.sa</a> &middot; <a href="https://mmtacoustixonline.com/pages/fabric-wrapped-rockwool-acoustic-panels-in-ksa-saudi-arabia">MMT Acoustix</a></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="art"><svg viewBox="0 0 300 150" role="img" aria-label="Wood slat feature wall: vertical walnut slats over black felt.">
+          <rect x="0" y="0" width="300" height="150" fill="#101014"></rect>
+          <g>
+            <rect x="20" y="10" width="12" height="130" fill="#A9744E"></rect>
+            <rect x="44" y="10" width="12" height="130" fill="#9C6844"></rect>
+            <rect x="68" y="10" width="12" height="130" fill="#A9744E"></rect>
+            <rect x="92" y="10" width="12" height="130" fill="#8F5E3C"></rect>
+            <rect x="116" y="10" width="12" height="130" fill="#A9744E"></rect>
+            <rect x="140" y="10" width="12" height="130" fill="#9C6844"></rect>
+            <rect x="164" y="10" width="12" height="130" fill="#A9744E"></rect>
+            <rect x="188" y="10" width="12" height="130" fill="#8F5E3C"></rect>
+            <rect x="212" y="10" width="12" height="130" fill="#A9744E"></rect>
+            <rect x="236" y="10" width="12" height="130" fill="#9C6844"></rect>
+            <rect x="260" y="10" width="12" height="130" fill="#A9744E"></rect>
+          </g>
+        </svg></div>
+        <div class="body">
+          <h3>Walnut slat wall <span class="ar" dir="rtl" lang="ar">جدار الخشب</span></h3>
+          <p>The one warm feature that stops black feeling like a cave. Goes on the back wall behind the sofa, on black felt &mdash; it looks boutique and scatters echo at the same time.</p>
+          <p class="more"><a href="https://akuwoodpanel.ae/collections/acoustic-slat-wall-panels">GCC panels</a></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="art"><svg viewBox="0 0 300 150" role="img" aria-label="A large dark rug over light marble tiles with the sofa edge on it.">
+          <rect x="0" y="0" width="300" height="150" fill="#B9B7B2"></rect>
+          <line x1="100" y1="0" x2="100" y2="150" stroke="#A5A39E"></line>
+          <line x1="200" y1="0" x2="200" y2="150" stroke="#A5A39E"></line>
+          <line x1="0" y1="75" x2="300" y2="75" stroke="#A5A39E"></line>
+          <rect x="30" y="20" width="240" height="110" fill="#1A1A20"></rect>
+          <rect x="30" y="20" width="240" height="8" fill="#242430"></rect>
+          <rect x="95" y="96" width="110" height="34" fill="#26262E"></rect>
+        </svg></div>
+        <div class="body">
+          <h3>The big rug <span class="ar" dir="rtl" lang="ar">السجادة</span></h3>
+          <p>The polished marble is beautiful and it is the room's worst enemy &mdash; it echoes and it mirrors the screen. A 250&times;350 wool rug with a felt pad underneath fixes both at once.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="art"><svg viewBox="0 0 300 150" role="img" aria-label="Blackout curtains: a window fully covered by floor-length dark drapes.">
+          <rect x="0" y="0" width="300" height="150" fill="#141418"></rect>
+          <rect x="110" y="25" width="80" height="70" fill="#2A3A4C" stroke="#B7B2A6" stroke-width="2"></rect>
+          <g fill="#1B1B22" stroke="#26262E" stroke-width="1">
+            <rect x="30" y="10" width="18" height="135"></rect>
+            <rect x="52" y="10" width="18" height="135"></rect>
+            <rect x="74" y="10" width="18" height="135"></rect>
+            <rect x="208" y="10" width="18" height="135"></rect>
+            <rect x="230" y="10" width="18" height="135"></rect>
+            <rect x="252" y="10" width="18" height="135"></rect>
+          </g>
+          <rect x="24" y="6" width="252" height="6" fill="#242430"></rect>
+        </svg></div>
+        <div class="body">
+          <h3>Blackout curtains <span class="ar" dir="rtl" lang="ar">الستائر المعتمة</span></h3>
+          <p>Wall-to-wall on the window wall, in heavy dark fabric. Daylight control for movie afternoons &mdash; and the thick pleats quietly absorb sound too.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="art"><svg viewBox="0 0 300 150" role="img" aria-label="Star ceiling option: the dark ceiling tray filled with tiny points of light.">
+          <rect x="0" y="0" width="300" height="150" fill="#0A0A10"></rect>
+          <rect x="20" y="15" width="260" height="120" fill="#0D0D15" stroke="#2A2A32" stroke-dasharray="5 4"></rect>
+          <g fill="#F0D9A8">
+            <circle cx="60" cy="45" r="1.6"></circle><circle cx="110" cy="30" r="1.2"></circle>
+            <circle cx="160" cy="55" r="1.8"></circle><circle cx="210" cy="35" r="1.2"></circle>
+            <circle cx="250" cy="60" r="1.5"></circle><circle cx="80" cy="85" r="1.3"></circle>
+            <circle cx="135" cy="100" r="1.7"></circle><circle cx="185" cy="80" r="1.2"></circle>
+            <circle cx="235" cy="105" r="1.6"></circle><circle cx="50" cy="115" r="1.4"></circle>
+            <circle cx="105" cy="125" r="1.2"></circle><circle cx="265" cy="90" r="1.2"></circle>
+            <circle cx="150" cy="70" r="1.1"></circle><circle cx="220" cy="122" r="1.3"></circle>
+          </g>
+        </svg></div>
+        <div class="body">
+          <h3>Star ceiling &mdash; optional <span class="ar" dir="rtl" lang="ar">سقف النجوم</span></h3>
+          <p>Fiber-optic stars in the tray. Your hollow ceiling is the easy case for it &mdash; but it's a construction-phase job, so the family decides this one <em>before</em> the ceiling work, or never.</p>
+          <p class="more"><a href="https://www.hometheatershack.com/threads/star-ceilings-painted-vs-fiber-optic.173425/">real examples</a></p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><h2>See real rooms like this</h2><span class="ar" dir="rtl" lang="ar">غرف حقيقية مشابهة</span></div>
+    <p style="color:var(--ink-soft); font-size:0.95rem;">Web-page security stops me embedding other people's photos here, so these links open the real-photo galleries &mdash; scroll them together on a phone: <a href="https://www.houzz.com/photos/black-floor-home-theater-ideas-phbr1-bp~t_719~a_1408-15755">Houzz black theaters</a> &middot; <a href="https://hometheateracademy.com/dark-home-theater-designs/">15 dark theater designs</a> &middot; <a href="https://www.avsforum.com/threads/how-i-blackened-my-home-theater-with-velvet-evolving-from-common-mancave-into-a-batcave.3236212/">a documented batcave build</a> &middot; <a href="https://www.mycinematech.com/design/acoustic-wall-fabric-collection/">luxury fabric walls</a></p>
+  </section>
+
+  <footer>
+    Part of the room project: <em>Media Room Build Sheet</em> (what to buy, with prices), <em>Fitting a Finished Room</em> (how it installs), and <em>The Black Box</em> (the full research). Drawings are illustrations, not to scale; the 6 &times; 4 m plan is pending a tape measure, and the door, AC, and PC positions get confirmed tomorrow.
+  </footer>
+
+</div>

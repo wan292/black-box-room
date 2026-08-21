@@ -1,0 +1,761 @@
+<title>Media Room Build Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root {
+  --paper:      #F6F4EF;
+  --surface:    #FFFFFF;
+  --surface-2:  #EFEBE2;
+  --ink:        #1A1B20;
+  --ink-soft:   #4A4740;
+  --ink-faint:  #6E695E;
+  --rule:       #D9D3C6;
+  --rule-soft:  #E7E2D7;
+  --brass:      #8A6817;
+  --brass-fill: #A8813C;
+  --signal:     #3F6B85;
+  --good:       #3D6B44;
+  --good-bg:    #E9EFE6;
+  --flag:       #8E362C;
+  --flag-bg:    #F4E8E4;
+
+  --seg-1: #A8813C;
+  --seg-2: #BC9A5C;
+  --seg-3: #8E8570;
+  --seg-4: #A5A08F;
+  --seg-5: #BDB8A7;
+  --seg-6: #D2CDBD;
+
+  --step:  0.25rem;
+  --measure: 68ch;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:      #15161A;
+    --surface:    #1D1E24;
+    --surface-2:  #24252C;
+    --ink:        #E9E6DE;
+    --ink-soft:   #B4AFA3;
+    --ink-faint:  #928D80;
+    --rule:       #33343C;
+    --rule-soft:  #2A2B32;
+    --brass:      #D9B268;
+    --brass-fill: #C9A057;
+    --signal:     #7BAAC6;
+    --good:       #8FB98F;
+    --good-bg:    #1E2A1F;
+    --flag:       #E5907F;
+    --flag-bg:    #2C1F1D;
+
+    --seg-1: #C9A057;
+    --seg-2: #A9853F;
+    --seg-3: #6F6A5B;
+    --seg-4: #585448;
+    --seg-5: #45423A;
+    --seg-6: #35332D;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper:      #15161A;
+  --surface:    #1D1E24;
+  --surface-2:  #24252C;
+  --ink:        #E9E6DE;
+  --ink-soft:   #B4AFA3;
+  --ink-faint:  #928D80;
+  --rule:       #33343C;
+  --rule-soft:  #2A2B32;
+  --brass:      #D9B268;
+  --brass-fill: #C9A057;
+  --signal:     #7BAAC6;
+  --good:       #8FB98F;
+  --good-bg:    #1E2A1F;
+  --flag:       #E5907F;
+  --flag-bg:    #2C1F1D;
+
+  --seg-1: #C9A057;
+  --seg-2: #A9853F;
+  --seg-3: #6F6A5B;
+  --seg-4: #585448;
+  --seg-5: #45423A;
+  --seg-6: #35332D;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: calc(var(--step) * 14) calc(var(--step) * 7) calc(var(--step) * 24);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--step) * 20);
+}
+
+.eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+h1 {
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 112, "wght" 780;
+  font-weight: 800;
+  font-size: clamp(2.1rem, 6vw, 3.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+h2 {
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 118, "wght" 700;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin: 0;
+  text-wrap: balance;
+}
+
+h3 {
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 100, "wght" 650;
+  font-weight: 650;
+  font-size: 1.06rem;
+  letter-spacing: -0.005em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; max-width: var(--measure); }
+
+a { color: var(--brass); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+
+.lede {
+  font-size: 1.1rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 48ch;
+}
+
+.mono {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+strong { font-weight: 600; }
+
+.masthead { display: flex; flex-direction: column; gap: calc(var(--step) * 5); }
+
+.plate {
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  margin: 0;
+}
+
+.plate div {
+  padding: calc(var(--step) * 3) calc(var(--step) * 4) calc(var(--step) * 3) 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--step) * 1);
+  border-right: 1px solid var(--rule-soft);
+}
+.plate div:last-child { border-right: 0; }
+
+.plate dt {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.plate dd {
+  margin: 0;
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 96, "wght" 620;
+  font-weight: 620;
+  font-size: 1.02rem;
+  font-variant-numeric: tabular-nums;
+}
+
+section { display: flex; flex-direction: column; gap: calc(var(--step) * 6); }
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: calc(var(--step) * 4);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: calc(var(--step) * 3);
+}
+.head .idx {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  color: var(--brass);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.stack { display: flex; flex-direction: column; gap: calc(var(--step) * 4); }
+
+figure { margin: 0; display: flex; flex-direction: column; gap: calc(var(--step) * 3); }
+.figbox {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  padding: calc(var(--step) * 5) calc(var(--step) * 4);
+  overflow-x: auto;
+}
+.figbox svg { display: block; width: 100%; min-width: 34rem; height: auto; }
+figcaption { font-size: 0.85rem; color: var(--ink-faint); max-width: var(--measure); }
+
+.d-box   { fill: var(--surface-2); stroke: currentColor; stroke-width: 1.25; }
+.d-zone  { fill: none; stroke: var(--rule); stroke-width: 1; stroke-dasharray: 5 5; }
+.d-label { fill: currentColor; font-family: Archivo, sans-serif; font-weight: 650; font-size: 14px; }
+.d-sub   { fill: var(--ink-faint); font-family: "IBM Plex Mono", monospace; font-size: 11.5px; }
+.d-edge  { fill: none; stroke: currentColor; stroke-width: 1.4; }
+.d-hero  { fill: none; stroke: var(--brass-fill); stroke-width: 2.6; }
+.d-heroT { fill: var(--brass); font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; }
+.d-edgeT { fill: var(--ink-faint); font-family: "IBM Plex Mono", monospace; font-size: 11.5px; }
+.d-zoneT { fill: var(--ink-faint); font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 1.4px; }
+
+.tablewrap { overflow-x: auto; border-top: 2px solid var(--ink); }
+table { width: 100%; border-collapse: collapse; min-width: 36rem; }
+caption {
+  text-align: left;
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 112, "wght" 680;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: calc(var(--step) * 4) 0 calc(var(--step) * 2);
+}
+th {
+  text-align: left;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.63rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: calc(var(--step) * 2) calc(var(--step) * 3) calc(var(--step) * 2) 0;
+  border-bottom: 1px solid var(--rule);
+}
+td {
+  padding: calc(var(--step) * 3) calc(var(--step) * 3) calc(var(--step) * 3) 0;
+  border-bottom: 1px solid var(--rule-soft);
+  vertical-align: top;
+  font-size: 0.93rem;
+}
+td:last-child, th:last-child { padding-right: 0; }
+th.num, td.num {
+  text-align: right;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+td .note { display: block; color: var(--ink-faint); font-size: 0.83rem; line-height: 1.45; margin-top: 2px; }
+tr.total td {
+  border-bottom: 0;
+  border-top: 1px solid var(--rule);
+  font-weight: 600;
+  padding-top: calc(var(--step) * 3);
+}
+
+.pill {
+  display: inline-block;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border: 1px solid currentColor;
+  white-space: nowrap;
+}
+.pill.own    { color: var(--signal); }
+.pill.stock  { color: var(--good); background: var(--good-bg); border-color: var(--good); }
+.pill.import { color: var(--ink-faint); }
+
+.meter { display: flex; flex-direction: column; gap: calc(var(--step) * 4); }
+.meter-bar { display: flex; height: 2.6rem; overflow: hidden; }
+.meter-bar span { display: block; }
+.meter-key {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: calc(var(--step) * 3) calc(var(--step) * 6);
+}
+.meter-key div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-top: 3px solid;
+  padding-top: calc(var(--step) * 2);
+}
+.meter-key .k {
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 100, "wght" 620;
+  font-weight: 620;
+  font-size: 0.85rem;
+}
+.meter-key .v {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-faint);
+}
+
+ol.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--step) * 5);
+  counter-reset: s;
+}
+ol.steps li {
+  counter-increment: s;
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  gap: calc(var(--step) * 4);
+  padding-bottom: calc(var(--step) * 5);
+  border-bottom: 1px solid var(--rule-soft);
+}
+ol.steps li:last-child { border-bottom: 0; padding-bottom: 0; }
+ol.steps li::before {
+  content: counter(s, decimal-leading-zero);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.78rem;
+  color: var(--brass);
+  font-variant-numeric: tabular-nums;
+  padding-top: 5px;
+}
+ol.steps .body { display: flex; flex-direction: column; gap: calc(var(--step) * 2); }
+ol.steps p { max-width: 62ch; font-size: 0.95rem; color: var(--ink-soft); }
+
+.flag {
+  background: var(--flag-bg);
+  border-left: 3px solid var(--flag);
+  padding: calc(var(--step) * 4) calc(var(--step) * 5);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--step) * 2);
+}
+.flag .eyebrow { color: var(--flag); }
+.flag p { font-size: 0.93rem; color: var(--ink-soft); }
+
+.callout {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  padding: calc(var(--step) * 5);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--step) * 3);
+}
+.callout p { font-size: 0.93rem; color: var(--ink-soft); }
+
+ul.check {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 0 calc(var(--step) * 7);
+}
+ul.check li {
+  display: grid;
+  grid-template-columns: 1.1rem 1fr;
+  gap: calc(var(--step) * 2);
+  font-size: 0.93rem;
+  color: var(--ink-soft);
+  padding: calc(var(--step) * 2) 0 calc(var(--step) * 3);
+  border-bottom: 1px solid var(--rule-soft);
+}
+ul.check li::before {
+  content: "";
+  width: 11px;
+  height: 11px;
+  border: 1.5px solid var(--brass);
+  margin-top: 8px;
+}
+
+.lanes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: calc(var(--step) * 4);
+}
+.lane {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--brass-fill);
+  padding: calc(var(--step) * 4) calc(var(--step) * 5);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--step) * 2);
+}
+.lane p { font-size: 0.88rem; color: var(--ink-soft); }
+.lane .tag {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding-top: calc(var(--step) * 4);
+  font-size: 0.83rem;
+  color: var(--ink-faint);
+  max-width: var(--measure);
+}
+
+@media (max-width: 34rem) {
+  .wrap { padding-left: calc(var(--step) * 5); padding-right: calc(var(--step) * 5); }
+  .plate div { border-right: 0; border-bottom: 1px solid var(--rule-soft); }
+}
+
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Build sheet &middot; Rev B &middot; 21 Aug 2026 &middot; prices verified against live KSA stock</p>
+    <h1>Media Room Build Sheet</h1>
+    <p class="lede">A 5.1.2 cinema and gaming room in a soundproofed shell &mdash; now with the PS5 at the desk, order links on every line, and 5,700 SAR of headroom back in the budget.</p>
+    <dl class="plate">
+      <div><dt>Room</dt><dd>4 &times; 5&ndash;6 m</dd></div>
+      <div><dt>Budget</dt><dd>&asymp; 50,000 SAR</dd></div>
+      <div><dt>Specced at</dt><dd>44,260 SAR</dd></div>
+      <div><dt>Screen</dt><dd>77&Prime; OLED</dd></div>
+      <div><dt>Channels</dt><dd>5.1.2</dd></div>
+      <div><dt>Sources</dt><dd>PC + PS5, both at desk</dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <div class="head">
+      <h2>Signal plan</h2>
+      <span class="idx mono">rev B &middot; PS5 moved to desk</span>
+    </div>
+    <div class="stack">
+      <p><strong>Both machines now live at the desk.</strong> The PS5 stays where it already is, under the desk next to the PC &mdash; because you want to play it on a monitor sometimes, and a 1 m cable to the monitor's second input is the whole solution. For big-screen sessions, each machine gets its own fiber-optic HDMI run to the TV. Two cables in one trunking channel, no switches, no splitters &mdash; switches are exactly where 4K120 handshakes go to die, and a second cable costs less than a good one.</p>
+
+      <figure>
+        <div class="figbox">
+          <svg viewBox="0 0 880 490" role="img" aria-label="Signal flow: the gaming PC and the PS5 both sit at the desk wall. Each sends video to the 77-inch OLED over its own fiber-optic HDMI 2.1 cable, run together through one trunking channel. The PS5 also has a short 1 metre cable to a desk monitor's second input. The TV returns audio to the AV receiver over eARC, and the receiver drives the front, surround, ceiling and subwoofer channels.">
+            <defs>
+              <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <polygon points="0,1 10,5 0,9" fill="currentColor"></polygon>
+              </marker>
+              <marker id="ahb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <polygon points="0,1 10,5 0,9" fill="#A8813C"></polygon>
+              </marker>
+            </defs>
+
+            <rect class="d-zone" x="24" y="30" width="230" height="250"></rect>
+            <text class="d-zoneT" x="34" y="50">DESK WALL</text>
+            <rect class="d-zone" x="400" y="30" width="452" height="438"></rect>
+            <text class="d-zoneT" x="412" y="50">TV WALL</text>
+
+            <rect class="d-box" x="44" y="70" width="160" height="54"></rect>
+            <text class="d-label" x="60" y="94">Gaming PC</text>
+            <text class="d-sub" x="60" y="112">3 monitors stay</text>
+
+            <rect class="d-box" x="44" y="162" width="160" height="54"></rect>
+            <text class="d-label" x="60" y="186">PS5</text>
+            <text class="d-sub" x="60" y="204">stays under the desk</text>
+
+            <line class="d-edge" x1="124" y1="216" x2="124" y2="248" marker-end="url(#ah)"></line>
+            <rect class="d-box" x="64" y="250" width="120" height="26"></rect>
+            <text class="d-sub" x="124" y="267" text-anchor="middle">monitor in 2 &middot; 1 m</text>
+
+            <path class="d-hero" d="M206 92 L330 92 L330 118 L410 118" fill="none" marker-end="url(#ahb)"></path>
+            <path class="d-hero" d="M206 190 L330 190 L330 138 L410 138" fill="none" marker-end="url(#ahb)"></path>
+            <text class="d-heroT" x="308" y="76">2 &times; fiber HDMI 2.1</text>
+            <text class="d-sub" x="308" y="160">one trunking channel</text>
+
+            <rect class="d-box" x="420" y="96" width="200" height="82"></rect>
+            <text class="d-label" x="438" y="124">77&Prime; OLED</text>
+            <text class="d-sub" x="438" y="144">HDMI 1 &larr; PC</text>
+            <text class="d-sub" x="438" y="162">HDMI 2 &larr; PS5</text>
+
+            <line class="d-edge" x1="520" y1="178" x2="520" y2="268" marker-end="url(#ah)"></line>
+            <text class="d-edgeT" x="534" y="216">eARC</text>
+            <text class="d-edgeT" x="534" y="233">7.1 PCM + Atmos</text>
+
+            <rect class="d-box" x="420" y="272" width="200" height="60"></rect>
+            <text class="d-label" x="438" y="299">AV receiver</text>
+            <text class="d-sub" x="438" y="318">audio + amplification</text>
+
+            <polyline class="d-edge" points="520,332 520,360 469,360 469,382" marker-end="url(#ah)"></polyline>
+            <polyline class="d-edge" points="520,360 580,360 580,382" marker-end="url(#ah)"></polyline>
+            <polyline class="d-edge" points="520,360 691,360 691,382" marker-end="url(#ah)"></polyline>
+            <polyline class="d-edge" points="520,360 802,360 802,382" marker-end="url(#ah)"></polyline>
+
+            <rect class="d-box" x="421" y="386" width="96" height="52"></rect>
+            <text class="d-sub" x="469" y="408" text-anchor="middle">FRONT</text>
+            <text class="d-sub" x="469" y="425" text-anchor="middle">L / C / R</text>
+
+            <rect class="d-box" x="532" y="386" width="96" height="52"></rect>
+            <text class="d-sub" x="580" y="408" text-anchor="middle">SURROUND</text>
+            <text class="d-sub" x="580" y="425" text-anchor="middle">&times; 2</text>
+
+            <rect class="d-box" x="643" y="386" width="96" height="52"></rect>
+            <text class="d-sub" x="691" y="408" text-anchor="middle">CEILING</text>
+            <text class="d-sub" x="691" y="425" text-anchor="middle">&times; 2 Atmos</text>
+
+            <rect class="d-box" x="754" y="386" width="96" height="52"></rect>
+            <text class="d-sub" x="802" y="408" text-anchor="middle">SUB</text>
+            <text class="d-sub" x="802" y="425" text-anchor="middle">&times; 1</text>
+          </svg>
+        </div>
+        <figcaption>Everything sends into the TV; only audio comes back to the amplifier over eARC. The PS5 reaches both screens &mdash; monitor for desk play, fiber run for the sofa.</figcaption>
+      </figure>
+
+      <p>Two side-effects, both good. The credenza now only houses the receiver, so it can be smaller. And the receiver never touches a PC or console signal, so the whole category of AVR handshake trouble stays gone.</p>
+
+      <div class="callout">
+        <h3>The privacy constraint</h3>
+        <p>You don't want the monitors readable from the doorway. That is a layout rule, not a gadget: <strong>the desk goes on the same wall as the door, or the wall the door swings toward, so the door opens onto the backs of the monitors.</strong> Which wall that is comes out of the photos &mdash; flag it when you shoot them, and the layout drawing gets built around it. Belt-and-braces: set Windows to lock on a short timer, so what's on screen is gone before anyone is through the door anyway.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2>How to order</h2>
+      <span class="idx mono">3 lanes</span>
+    </div>
+    <div class="stack">
+      <div class="lanes">
+        <div class="lane">
+          <span class="tag">Lane 1 &middot; days</span>
+          <h3>KSA stock</h3>
+          <p>Amazon.sa, noon, eXtra, Jarir. Next-day to a few days, local warranty, easy returns. The TV, receiver, most speakers, and all cables and lighting live here. Order these any time.</p>
+        </div>
+        <div class="lane">
+          <span class="tag">Lane 2 &middot; 1&ndash;2 weeks</span>
+          <h3>GCC ships to KSA</h3>
+          <p>Samma3a, PULT (UAE), Dr.Head (UAE), Amazon.ae. Fills the gaps KSA stock doesn't carry &mdash; the SVS sub and KEF in-ceilings mainly. Shipping is cheap within the Gulf.</p>
+        </div>
+        <div class="lane">
+          <span class="tag">Lane 3 &middot; 2&ndash;4 weeks</span>
+          <h3>B&amp;H import</h3>
+          <p>Widest audio selection, often cheaper before fees &mdash; then add ~15% VAT plus customs and freight on arrival, and warranty service means shipping it back to the US. Use only for what lanes 1&ndash;2 can't source. <strong>December deadline: order lane 3 items first.</strong></p>
+        </div>
+      </div>
+      <p>Every line below is tagged with its lane and links to where I actually found it. <span class="pill stock">In stock KSA</span> means I verified live stock and price today &mdash; those prices are real, not estimates.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2>Build sheet</h2>
+      <span class="idx mono">44,260 SAR</span>
+    </div>
+    <div class="stack">
+
+      <div class="tablewrap">
+        <table>
+          <caption>Display &middot; 10,199</caption>
+          <thead><tr><th>Item</th><th>Pick</th><th class="num">SAR</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>77&Prime; OLED</td>
+              <td><a href="https://www.amazon.sa/s?k=LG+77+OLED+evo">LG OLED B6 (2026), 77&Prime;, 144 Hz</a> <span class="pill stock">In stock KSA</span><span class="note">9,499 on Amazon.sa with next-day delivery and an installation service. The B6 gives up a little brightness to the C-series and nothing that matters for a light-controlled room. The step up: <a href="https://www.amazon.sa/s?k=LG+77+OLED+evo+G6">77&Prime; G6 at 14,219</a> for the flush-to-wall gallery look &mdash; worth it only if this is the feature wall.</span></td>
+              <td class="num">9,499</td>
+            </tr>
+            <tr>
+              <td>Wall mount</td>
+              <td><a href="https://www.amazon.sa/s?k=tv+wall+mount+77+inch+slim">Slim tilting, VESA 400</a><span class="note">Sanus or Vogel's class. Centre of panel at seated eye level.</span></td>
+              <td class="num">700</td>
+            </tr>
+            <tr class="total"><td colspan="2">Subtotal</td><td class="num">10,199</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tablewrap">
+        <table>
+          <caption>Audio &middot; 5.1.2 &middot; 16,811</caption>
+          <thead><tr><th>Item</th><th>Pick</th><th class="num">SAR</th></tr></thead>
+          <tbody>
+            <tr><td>Receiver</td><td><a href="https://www.amazon.sa/s?k=denon+avr+receiver">Denon AVR-X2800H</a> <span class="pill stock">In stock KSA</span><span class="note">5,938 on Amazon.sa, next-day. 7.2 channels &mdash; exactly a 5.1.2, HDMI 2.1, full room correction. The 9-channel <a href="https://www.amazon.sa/s?k=denon+avc-x3800h">AVC-X3800H</a> (7,782, temporarily out) only earns its premium if you ever want 5.1.4. KSA-stocked alternative: <a href="https://www.samma3a.com/saudi-en/catalogsearch/result/?q=pioneer+elite">Pioneer Elite VSX-LX505 at Samma3a, 7,127</a>.</span></td><td class="num">5,938</td></tr>
+            <tr><td>Front L / R</td><td><a href="https://www.amazon.sa/s?k=klipsch+bookshelf+speakers">Klipsch RP-500M II pair</a> <span class="pill stock">In stock KSA</span><span class="note">1,949 on Amazon.sa. Horn-loaded Reference Premiere &mdash; dynamic, effortless at volume, exactly the character a sealed cinema room rewards, and clean enough for your music too. The premium route, <a href="https://www.amazon.sa/s?k=KEF+Q3+Meta">KEF Q3 Meta</a>, runs 6,658 as a KSA import &mdash; lovely, but not 4,700 lovelier.</span></td><td class="num">1,949</td></tr>
+            <tr><td>Centre</td><td><a href="https://www.amazon.sa/s?k=klipsch+center+channel+speaker">Klipsch RP-500C II</a> <span class="pill import">Ships to KSA</span><span class="note">2,557 on Amazon.sa, about a week. Timbre-matched to the fronts &mdash; dialogue is this channel's whole job. In-stock cheaper option: R-52C at 1,251, next-day.</span></td><td class="num">2,557</td></tr>
+            <tr><td>Surrounds</td><td><a href="https://www.amazon.sa/s?k=klipsch+bookshelf+speakers">Klipsch R-41M pair</a> + wall brackets<span class="note">1,167 on Amazon.sa. Surrounds carry ambience, not detail &mdash; the budget tier is the right tier here.</span></td><td class="num">1,367</td></tr>
+            <tr><td>Height &times; 2</td><td><a href="https://pult.ae/product/kef-ci160qr-in-ceiling-speaker">KEF Ci160QR in-ceiling</a> <span class="pill import">GCC / B&amp;H</span><span class="note">~1,700/pr from PULT or Dr.Head in the UAE, or <a href="https://www.bhphotovideo.com/c/search?q=kef+ci160qr">B&amp;H</a>. Budget route: <a href="https://www.bhphotovideo.com/c/search?q=polk+rc80i">Polk RC80i, ~600/pr from B&amp;H</a>. Hollow-ceiling install &mdash; see the companion guide; confirm the ceiling before ordering these.</span></td><td class="num">1,700</td></tr>
+            <tr><td>Subwoofer</td><td><a href="https://www.noon.com/saudi-en/svs-sb-1000-pro-subwoofer/ZFCA9049327B363581444Z/p/">SVS SB-1000 Pro, sealed</a> <span class="pill import">noon / GCC</span><span class="note">Listed on noon KSA; also <a href="https://www.samma3a.com/saudi-en/svs.html">SVS at Samma3a</a> and UAE dealers (~2,600&ndash;3,000 landed). Sealed, tight, exactly what the soundproofing paid for. Compare noon's price before ordering &mdash; marketplace listings swing.</span></td><td class="num">3,000</td></tr>
+            <tr><td>Cable</td><td><a href="https://www.amazon.sa/s?k=14+awg+speaker+cable">14 AWG speaker cable</a> + banana plugs</td><td class="num">300</td></tr>
+            <tr class="total"><td colspan="2">Subtotal</td><td class="num">16,811</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tablewrap">
+        <table>
+          <caption>Signal &amp; power &middot; 2,900</caption>
+          <thead><tr><th>Item</th><th>Pick</th><th class="num">SAR</th></tr></thead>
+          <tbody>
+            <tr><td>Fiber HDMI &times; 2</td><td><a href="https://www.amazon.sa/s?k=fiber+optic+HDMI+2.1+8K+15m">2 &times; 15 m fiber-optic HDMI 2.1, 48 Gbps</a><span class="note">One for the PC, one for the PS5. Must say &ldquo;fiber optic&rdquo; or &ldquo;AOC&rdquo; and &ldquo;48Gbps&rdquo; &mdash; UGREEN's certified line on Amazon.sa is the safe pick. Directional: the SOURCE end goes at the desk.</span></td><td class="num">1,100</td></tr>
+            <tr><td>USB to sofa</td><td><a href="https://www.amazon.sa/s?k=usb+extender+over+cat6+rj45">USB-over-Cat6 extender</a><span class="note">Controller dongle at the seat. Buy only if wireless proves flaky &mdash; test first.</span></td><td class="num">200</td></tr>
+            <tr><td>Network</td><td><a href="https://www.amazon.sa/s?k=cat6+cable+solid+utp">Cat6 drops + keystones</a><span class="note">Router lives in this room; short patches to PC and PS5, and the riser run from floor 5 &mdash; solid-core, terminated in wall sockets.</span></td><td class="num">400</td></tr>
+            <tr><td>Protection</td><td><a href="https://www.amazon.sa/s?k=apc+ups+1500va">APC UPS</a> + surge strip</td><td class="num">1,200</td></tr>
+            <tr class="total"><td colspan="2">Subtotal</td><td class="num">2,900</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tablewrap">
+        <table>
+          <caption>Acoustic treatment &middot; 7,400</caption>
+          <thead><tr><th>Item</th><th>Pick</th><th class="num">SAR</th></tr></thead>
+          <tbody>
+            <tr><td>Absorption &times; 6</td><td><a href="https://acoustic.sa/">Acoustic.sa &mdash; fabric-wrapped panels, custom</a> <span class="pill stock">Local KSA</span><span class="note">Riyadh-based, does made-to-measure fabric panels and consultation. Get a quote for six 60 &times; 120 cm, 10 cm deep. Generic fallback: <a href="https://www.amazon.sa/s?k=acoustic+panels+fabric">Amazon.sa panels</a> &mdash; check they're mineral wool or dense PET, not sculpted foam.</span></td><td class="num">2,800</td></tr>
+            <tr><td>Bass traps &times; 4</td><td><a href="https://acoustic.sa/acoustic-products-saudi-arabia/sound-absorption/">Acoustic.sa corner traps</a><span class="note">Custom floor-to-ceiling corner traps, quoted with the panels above. Also: <a href="https://www.samma3a.com/saudi-en/catalogsearch/result/?q=bass+trap">Samma3a bass traps</a>.</span></td><td class="num">1,600</td></tr>
+            <tr><td>Feature wall</td><td><a href="https://www.amazon.sa/s?k=wood+slat+acoustic+panel">Wood slat acoustic panels</a><span class="note">Widely stocked on Amazon.sa/noon. The slat look only works acoustically with a real absorber core behind the slats &mdash; check the spec says felt/PET backing.</span></td><td class="num">1,800</td></tr>
+            <tr><td>Rug</td><td>200 &times; 300 cm wool, medium pile + <a href="https://www.amazon.sa/s?k=rug+felt+underlay">felt underlay</a><span class="note">IKEA / local. Not an &ldquo;acoustic rug&rdquo; &mdash; any dense wool rug this size does the job; the underlay doubles it.</span></td><td class="num">1,200</td></tr>
+            <tr class="total"><td colspan="2">Subtotal</td><td class="num">7,400</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tablewrap">
+        <table>
+          <caption>Light &middot; 3,850</caption>
+          <thead><tr><th>Item</th><th>Pick</th><th class="num">SAR</th></tr></thead>
+          <tbody>
+            <tr><td>Ambient</td><td>Perimeter cove LED, dimmable, 2700 K<span class="note">Electrician-installed strip in a cove or coving channel. Indirect only &mdash; nothing that can throw onto the panel or monitors.</span></td><td class="num">1,800</td></tr>
+            <tr><td>Bias light</td><td><a href="https://www.amazon.sa/s?k=govee+tv+backlight+75">Govee TV backlight, 75&ndash;85&Prime;</a><span class="note">Behind the TV. The cheapest eye-strain fix in the room.</span></td><td class="num">250</td></tr>
+            <tr><td>Scene layer</td><td><a href="https://www.amazon.sa/s?k=philips+hue+lightstrip">Philips Hue</a> or <a href="https://www.amazon.sa/s?k=govee+led+strip">Govee</a><span class="note">With a physical wall switch, not app-only.</span></td><td class="num">1,200</td></tr>
+            <tr><td>Desk</td><td><a href="https://www.amazon.sa/s?k=benq+screenbar">BenQ ScreenBar</a><span class="note">Clamps to the centre monitor, lights the desk, touches no screen.</span></td><td class="num">600</td></tr>
+            <tr class="total"><td colspan="2">Subtotal</td><td class="num">3,850</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tablewrap">
+        <table>
+          <caption>Room &middot; 3,100</caption>
+          <thead><tr><th>Item</th><th>Pick</th><th class="num">SAR</th></tr></thead>
+          <tbody>
+            <tr><td>Credenza</td><td>Low AV unit, ventilated rear<span class="note">Now houses only the receiver, so it can be smaller and lower. IKEA BEST&Aring; with a vented back panel works; receivers need airflow above them.</span></td><td class="num">2,200</td></tr>
+            <tr><td>Blackout</td><td>Curtain, if there is a window</td><td class="num">900</td></tr>
+            <tr><td>Desk, chair, PC, monitors, PS5, seating</td><td><span class="pill own">Keeping</span><span class="note">Seating placement pending the photos.</span></td><td class="num">&mdash;</td></tr>
+            <tr class="total"><td colspan="2">Subtotal</td><td class="num">3,100</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2>Where the money goes</h2>
+      <span class="idx mono">44,260 of 50,000</span>
+    </div>
+    <div class="meter">
+      <div class="meter-bar" role="img" aria-label="Budget split: audio 16,811 riyals at 38 percent, display 10,199 at 23 percent, acoustics 7,400 at 17 percent, light 3,850 at 9 percent, room 3,100 at 7 percent, signal and power 2,900 at 7 percent. Total 44,260 of the 50,000 budget.">
+        <span style="flex: 16811; background: var(--seg-1);"></span>
+        <span style="flex: 10199; background: var(--seg-2);"></span>
+        <span style="flex: 7400;  background: var(--seg-3);"></span>
+        <span style="flex: 3850;  background: var(--seg-4);"></span>
+        <span style="flex: 3100;  background: var(--seg-5);"></span>
+        <span style="flex: 2900;  background: var(--seg-6);"></span>
+      </div>
+      <div class="meter-key">
+        <div style="border-color: var(--seg-1);"><span class="k">Audio</span><span class="v">16,811 &middot; 38%</span></div>
+        <div style="border-color: var(--seg-2);"><span class="k">Display</span><span class="v">10,199 &middot; 23%</span></div>
+        <div style="border-color: var(--seg-3);"><span class="k">Acoustics</span><span class="v">7,400 &middot; 17%</span></div>
+        <div style="border-color: var(--seg-4);"><span class="k">Light</span><span class="v">3,850 &middot; 9%</span></div>
+        <div style="border-color: var(--seg-5);"><span class="k">Room</span><span class="v">3,100 &middot; 7%</span></div>
+        <div style="border-color: var(--seg-6);"><span class="k">Signal &amp; power</span><span class="v">2,900 &middot; 7%</span></div>
+      </div>
+      <p>Real prices came in under the estimates, which leaves <strong>~5,700 SAR of headroom</strong>. Spend it in this order if you want to: the G6 screen upgrade for the wall look (+4,700), the AVC-X3800H when it restocks (+1,850), or bank it against the acoustic quote coming in higher than planned. Don't spend it on speaker upgrades &mdash; the room treatment will do more than any speaker swap at this level.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2>Order of operations</h2>
+      <span class="idx mono">Dec deadline</span>
+    </div>
+
+    <div class="flag">
+      <p class="eyebrow">Sequence matters more than speed</p>
+      <p>The wedding is December. Lane-3 imports and the acoustic quote are the long poles &mdash; start those first. The KSA-stock items arrive in days and can wait until the room is painted.</p>
+    </div>
+
+    <ol class="steps">
+      <li><div class="body">
+        <h3>Now &mdash; answer the ceiling question</h3>
+        <p>Knock test, per the companion guide. Hollow ceiling &rarr; order the KEF in-ceilings (lane 2/3, longest lead). Solid &rarr; the height line changes to on-wall or gets folded into a better centre and sub.</p>
+      </div></li>
+      <li><div class="body">
+        <h3>Now &mdash; get the acoustic quote</h3>
+        <p>Contact Acoustic.sa with the room dimensions for six panels + four corner traps. Custom fabrication has lead time, and their quote tells us if the 4,400 estimate holds.</p>
+      </div></li>
+      <li><div class="body">
+        <h3>This month &mdash; order the sub and heights</h3>
+        <p>SVS from noon/Samma3a, in-ceilings per step 1. These are the only items with real shipping risk against December.</p>
+      </div></li>
+      <li><div class="body">
+        <h3>When the room is painted &mdash; everything KSA-stocked</h3>
+        <p>TV, receiver, fronts, centre, surrounds, cables, lights. All of it arrives in under a week. Run the trunking and mount the TV before the furniture goes in.</p>
+      </div></li>
+      <li><div class="body">
+        <h3>Last &mdash; calibrate</h3>
+        <p>Run the Denon's Audyssey mic from the actual seat after the rug and panels are in. Treatment first, calibration second &mdash; the mic corrects the room it hears.</p>
+      </div></li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2>Still open</h2>
+      <span class="idx mono">bring the photos</span>
+    </div>
+    <ul class="check">
+      <li>Ceiling knock test &mdash; hollow or solid</li>
+      <li>All four walls, straight on</li>
+      <li>Which wall the door is on + swing direction (privacy layout)</li>
+      <li>Ceiling: height, lights, AC type and position</li>
+      <li>Any window, and what faces it</li>
+      <li>Every power outlet and network point</li>
+      <li>The seating set &mdash; what it actually is</li>
+      <li>Exact length &times; width and ceiling height</li>
+    </ul>
+  </section>
+
+  <footer>
+    Prices marked &ldquo;In stock KSA&rdquo; were checked against live Amazon.sa / Samma3a listings on 21 Aug 2026; others are landed estimates from GCC and US listings and will move with promotions and exchange rates. Links go to searches or product pages where the item was found &mdash; confirm the exact model and price at checkout. Companion document: <em>Fitting a Finished Room</em> covers what these components are and how they install now that the walls are closed.
+  </footer>
+
+</div>

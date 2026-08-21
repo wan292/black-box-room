@@ -1,0 +1,694 @@
+<title>Fitting a Finished Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root {
+  --paper:      #F6F4EF;
+  --surface:    #FFFFFF;
+  --surface-2:  #EFEBE2;
+  --ink:        #1A1B20;
+  --ink-soft:   #4A4740;
+  --ink-faint:  #6E695E;
+  --rule:       #D9D3C6;
+  --rule-soft:  #E7E2D7;
+  --brass:      #8A6817;
+  --brass-fill: #A8813C;
+  --signal:     #3F6B85;
+  --flag:       #8E362C;
+  --flag-bg:    #F4E8E4;
+  --step:  0.25rem;
+  --measure: 68ch;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:      #15161A;
+    --surface:    #1D1E24;
+    --surface-2:  #24252C;
+    --ink:        #E9E6DE;
+    --ink-soft:   #B4AFA3;
+    --ink-faint:  #928D80;
+    --rule:       #33343C;
+    --rule-soft:  #2A2B32;
+    --brass:      #D9B268;
+    --brass-fill: #C9A057;
+    --signal:     #7BAAC6;
+    --flag:       #E5907F;
+    --flag-bg:    #2C1F1D;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper:      #15161A;
+  --surface:    #1D1E24;
+  --surface-2:  #24252C;
+  --ink:        #E9E6DE;
+  --ink-soft:   #B4AFA3;
+  --ink-faint:  #928D80;
+  --rule:       #33343C;
+  --rule-soft:  #2A2B32;
+  --brass:      #D9B268;
+  --brass-fill: #C9A057;
+  --signal:     #7BAAC6;
+  --flag:       #E5907F;
+  --flag-bg:    #2C1F1D;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: calc(var(--step) * 14) calc(var(--step) * 7) calc(var(--step) * 24);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--step) * 20);
+}
+
+.eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+h1 {
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 112, "wght" 780;
+  font-weight: 800;
+  font-size: clamp(2.1rem, 6vw, 3.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+h2 {
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 118, "wght" 700;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin: 0;
+  text-wrap: balance;
+}
+
+h3 {
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 100, "wght" 650;
+  font-weight: 650;
+  font-size: 1.06rem;
+  letter-spacing: -0.005em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; max-width: var(--measure); }
+
+.lede {
+  font-size: 1.1rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 48ch;
+}
+
+.mono {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+strong { font-weight: 600; }
+
+section { display: flex; flex-direction: column; gap: calc(var(--step) * 6); }
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: calc(var(--step) * 4);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: calc(var(--step) * 3);
+}
+.head .idx {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  color: var(--brass);
+  white-space: nowrap;
+}
+
+.stack { display: flex; flex-direction: column; gap: calc(var(--step) * 4); }
+
+.ask {
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 100, "wght" 650;
+  font-weight: 650;
+  font-size: 1.06rem;
+  border-left: 3px solid var(--brass);
+  padding-left: calc(var(--step) * 4);
+  color: var(--ink);
+  max-width: 56ch;
+}
+
+figure { margin: 0; display: flex; flex-direction: column; gap: calc(var(--step) * 3); }
+.figbox {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  padding: calc(var(--step) * 5) calc(var(--step) * 4);
+  overflow-x: auto;
+}
+.figbox svg { display: block; width: 100%; min-width: 32rem; height: auto; }
+figcaption { font-size: 0.85rem; color: var(--ink-faint); max-width: var(--measure); }
+
+.d-box    { fill: var(--surface-2); stroke: currentColor; stroke-width: 1.25; }
+.d-solid  { fill: currentColor; }
+.d-room   { fill: none; stroke: currentColor; stroke-width: 2.2; }
+.d-thin   { fill: none; stroke: currentColor; stroke-width: 1.1; }
+.d-faint  { fill: none; stroke: var(--rule); stroke-width: 1; }
+.d-dash   { fill: none; stroke: currentColor; stroke-width: 1.2; stroke-dasharray: 5 4; }
+.d-label  { fill: currentColor; font-family: Archivo, sans-serif; font-weight: 650; font-size: 13.5px; }
+.d-sub    { fill: var(--ink-faint); font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+.d-tag    { fill: currentColor; font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 600; }
+.d-hero   { fill: none; stroke: var(--brass-fill); stroke-width: 2.6; }
+.d-heroT  { fill: var(--brass); font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 600; }
+.d-fillb  { fill: var(--brass-fill); }
+
+.tablewrap { overflow-x: auto; border-top: 2px solid var(--ink); }
+table { width: 100%; border-collapse: collapse; min-width: 30rem; }
+th {
+  text-align: left;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.63rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: calc(var(--step) * 3) calc(var(--step) * 3) calc(var(--step) * 2) 0;
+  border-bottom: 1px solid var(--rule);
+}
+td {
+  padding: calc(var(--step) * 3) calc(var(--step) * 3) calc(var(--step) * 3) 0;
+  border-bottom: 1px solid var(--rule-soft);
+  vertical-align: top;
+  font-size: 0.93rem;
+}
+td:last-child, th:last-child { padding-right: 0; }
+td strong { display: block; }
+td .note { display: block; color: var(--ink-faint); font-size: 0.83rem; line-height: 1.45; margin-top: 2px; }
+
+.flag {
+  background: var(--flag-bg);
+  border-left: 3px solid var(--flag);
+  padding: calc(var(--step) * 4) calc(var(--step) * 5);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--step) * 2);
+}
+.flag .eyebrow { color: var(--flag); }
+.flag p { font-size: 0.93rem; color: var(--ink-soft); }
+
+.callout {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  padding: calc(var(--step) * 5);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--step) * 3);
+}
+.callout p { font-size: 0.93rem; color: var(--ink-soft); }
+
+ul.plain { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: calc(var(--step) * 3); }
+ul.plain li {
+  display: grid;
+  grid-template-columns: 1.1rem 1fr;
+  gap: calc(var(--step) * 2);
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  max-width: var(--measure);
+}
+ul.plain li::before { content: ""; width: 9px; height: 9px; border: 1.5px solid var(--brass); margin-top: 8px; }
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding-top: calc(var(--step) * 4);
+  font-size: 0.83rem;
+  color: var(--ink-faint);
+  max-width: var(--measure);
+}
+
+@media (max-width: 34rem) {
+  .wrap { padding-left: calc(var(--step) * 5); padding-right: calc(var(--step) * 5); }
+}
+
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+
+  <header style="display:flex; flex-direction:column; gap:calc(var(--step) * 5);">
+    <p class="eyebrow">Companion to the build sheet &middot; 21 Aug 2026</p>
+    <h1>Fitting a Finished Room</h1>
+    <p class="lede">The walls are already closed. Here is what each piece actually is, whether it still fits, and how the cables get where they need to go without breaking anything.</p>
+  </header>
+
+  <section>
+    <div class="head">
+      <h2>Start here</h2>
+      <span class="idx mono">one test</span>
+    </div>
+    <div class="stack">
+      <p><strong>Knock on your ceiling.</strong> Almost everything below depends on the answer, and it takes ten seconds.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>What you hear</th><th>What it means</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Hollow, like a drum</strong></td>
+              <td>Gypsum board with an empty void above it. This is the normal build in most Saudi homes, and it is very good news &mdash; ceiling speakers go in, cables run across, nothing gets demolished.<span class="note">Other confirmations: ceiling AC vents or grilles, a recessed light you can push up, or an access hatch. Any of these means there is a void.</span></td>
+            </tr>
+            <tr>
+              <td><strong>Dull and solid</strong></td>
+              <td>Bare concrete slab, no void. Ceiling speakers are off the table &mdash; see the alternatives further down. Cables go in surface trunking instead.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>If you have a concealed ducted AC unit rather than a wall-mounted split, you definitely have a void, and probably a generous one.</p>
+      <div class="callout">
+        <h3>Confirmed by the first room photo &mdash; 21 Aug</h3>
+        <p>The stepped gypsum tray ceiling with recessed downlights settles it: that construction is hollow by definition, with a generous void behind the tray. <strong>In-ceiling Atmos is a GO</strong>, and the tray step is a ready-made channel for the cove LED strip. The knock test is now a formality.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2>The ceiling speakers</h2>
+      <span class="idx mono">your question</span>
+    </div>
+    <div class="stack">
+      <p class="ask">&ldquo;Height &times; 2, in-ceiling above and slightly ahead of the seat &mdash; what is this? Is it wireless or wired?&rdquo;</p>
+
+      <p><strong>Wired. There is no wireless version of this.</strong> These are passive speakers &mdash; they have no power of their own and no radio. The receiver sends them an amplified signal down ordinary speaker cable, exactly like the other five speakers. Two speakers means two cable runs.</p>
+
+      <p>What they are: a round speaker, roughly 16&nbsp;cm across, that sits <em>inside</em> the ceiling with only its grille showing. Flush with the surface. From below it looks like a downlight. Their job is Atmos &mdash; rain, a helicopter, footsteps on the floor above &mdash; sound that should come from over your head rather than around you.</p>
+
+      <figure>
+        <div class="figbox">
+          <svg viewBox="0 0 720 310" role="img" aria-label="Cross-section of the ceiling: a concrete slab on top, an empty void beneath it, and a gypsum ceiling below that. Two in-ceiling speakers sit in cut holes in the gypsum with their bodies up inside the void. Two speaker cables run from them through the void, across to the wall, and down inside the wall to the AV receiver in the room below.">
+            <defs>
+              <marker id="c-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <polygon points="0,1 10,5 0,9" fill="#A8813C"></polygon>
+              </marker>
+              <pattern id="c-hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="0" y2="7" stroke="#A09A8C" stroke-width="1.6"></line>
+              </pattern>
+            </defs>
+
+            <rect x="56" y="34" width="604" height="24" fill="url(#c-hatch)" stroke="currentColor" stroke-width="1.25"></rect>
+            <text class="d-sub" x="66" y="28">CONCRETE SLAB</text>
+
+            <line class="d-faint" x1="56" y1="58" x2="660" y2="58"></line>
+            <text class="d-sub" x="480" y="104">ceiling void</text>
+            <text class="d-sub" x="480" y="119">(the highway)</text>
+
+            <rect x="56" y="140" width="604" height="13" class="d-box"></rect>
+            <text class="d-sub" x="66" y="172">GYPSUM CEILING</text>
+
+            <rect x="182" y="100" width="62" height="40" class="d-box"></rect>
+            <rect x="174" y="140" width="78" height="9" class="d-solid"></rect>
+            <text class="d-sub" x="213" y="92" text-anchor="middle">speaker body</text>
+            <text class="d-sub" x="213" y="167" text-anchor="middle">&asymp; 165 mm hole</text>
+
+            <rect x="352" y="100" width="62" height="40" class="d-box"></rect>
+            <rect x="344" y="140" width="78" height="9" class="d-solid"></rect>
+            <text class="d-sub" x="383" y="92" text-anchor="middle">speaker body</text>
+            <text class="d-sub" x="383" y="167" text-anchor="middle">&asymp; 165 mm hole</text>
+
+            <path class="d-hero" d="M213 100 L213 74 L646 74 L646 232" fill="none"></path>
+            <path class="d-hero" d="M383 100 L383 86 L640 86 L640 232" fill="none"></path>
+            <line class="d-hero" x1="643" y1="232" x2="612" y2="232" marker-end="url(#c-ah)"></line>
+            <text class="d-heroT" x="300" y="66">2 &times; speaker cable</text>
+
+            <rect x="654" y="58" width="12" height="222" class="d-box"></rect>
+            <text class="d-sub" x="660" y="300" text-anchor="middle">wall</text>
+
+            <rect x="500" y="214" width="112" height="36" class="d-box"></rect>
+            <text class="d-label" x="556" y="238" text-anchor="middle">RECEIVER</text>
+
+            <line class="d-thin" x1="56" y1="280" x2="644" y2="280"></line>
+            <text class="d-sub" x="66" y="272">FLOOR</text>
+          </svg>
+        </div>
+        <figcaption>Cut two holes, push the speakers up, fish the cable across the void and down to the receiver. A few hours of work in a finished room &mdash; not demolition.</figcaption>
+      </figure>
+
+      <h3>If the ceiling turns out to be solid</h3>
+      <p>Then in-ceiling is out, and you have three honest choices, in the order I would rank them:</p>
+      <ul class="plain">
+        <li><strong>Upfiring modules</strong> &mdash; small angled speakers that sit on top of your front pair and bounce sound off the ceiling. Needs a flat, hard ceiling around 2.4&ndash;3 m. Not as good as in-ceiling, but real.</li>
+        <li><strong>On-wall height speakers</strong> &mdash; mounted high on the front wall, angled down at the seat. Cable runs down the wall in trunking. Better than upfiring, more visible.</li>
+        <li><strong>Skip the heights and do a proper 5.1</strong> &mdash; and put the money into a better centre speaker or a second subwoofer. A 5.1 done well beats a 5.1.2 done badly, and this is not a compromise you would sit there regretting.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2>Conduit, and what replaces it</h2>
+      <span class="idx mono">your question</span>
+    </div>
+    <div class="stack">
+      <p class="ask">&ldquo;What is the pull conduit?&rdquo;</p>
+
+      <p>Conduit is just an <strong>empty plastic pipe</strong> buried in a wall before it is plastered. No cable in it &mdash; only a thin nylon string. Later, you tie a cable to the string, pull it through, and you have wiring inside a solid wall without ever breaking it open. When the cable becomes obsolete in eight years, you pull the new one through the same pipe.</p>
+
+      <p>Your walls are closed, so that ship has sailed &mdash; and it does not matter much, because the finished-room equivalent does the same job. <strong>Surface trunking</strong> is a slim PVC channel with a snap-off lid that sticks to the wall along the skirting line or the ceiling line. You paint it the colour of the wall and it disappears into the room. Cable goes in, lid goes on, and you can open it any time.</p>
+
+      <figure>
+        <div class="figbox">
+          <svg viewBox="0 0 720 320" role="img" aria-label="Side view of the room comparing two cable routes from the PC at the desk to the TV on the far wall. Route A, in brass, goes up a short drop, through the ceiling void, across, and down to the TV — invisible but requires a hollow ceiling. Route B, dashed, runs along the skirting board at floor level in surface trunking — visible but always possible.">
+            <defs>
+              <marker id="r-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <polygon points="0,1 10,5 0,9" fill="#A8813C"></polygon>
+              </marker>
+              <marker id="r-ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <polygon points="0,1 10,5 0,9" fill="currentColor"></polygon>
+              </marker>
+            </defs>
+
+            <line class="d-faint" x1="46" y1="26" x2="676" y2="26"></line>
+            <rect x="46" y="52" width="630" height="11" class="d-box"></rect>
+            <text class="d-sub" x="56" y="44">CEILING VOID</text>
+
+            <line class="d-room" x1="46" y1="63" x2="46" y2="266"></line>
+            <line class="d-room" x1="676" y1="63" x2="676" y2="266"></line>
+            <line class="d-room" x1="46" y1="266" x2="676" y2="266"></line>
+
+            <rect x="70" y="176" width="120" height="10" class="d-box"></rect>
+            <line class="d-thin" x1="78" y1="186" x2="78" y2="240"></line>
+            <line class="d-thin" x1="182" y1="186" x2="182" y2="240"></line>
+            <rect x="96" y="188" width="42" height="60" class="d-box"></rect>
+            <text class="d-sub" x="117" y="222" text-anchor="middle">PC</text>
+            <text class="d-sub" x="130" y="170" text-anchor="middle">DESK</text>
+
+            <rect x="656" y="96" width="14" height="96" class="d-solid"></rect>
+            <text class="d-sub" x="640" y="90" text-anchor="end">77&Prime; TV</text>
+
+            <path class="d-hero" d="M124 188 L124 40 L634 40 L634 130" fill="none" marker-end="url(#r-ah)"></path>
+            <text class="d-heroT" x="330" y="32">A &middot; through the ceiling void &mdash; invisible</text>
+            <text class="d-sub" x="132" y="120">short drop</text>
+            <text class="d-sub" x="132" y="134">in trunking</text>
+
+            <path class="d-dash" d="M124 250 L124 258 L628 258 L628 200" fill="none" marker-end="url(#r-ah2)"></path>
+            <text class="d-sub" x="330" y="278" text-anchor="middle">B &middot; surface trunking at the skirting &mdash; visible, always works</text>
+          </svg>
+        </div>
+        <figcaption>Route A needs a hollow ceiling and gives you nothing to look at. Route B works in any room and costs about 150 SAR of painted plastic.</figcaption>
+      </figure>
+
+      <div class="callout">
+        <h3>The one thing I would still open a wall for</h3>
+        <p>Nothing here. Every cable in this project can be run without touching plaster, as long as the ceiling is hollow. The build sheet said &ldquo;before the walls close&rdquo; because that is the cheap moment &mdash; but none of it is impossible afterwards, only slightly less tidy. Do not let anyone tell you the room needs opening up.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2>Where everything sits</h2>
+      <span class="idx mono">draft layout</span>
+    </div>
+    <div class="stack">
+      <p>Redrawn from the first room photo, on the assumed 6 &times; 4 m (to confirm with a tape measure). The TV takes the long, windowless black wall &mdash; where the builder already left wall points at TV height &mdash; and the sofa sits against the opposite wall, viewing across the room at about 3 m: exactly right for 77&Prime;. The desk faces the window wall, which solves the privacy rule by itself: from the door you see monitor backs.</p>
+
+      <figure>
+        <div class="figbox">
+          <svg viewBox="0 0 800 560" role="img" aria-label="Plan view of the real room, six by four metres. The 77-inch TV is centred on the long windowless wall where the builder left TV-height wall points, with front left, centre and right speakers beside it and the subwoofer in the corner. The sofa sits against the opposite long wall, about three metres from the screen. The two windows are on the short wall, with the desk in front of them facing the window so monitors are hidden from the door. Surround speakers sit on the short walls slightly behind the sofa, and two ceiling speakers sit in the gypsum tray slightly in front of the sofa. The door and AC positions are marked as unconfirmed.">
+            <defs>
+              <marker id="p-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <polygon points="0,1 10,5 0,9" fill="currentColor"></polygon>
+              </marker>
+            </defs>
+
+            <rect x="60" y="70" width="680" height="420" class="d-room"></rect>
+
+            <rect x="140" y="140" width="520" height="280" class="d-zone"></rect>
+            <text class="d-sub" x="152" y="160">gypsum tray &middot; cove LED hides in the step</text>
+
+            <line class="d-thin" x1="392" y1="272" x2="408" y2="288"></line>
+            <line class="d-thin" x1="408" y1="272" x2="392" y2="288"></line>
+            <text class="d-sub" x="418" y="284">pendant wire &mdash; cap it</text>
+
+            <circle cx="250" cy="118" r="4" class="d-thin"></circle>
+            <circle cx="400" cy="118" r="4" class="d-thin"></circle>
+            <circle cx="550" cy="118" r="4" class="d-thin"></circle>
+
+            <rect x="310" y="72" width="180" height="13" class="d-solid"></rect>
+            <text class="d-sub" x="400" y="103" text-anchor="middle">77&Prime; OLED</text>
+            <text class="d-sub" x="560" y="88">builder's TV points &#10003;</text>
+
+            <rect x="252" y="90" width="20" height="20" class="d-box"></rect>
+            <text class="d-tag" x="262" y="126" text-anchor="middle">L</text>
+            <rect x="528" y="90" width="20" height="20" class="d-box"></rect>
+            <text class="d-tag" x="538" y="126" text-anchor="middle">R</text>
+            <rect x="390" y="90" width="20" height="20" class="d-box"></rect>
+            <text class="d-tag" x="426" y="106">C</text>
+
+            <rect x="80" y="88" width="26" height="26" class="d-box"></rect>
+            <text class="d-tag" x="114" y="106">SUB</text>
+
+            <rect x="62" y="150" width="10" height="80" class="d-solid"></rect>
+            <rect x="62" y="290" width="10" height="80" class="d-solid"></rect>
+            <text class="d-sub" x="84" y="144">2 windows + blackout</text>
+
+            <rect x="95" y="190" width="58" height="160" class="d-box"></rect>
+            <text class="d-sub" x="124" y="274" text-anchor="middle">DESK</text>
+            <circle cx="182" cy="270" r="16" class="d-thin"></circle>
+            <text class="d-sub" x="95" y="380">screens face the window &mdash;</text>
+            <text class="d-sub" x="95" y="396">hidden from the door</text>
+
+            <rect x="300" y="400" width="200" height="82" class="d-box"></rect>
+            <text class="d-sub" x="400" y="446" text-anchor="middle">SOFA</text>
+
+            <line class="d-thin" x1="400" y1="92" x2="400" y2="394" marker-end="url(#p-ah)" marker-start="url(#p-ah)"></line>
+            <text class="d-sub" x="412" y="222">&asymp; 3 m eyes-to-screen</text>
+            <text class="d-sub" x="412" y="238">&rarr; 77&Prime; confirmed</text>
+
+            <rect x="62" y="408" width="20" height="20" class="d-box"></rect>
+            <text class="d-tag" x="90" y="423">SL</text>
+            <rect x="718" y="408" width="20" height="20" class="d-box"></rect>
+            <text class="d-tag" x="712" y="423" text-anchor="end">SR</text>
+
+            <circle cx="310" cy="352" r="14" class="d-dash"></circle>
+            <text class="d-sub" x="310" y="332" text-anchor="middle">TOP L</text>
+            <circle cx="490" cy="352" r="14" class="d-dash"></circle>
+            <text class="d-sub" x="490" y="332" text-anchor="middle">TOP R</text>
+
+            <rect x="716" y="140" width="22" height="90" class="d-dash"></rect>
+            <text class="d-sub" x="708" y="188" text-anchor="end">AC? confirm</text>
+
+            <path class="d-faint" d="M640 488 A 70 70 0 0 1 710 488"></path>
+            <line class="d-thin" x1="640" y1="488" x2="710" y2="488" stroke-dasharray="4 3"></line>
+            <text class="d-sub" x="675" y="510" text-anchor="middle">door (confirm)</text>
+
+            <line class="d-thin" x1="60" y1="530" x2="740" y2="530" marker-end="url(#p-ah)" marker-start="url(#p-ah)"></line>
+            <text class="d-sub" x="400" y="522" text-anchor="middle">&asymp; 6 m &mdash; tape-measure to confirm &middot; depth &asymp; 4 m</text>
+          </svg>
+        </div>
+        <figcaption>The real room: TV on the long black wall at the builder's points, cross-room viewing, desk facing the windows. Dashed circles are in the ceiling tray, not on the floor. Small dots are the existing downlights &mdash; the row over the TV needs black-baffle warm-dim trims on their own dimmer.</figcaption>
+      </figure>
+
+      <p>Two things this drawing is doing that are worth knowing. The <strong>surrounds sit slightly behind your ears</strong>, not level with them &mdash; that is what makes things pass behind you convincingly. And the <strong>ceiling pair sits slightly in front of the seat</strong>, not directly overhead, because sound arriving from straight above is much harder to place than sound arriving from just ahead and above.</p>
+      <h3>What the photo changed</h3>
+      <ul class="plain">
+        <li><strong>Walls are already matte black paint</strong> &mdash; optically that is the cinema treatment done. Wallpaper is now optional decoration; if it happens, matte non-woven only, and all wall work (fishing cables, slat wall, panel mounts) comes first.</li>
+        <li><strong>The polished marble floor is the room's biggest reflector</strong> &mdash; acoustically and optically. The rug grows to ~250 &times; 350 cm with a felt underlay, covering the whole zone between sofa and TV wall.</li>
+        <li><strong>Downlights sit in the drop border, including over the TV wall</strong> &mdash; they need to move to their own dimmer with black-baffle, warm-dim trims, or they will glare in the panel.</li>
+        <li><strong>The centre pendant wire gets capped.</strong> A hanging fixture would sit between the Atmos speakers and reflect in the screen.</li>
+        <li><strong>The tray is a gift:</strong> cove LED goes in the existing step, and the Atmos cutouts land in the flat tray field where the void is deepest.</li>
+        <li><strong>Still unseen: the AC and the door.</strong> A sealed, equipment-heavy room needs the cooling answer before December &mdash; this is now the last infrastructure unknown.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2>Network and the sofa cable</h2>
+      <span class="idx mono">your questions</span>
+    </div>
+    <div class="stack">
+      <p class="ask">&ldquo;I'll leave the main router in that room, so wireless is an option. I have 500 megabit &mdash; is it enough?&rdquo;</p>
+
+      <p><strong>500 Mbps is far more than enough.</strong> A 4K stream is around 25 Mbps; a big game download is the only thing that will ever touch the ceiling of that line, and it will finish twenty times faster than you notice. Speed is not your constraint.</p>
+
+      <p>Putting the router in the room is the right call, and for a reason you may not have considered: <strong>a soundproofed wall is also a Wi-Fi wall.</strong> Dense insulation and extra board layers absorb 2.4 and 5 GHz badly. Signal from elsewhere in the house would have arrived weak. Router inside the room solves that &mdash; but you should then expect the rooms <em>next</em> to it to get worse coverage, so plan a mesh node outside the door.</p>
+
+      <p>Two exceptions where you should still use a cable, and both are trivial because the router is now in the same room: <strong>run a short Cat6 to the PC and another to the PS5.</strong> Three metres each. Wi-Fi is fine for bandwidth but it jitters, and jitter is what you feel in online play. Two cheap cables remove the whole category of problem.</p>
+
+      <p>For the fifth-floor to second-floor run: <strong>Cat6 handles 100 m</strong>, and three floors is maybe 20&ndash;25 m of actual cable. Well inside the limit, no boosters, no fibre needed. Use solid-core Cat6 for the fixed run and terminate it into a wall socket at each end rather than crimping plugs onto solid core, which is fiddly and fails intermittently.</p>
+
+      <p class="ask">&ldquo;What is the USB to sofa?&rdquo;</p>
+
+      <p>A small thing, easily explained. Your PC is at the desk. When you sit on the sofa to play a story game on the big screen, your wireless controller still has to talk to the PC &mdash; and its little USB receiver is plugged in over at the desk, five metres away with a sofa and your own body in between. It usually works. Sometimes it stutters.</p>
+
+      <p>A USB extender is a pair of small boxes joined by a Cat6 cable: one plugs into the PC, the other sits by the sofa and gives you a USB socket there. The controller's receiver goes in that one, half a metre from your hands.</p>
+
+      <div class="callout">
+        <p><strong>My honest advice: do not buy this yet.</strong> Set the room up, sit on the sofa, and play something. If the controller behaves, you have saved 200 SAR and a cable. If it drops out, buy the extender then &mdash; and if you are already running trunking to the TV wall, throw a Cat6 in the same channel now while it is open, so the option is there for free. The same applies to the PS5 now that it lives at the desk: the DualSense makes the identical 5 m hop, and the same extender fixes it too if it ever stutters, since the DualSense also works over USB.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2>Acoustics, in plain terms</h2>
+      <span class="idx mono">your questions</span>
+    </div>
+    <div class="stack">
+      <p class="ask">&ldquo;They put something in the wall for noise. Bass traps, absorption panels &mdash; I don't know what these are.&rdquo;</p>
+
+      <p>Your professionals were right, and I want to be clear about that: for <em>stopping sound leaving the room</em>, what they installed is the real thing. That soft material inside your walls is almost certainly mineral wool &mdash; rock wool, the grey-brown fibrous stuff that looks a bit like felted cotton. It is the correct material and it is doing its job.</p>
+
+      <p>Here is the part that surprises people. <strong>An acoustic panel is made of exactly the same material.</strong> Same rock wool, in a wooden frame, wrapped in fabric. The only difference is which side of the wall it sits on.</p>
+
+      <div class="callout">
+        <p><strong>Inside the wall</strong>, it stops sound getting out to your neighbours. <strong>On the surface of the wall</strong>, it stops sound bouncing back at you. Same material, opposite side, completely different job. Your walls do the first one. Nothing in the room currently does the second one &mdash; and once you close a room up tightly, the inside surfaces are all hard board and plaster, which is close to the worst case for how sound behaves in there.</p>
+      </div>
+
+      <p>A <strong>bass trap</strong> is the same idea again, just much thicker and shoved into a corner. Low frequencies are physically long waves, so absorbing them needs depth &mdash; a 5 cm panel does nothing to bass. And bass piles up in corners, which is why that is where the thick ones go.</p>
+
+      <figure>
+        <div class="figbox">
+          <svg viewBox="0 0 660 240" role="img" aria-label="Two plan-view details. On the left, a thin absorption panel roughly 5 to 10 centimetres deep sits flat against a wall. On the right, a much thicker bass trap fills the corner where two walls meet. Both are filled with the same mineral wool hatching.">
+            <defs>
+              <pattern id="a-hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="0" y2="7" stroke="#A09A8C" stroke-width="1.6"></line>
+              </pattern>
+              <marker id="a-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <polygon points="0,1 10,5 0,9" fill="currentColor"></polygon>
+              </marker>
+            </defs>
+
+            <line class="d-room" x1="86" y1="46" x2="86" y2="196"></line>
+            <rect x="86" y="72" width="22" height="98" fill="url(#a-hatch)" stroke="currentColor" stroke-width="1.25"></rect>
+            <line class="d-thin" x1="86" y1="186" x2="108" y2="186" marker-end="url(#a-ah)" marker-start="url(#a-ah)"></line>
+            <text class="d-sub" x="116" y="190">5&ndash;10 cm</text>
+            <text class="d-label" x="128" y="112">Absorption panel</text>
+            <text class="d-sub" x="128" y="132">60 &times; 120 cm face,</text>
+            <text class="d-sub" x="128" y="148">flat on the wall</text>
+
+            <line class="d-room" x1="402" y1="46" x2="402" y2="196"></line>
+            <line class="d-room" x1="402" y1="196" x2="574" y2="196"></line>
+            <polygon points="402,196 402,86 512,196" fill="url(#a-hatch)" stroke="currentColor" stroke-width="1.25"></polygon>
+            <text class="d-label" x="424" y="72">Bass trap</text>
+            <text class="d-sub" x="424" y="92">fills the corner,</text>
+            <text class="d-sub" x="424" y="108">20&ndash;30 cm across</text>
+            <text class="d-sub" x="488" y="222" text-anchor="middle">seen from above</text>
+          </svg>
+        </div>
+        <figcaption>Both are mineral wool in a frame &mdash; the same material already inside your walls. Thickness and position are the whole difference.</figcaption>
+      </figure>
+
+      <h3>Where the panels go, without guessing</h3>
+      <p>There is a trick for this and it needs one other person and a mirror. Sit in your listening seat. Have someone slide a mirror flat along the side wall. <strong>Wherever you can see a speaker reflected in the mirror, that spot is a first reflection point</strong> &mdash; and that is exactly where a panel goes. Mark it with tape. Repeat for the other wall.</p>
+
+      <figure>
+        <div class="figbox">
+          <svg viewBox="0 0 660 400" role="img" aria-label="Plan view showing sound from the left and right front speakers travelling directly to the listener, and also bouncing off each side wall on its way. The bounce points are marked with absorption panels. Bass traps sit in all four corners and one panel sits on the rear wall behind the seat.">
+            <defs>
+              <marker id="m-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <polygon points="0,1 10,5 0,9" fill="#A8813C"></polygon>
+              </marker>
+              <pattern id="m-hatch" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="0" y2="6" stroke="#A09A8C" stroke-width="1.5"></line>
+              </pattern>
+            </defs>
+
+            <rect x="60" y="46" width="520" height="300" class="d-room"></rect>
+
+            <rect x="62" y="100" width="20" height="20" class="d-box"></rect>
+            <text class="d-tag" x="90" y="115">L</text>
+            <rect x="62" y="272" width="20" height="20" class="d-box"></rect>
+            <text class="d-tag" x="90" y="287">R</text>
+
+            <circle cx="404" cy="196" r="21" class="d-thin"></circle>
+            <text class="d-sub" x="404" y="200" text-anchor="middle">YOU</text>
+
+            <path class="d-thin" d="M84 112 L384 190"></path>
+            <path class="d-thin" d="M84 280 L384 202"></path>
+
+            <path class="d-hero" d="M84 110 L186 46 L390 188" marker-end="url(#m-ah)"></path>
+            <path class="d-hero" d="M84 282 L186 346 L390 204" marker-end="url(#m-ah)"></path>
+
+            <rect x="156" y="40" width="62" height="11" fill="url(#m-hatch)" stroke="currentColor" stroke-width="1.1"></rect>
+            <rect x="156" y="341" width="62" height="11" fill="url(#m-hatch)" stroke="currentColor" stroke-width="1.1"></rect>
+            <text class="d-heroT" x="187" y="30" text-anchor="middle">panel here</text>
+            <text class="d-heroT" x="187" y="374" text-anchor="middle">panel here</text>
+
+            <rect x="569" y="160" width="11" height="72" fill="url(#m-hatch)" stroke="currentColor" stroke-width="1.1"></rect>
+            <text class="d-sub" x="558" y="152" text-anchor="end">rear panel</text>
+
+            <polygon points="60,46 60,86 100,46" fill="url(#m-hatch)" stroke="currentColor" stroke-width="1.1"></polygon>
+            <polygon points="580,46 580,86 540,46" fill="url(#m-hatch)" stroke="currentColor" stroke-width="1.1"></polygon>
+            <polygon points="60,346 60,306 100,346" fill="url(#m-hatch)" stroke="currentColor" stroke-width="1.1"></polygon>
+            <polygon points="580,346 580,306 540,346" fill="url(#m-hatch)" stroke="currentColor" stroke-width="1.1"></polygon>
+            <text class="d-sub" x="316" y="392" text-anchor="middle">bass traps in all four corners</text>
+          </svg>
+        </div>
+        <figcaption>Thin lines are the sound you want &mdash; straight from speaker to ear. Brass lines are the same sound arriving late off the walls, smearing what you just heard. The panels catch the second one.</figcaption>
+      </figure>
+
+      <p class="ask">&ldquo;The rug &mdash; is it a specific rug I have to get?&rdquo;</p>
+
+      <p>No. There is no such thing as an acoustic rug worth paying extra for, whatever the label says. You need a normal rug that meets four conditions:</p>
+      <ul class="plain">
+        <li><strong>Big enough</strong> to cover the floor between the speakers and the sofa &mdash; roughly 200 &times; 300 cm for your room. This is the one that matters most; a small rug in a big floor does very little.</li>
+        <li><strong>Wool rather than synthetic</strong>, if the choice is there. It absorbs noticeably better.</li>
+        <li><strong>Medium pile with a dense weave.</strong> A thin flat-weave kilim looks wonderful and does almost nothing acoustically.</li>
+        <li><strong>A felt underlay beneath it.</strong> Cheap, invisible, and it roughly doubles what the rug is doing. Most people skip this and it is the easiest win in the room.</li>
+      </ul>
+
+      <p>The floor is the largest hard surface in the room and it sits directly between the speakers and your ears. It is the single most effective thing you will treat, and unlike panels, nobody will ever know it was an acoustic decision.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2>What I still need</h2>
+      <span class="idx mono">next</span>
+    </div>
+    <div class="stack">
+      <div class="flag">
+        <p class="eyebrow">Answer this one first</p>
+        <p>The ceiling tap test. Hollow or solid. Everything about the Atmos speakers and half the cable routing hangs on it, and it changes the build sheet.</p>
+      </div>
+      <ul class="plain">
+        <li>Is there a window, and is the AC already installed &mdash; wall-mounted split, or ducted with ceiling vents?</li>
+        <li>The room photos and exact dimensions, as before.</li>
+        <li>What the seating set actually is, so the layout above can be drawn properly rather than generically.</li>
+      </ul>
+      <p>Once the ceiling question is answered I will revise the build sheet &mdash; the Atmos line and the cable-routing line both change, and the totals move with them.</p>
+    </div>
+  </section>
+
+  <footer>
+    Companion document to the Media Room Build Sheet. Drawings are schematic and not to scale &mdash; they show relationships and method, not measurements to build from. The layout plan is a draft based on a 4 &times; 6 m room and will be redrawn once the photos and dimensions arrive.
+  </footer>
+
+</div>

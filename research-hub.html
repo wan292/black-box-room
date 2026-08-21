@@ -1,0 +1,953 @@
+<title>The Black Box</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+/* Single-theme by design: this page commits to the room it describes — a black
+   cinema shell with brass and walnut. All colors painted explicitly. */
+:root {
+  --bg:        #101014;
+  --bg-2:      #16161C;
+  --bg-3:      #1C1C23;
+  --ink:       #EAE7DF;
+  --ink-soft:  #B7B2A6;
+  --ink-faint: #8D887C;
+  --rule:      #2B2B33;
+  --rule-soft: #222229;
+  --brass:     #D9B268;
+  --brass-deep:#A8813C;
+  --wood:      #B07A52;
+  --good:      #92BE92;
+  --good-bg:   #1B241C;
+  --warn:      #E5907F;
+  --warn-bg:   #2A1D1A;
+  --step: 0.25rem;
+  --measure: 68ch;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition: none !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: calc(var(--step) * 14) calc(var(--step) * 7) calc(var(--step) * 24);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--step) * 18);
+}
+
+.eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+h1 {
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 112, "wght" 780;
+  font-weight: 800;
+  font-size: clamp(2.2rem, 6.5vw, 3.6rem);
+  line-height: 1.0;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+h2 {
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 118, "wght" 700;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+h3 {
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 100, "wght" 650;
+  font-weight: 650;
+  font-size: 1.05rem;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; max-width: var(--measure); }
+a { color: var(--brass); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+strong { font-weight: 600; color: var(--ink); }
+.mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+.lede { font-size: 1.08rem; line-height: 1.55; color: var(--ink-soft); max-width: 52ch; }
+
+/* masthead */
+.masthead { display: flex; flex-direction: column; gap: calc(var(--step) * 5); }
+.plate {
+  border-top: 2px solid var(--brass-deep);
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  margin: 0;
+}
+.plate div {
+  padding: calc(var(--step) * 3) calc(var(--step) * 4) calc(var(--step) * 3) 0;
+  display: flex; flex-direction: column; gap: 2px;
+  border-right: 1px solid var(--rule-soft);
+}
+.plate div:last-child { border-right: 0; }
+.plate dt {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.plate dd {
+  margin: 0;
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 96, "wght" 620;
+  font-weight: 620;
+  font-size: 1.02rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* nav */
+.nav {
+  display: flex; flex-wrap: wrap; gap: calc(var(--step) * 2);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: calc(var(--step) * 4);
+}
+.nav a {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-soft); text-decoration: none;
+  border: 1px solid var(--rule);
+  padding: 5px 11px;
+  background: var(--bg-2);
+}
+.nav a:hover { color: var(--brass); border-color: var(--brass-deep); }
+
+/* sections */
+section { display: flex; flex-direction: column; gap: calc(var(--step) * 6); scroll-margin-top: 1rem; }
+.head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: calc(var(--step) * 4);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: calc(var(--step) * 3);
+}
+.head .idx {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.72rem; color: var(--brass);
+  white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+.stack { display: flex; flex-direction: column; gap: calc(var(--step) * 4); }
+
+/* verdict card */
+.verdict {
+  background: var(--bg-2);
+  border-left: 3px solid var(--brass-deep);
+  padding: calc(var(--step) * 4) calc(var(--step) * 5);
+  color: var(--ink-soft);
+  font-size: 0.97rem;
+  max-width: none;
+}
+.verdict strong { color: var(--ink); }
+
+/* key point list */
+ul.points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: calc(var(--step) * 3); }
+ul.points li {
+  display: grid; grid-template-columns: 1rem 1fr; gap: calc(var(--step) * 2);
+  font-size: 0.93rem; color: var(--ink-soft); max-width: var(--measure);
+}
+ul.points li::before { content: ""; width: 8px; height: 8px; background: var(--brass-deep); margin-top: 9px; }
+ul.points li strong { color: var(--ink); }
+
+/* accordions */
+details {
+  border: 1px solid var(--rule);
+  background: var(--bg-2);
+}
+details + details { border-top: 0; }
+summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: calc(var(--step) * 3);
+  padding: calc(var(--step) * 3) calc(var(--step) * 4);
+  font-family: Archivo, ui-sans-serif, sans-serif;
+  font-variation-settings: "wdth" 104, "wght" 640;
+  font-weight: 640;
+  font-size: 0.9rem;
+  color: var(--ink);
+  user-select: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after {
+  content: "+";
+  font-family: "IBM Plex Mono", monospace;
+  color: var(--brass);
+  font-size: 0.95rem;
+}
+details[open] summary::after { content: "−"; }
+summary:hover { color: var(--brass); }
+.acc-body {
+  padding: 0 calc(var(--step) * 4) calc(var(--step) * 4);
+  display: flex; flex-direction: column; gap: calc(var(--step) * 3);
+}
+.acc-body p, .acc-body li { font-size: 0.9rem; color: var(--ink-soft); }
+
+ul.src { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: calc(var(--step) * 3); }
+ul.src li { max-width: var(--measure); padding-left: calc(var(--step) * 3); border-left: 2px solid var(--rule); }
+ul.src .who {
+  display: block;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--brass); margin-bottom: 2px;
+}
+
+ul.warnlist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: calc(var(--step) * 3); }
+ul.warnlist li {
+  display: grid; grid-template-columns: 1rem 1fr; gap: calc(var(--step) * 2);
+  max-width: var(--measure);
+}
+ul.warnlist li::before { content: "!"; font-family: "IBM Plex Mono", monospace; color: var(--warn); font-weight: 600; }
+
+/* offer tables */
+.tablewrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 30rem; }
+th {
+  text-align: left;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.62rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: calc(var(--step) * 2) calc(var(--step) * 3) calc(var(--step) * 2) 0;
+  border-bottom: 1px solid var(--rule);
+}
+td {
+  padding: calc(var(--step) * 2) calc(var(--step) * 3) calc(var(--step) * 2) 0;
+  border-bottom: 1px solid var(--rule-soft);
+  vertical-align: top; font-size: 0.88rem; color: var(--ink-soft);
+}
+td:last-child, th:last-child { padding-right: 0; }
+th.num, td.num { text-align: right; font-family: "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink); }
+
+/* pills */
+.pill {
+  display: inline-block;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 2px 7px; border: 1px solid currentColor; white-space: nowrap;
+}
+.pill.stock { color: var(--good); background: var(--good-bg); }
+.pill.warn  { color: var(--warn); background: var(--warn-bg); }
+.pill.dim   { color: var(--ink-faint); }
+
+/* correction flags */
+.flags { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: calc(var(--step) * 3); }
+.flagcard {
+  background: var(--warn-bg);
+  border-left: 3px solid var(--warn);
+  padding: calc(var(--step) * 4);
+  display: flex; flex-direction: column; gap: calc(var(--step) * 2);
+}
+.flagcard h3 { font-size: 0.92rem; color: var(--ink); }
+.flagcard p { font-size: 0.86rem; color: var(--ink-soft); }
+.flagcard .was {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem; color: var(--warn);
+}
+
+/* configurator */
+.config {
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  padding: calc(var(--step) * 6);
+  display: flex; flex-direction: column; gap: calc(var(--step) * 6);
+}
+.cfg-group { display: flex; flex-direction: column; gap: calc(var(--step) * 3); }
+.cfg-group > h3 {
+  font-size: 0.78rem; letter-spacing: 0.09em; text-transform: uppercase;
+  font-variation-settings: "wdth" 116, "wght" 680; color: var(--brass);
+}
+.cfg-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); gap: calc(var(--step) * 2); }
+.cfg-opt { position: relative; }
+.cfg-opt input { position: absolute; opacity: 0; inset: 0; }
+.cfg-opt label {
+  display: flex; flex-direction: column; gap: 2px;
+  border: 1px solid var(--rule);
+  background: var(--bg-3);
+  padding: calc(var(--step) * 3) calc(var(--step) * 3);
+  cursor: pointer;
+  height: 100%;
+}
+.cfg-opt input:checked + label { border-color: var(--brass); background: #211D14; }
+.cfg-opt input:focus-visible + label { outline: 2px solid var(--brass); outline-offset: 2px; }
+.cfg-opt .t { font-size: 0.88rem; font-weight: 600; color: var(--ink); display: flex; justify-content: space-between; gap: 1rem; }
+.cfg-opt .t .p { font-family: "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; color: var(--brass); font-weight: 500; white-space: nowrap; }
+.cfg-opt .d { font-size: 0.76rem; color: var(--ink-faint); line-height: 1.45; }
+
+.totalbar { display: flex; flex-direction: column; gap: calc(var(--step) * 2); border-top: 1px solid var(--rule); padding-top: calc(var(--step) * 4); }
+.totalrow { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem; }
+.totalrow .lbl { font-family: Archivo, sans-serif; font-variation-settings: "wdth" 112, "wght" 700; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.07em; text-transform: uppercase; }
+.totalrow .amt { font-family: "IBM Plex Mono", monospace; font-size: 1.5rem; font-weight: 600; color: var(--brass); font-variant-numeric: tabular-nums; }
+.budgetbar { height: 10px; background: var(--bg-3); border: 1px solid var(--rule); overflow: hidden; }
+.budgetbar span { display: block; height: 100%; background: var(--brass-deep); width: 0%; transition: width 0.25s ease; }
+.budgetbar.over span { background: var(--warn); }
+.headroom { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.cfg-note { font-size: 0.8rem; color: var(--ink-faint); max-width: var(--measure); }
+
+/* fixed list */
+ul.fixed { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: calc(var(--step) * 8); }
+ul.fixed li {
+  display: flex; justify-content: space-between; gap: 1rem;
+  font-size: 0.85rem; color: var(--ink-soft);
+  padding: calc(var(--step) * 1.5) 0;
+  border-bottom: 1px solid var(--rule-soft);
+  break-inside: avoid;
+}
+ul.fixed li .p { font-family: "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; color: var(--ink); white-space: nowrap; }
+@media (max-width: 40rem) { ul.fixed { columns: 1; } }
+
+/* timeline */
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.trow {
+  display: grid; grid-template-columns: 7.5rem 1fr; gap: calc(var(--step) * 5);
+  padding: calc(var(--step) * 4) 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.trow:last-child { border-bottom: 0; }
+.trow .when {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--brass); padding-top: 3px;
+}
+.trow .what { display: flex; flex-direction: column; gap: calc(var(--step) * 1); }
+.trow .what p { font-size: 0.9rem; color: var(--ink-soft); }
+@media (max-width: 34rem) { .trow { grid-template-columns: 1fr; gap: calc(var(--step) * 1); } }
+
+/* checklist */
+ul.check { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+ul.check li {
+  display: grid; grid-template-columns: 1.1rem 1fr; gap: calc(var(--step) * 2);
+  font-size: 0.92rem; color: var(--ink-soft);
+  padding: calc(var(--step) * 2.5) 0;
+  border-bottom: 1px solid var(--rule-soft);
+  max-width: var(--measure);
+}
+ul.check li::before { content: ""; width: 11px; height: 11px; border: 1.5px solid var(--brass); margin-top: 7px; }
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding-top: calc(var(--step) * 4);
+  font-size: 0.82rem; color: var(--ink-faint);
+  max-width: var(--measure);
+}
+
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+@media (max-width: 34rem) {
+  .wrap { padding-left: calc(var(--step) * 5); padding-right: calc(var(--step) * 5); }
+  .plate div { border-right: 0; border-bottom: 1px solid var(--rule-soft); }
+}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Research dossier &middot; 21 Aug 2026 &middot; 11 agents &middot; 60+ sources checked</p>
+    <h1>The Black Box</h1>
+    <p class="lede">Everything researched, priced, and argued for the black cinema-gaming room &mdash; reviews, community consensus, live KSA offers, and a configurator to settle the choices with the family.</p>
+    <dl class="plate">
+      <div><dt>Your build</dt><dd class="mono" id="plate-total">&mdash;</dd></div>
+      <div><dt>Budget</dt><dd>50,000 SAR</dd></div>
+      <div><dt>Headroom</dt><dd class="mono" id="plate-headroom">&mdash;</dd></div>
+      <div><dt>Decision window</dt><dd>White Friday, Nov 20&ndash;30</dd></div>
+      <div><dt>Deadline</dt><dd>December 2026</dd></div>
+    </dl>
+    <nav class="nav" aria-label="Sections">
+      <a href="#changed">What changed</a>
+      <a href="#config">Configurator</a>
+      <a href="#tv">TV</a>
+      <a href="#avr">Receiver</a>
+      <a href="#speakers">Speakers</a>
+      <a href="#heights">Atmos heights</a>
+      <a href="#sub">Subwoofer</a>
+      <a href="#acoustics">Acoustics</a>
+      <a href="#cables">Cables</a>
+      <a href="#lighting">Lighting</a>
+      <a href="#blackroom">The black room</a>
+      <a href="#calendar">Buy calendar</a>
+      <a href="#open">Open questions</a>
+    </nav>
+  </header>
+
+  <section id="changed">
+    <div class="head"><h2>What the research changed</h2><span class="idx">6 corrections</span></div>
+    <div class="flags">
+      <div class="flagcard">
+        <h3>KEF ceiling pair costs 3.5&times; what was budgeted</h3>
+        <p class="was">was: ~1,700 SAR/pair &middot; actually: ~5,900/pair</p>
+        <p>The UAE listing was a per-single price &mdash; Ci160QR runs ~2,944 SAR <em>each</em> on amazon.sa. New default: <strong>Polk RC80i at 1,094/pair</strong>, or KEF Ci160.2CR at 1,963 each if the Uni-Q matters to you.</p>
+      </div>
+      <div class="flagcard">
+        <h3>The cheaper centre is ruled out, not an option</h3>
+        <p class="was">was: &ldquo;R-52C is the in-stock cheaper choice&rdquo;</p>
+        <p>Different tweeter, smaller horn, 89 Hz floor vs 60 Hz &mdash; an audible mismatch on front-stage pans with RP fronts. The centre is the <strong>RP-500C II</strong>, full stop. R-series belongs only in the surround positions.</p>
+      </div>
+      <div class="flagcard">
+        <h3>UGREEN doesn't make the cable this room needs</h3>
+        <p class="was">was: &ldquo;UGREEN's certified line is the safe pick&rdquo;</p>
+        <p>UGREEN's certified HDMI 2.1 cables are copper, max ~5 m. At 15 m the forum-proven fiber pick is <strong>RUIPRO (333 SAR)</strong>; the ATC-certified option is Zeskit (679). Both on amazon.sa.</p>
+      </div>
+      <div class="flagcard">
+        <h3>SVS costs more than planned &mdash; noon lane is dead</h3>
+        <p class="was">was: ~3,000 via noon &middot; actually: 3,758+ via amazon.sa</p>
+        <p>noon's black-ash listing shows &ldquo;available soon&rdquo; and Samma3a is out of stock across all SVS. Real lane: amazon.sa import at 3,758&ndash;3,816 &mdash; and <strong>confirm 230 V with the seller before ordering</strong>.</p>
+      </div>
+      <div class="flagcard">
+        <h3>PS5 does not do Dolby Vision gaming</h3>
+        <p class="was">was: &ldquo;DV gaming on any port&rdquo;</p>
+        <p>Dolby Vision games are an Xbox/PC feature; the PS5 outputs HDR10. Changes nothing about the TV pick &mdash; just set expectations right before the family demo.</p>
+      </div>
+      <div class="flagcard">
+        <h3>UPS listings are a voltage minefield</h3>
+        <p class="was">was: generic &ldquo;APC 1500VA&rdquo;</p>
+        <p>Most amazon.sa APC/CyberPower results are 120 V US imports that die on KSA mains. The correct unit: <strong>APC BX1600MI-MS (230 V) at 712 SAR</strong> &mdash; and it protects the PC, not the whole AV wall.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="config">
+    <div class="head"><h2>Build configurator</h2><span class="idx">tap to compare &middot; saves your picks</span></div>
+    <div class="config">
+
+      <div class="cfg-group">
+        <h3>Television &middot; 77&Prime;</h3>
+        <div class="cfg-opts" role="radiogroup" aria-label="TV choice">
+          <div class="cfg-opt"><input type="radio" name="tv" id="tv-b6" value="9499" checked><label for="tv-b6"><span class="t">LG B6 &mdash; buy now <span class="p">9,499</span></span><span class="d">In stock, next-day. Full gaming stack, 4&times;HDMI 2.1, 144 Hz. The safe play.</span></label></div>
+          <div class="cfg-opt"><input type="radio" name="tv" id="tv-b6wf" value="8799"><label for="tv-b6wf"><span class="t">LG B6 &mdash; White Friday <span class="p">~8,799</span></span><span class="d">Tracked floor on the same listing. Buy Nov 20&ndash;30; risk is 77&Prime; stock selling through.</span></label></div>
+          <div class="cfg-opt"><input type="radio" name="tv" id="tv-c6" value="11299"><label for="tv-c6"><span class="t">LG C6 <span class="p">~11,299</span></span><span class="d">Evo panel + Alpha 11. The calibrators' sweet spot; +1,800 over B6.</span></label></div>
+          <div class="cfg-opt"><input type="radio" name="tv" id="tv-g6" value="14219"><label for="tv-g6"><span class="t">LG G6 <span class="p">14,219</span></span><span class="d">Tandem panel, ~2,475 nits, flush wall mount. Brightness a black room mostly neutralizes.</span></label></div>
+          <div class="cfg-opt"><input type="radio" name="tv" id="tv-s85f" value="7999"><label for="tv-s85f"><span class="t">Samsung S85F <span class="p">7,999</span></span><span class="d">Cheapest 77&Prime; OLED in KSA (Jarir). No Dolby Vision, weaker gaming stack.</span></label></div>
+        </div>
+      </div>
+
+      <div class="cfg-group">
+        <h3>Receiver</h3>
+        <div class="cfg-opts" role="radiogroup" aria-label="Receiver choice">
+          <div class="cfg-opt"><input type="radio" name="avr" id="avr-local" value="5938" checked><label for="avr-local"><span class="t">Denon X2800H &mdash; local <span class="p">5,938</span></span><span class="d">KSA stock, next-day, local warranty. 4 left at check. The safe lane given the HDMI-board investigation.</span></label></div>
+          <div class="cfg-opt"><input type="radio" name="avr" id="avr-eu" value="3865"><label for="avr-eu"><span class="t">Denon X2800H &mdash; EU variant <span class="p">3,865</span></span><span class="d">Same 230 V hardware via Amazon DE, tracked as low as 3,351. EU plug, EU-handled warranty. Saves ~2,000.</span></label></div>
+          <div class="cfg-opt"><input type="radio" name="avr" id="avr-3800" value="8900"><label for="avr-3800"><span class="t">Denon X3800H <span class="p">~8,900</span></span><span class="d">XT32 + 4 independent sub outs + 9 channels. Only worth it if dual subs or 5.1.4 are truly coming.</span></label></div>
+        </div>
+      </div>
+
+      <div class="cfg-group">
+        <h3>Atmos ceiling pair</h3>
+        <div class="cfg-opts" role="radiogroup" aria-label="Height speaker choice">
+          <div class="cfg-opt"><input type="radio" name="hts" id="hts-polk" value="1094" checked><label for="hts-polk"><span class="t">Polk RC80i pair <span class="p">1,094</span></span><span class="d">The budget-defensible pick: aim the tweeters at the seat. ASR found rough off-axis treble &mdash; adequate for height duty, not for fronts.</span></label></div>
+          <div class="cfg-opt"><input type="radio" name="hts" id="hts-kefcr" value="3926"><label for="hts-kefcr"><span class="t">KEF Ci160.2CR &times;2 <span class="p">~3,926</span></span><span class="d">Uni-Q at 1,963 each &mdash; the tonal-consistency upgrade at a sane price.</span></label></div>
+          <div class="cfg-opt"><input type="radio" name="hts" id="hts-kefqr" value="5889"><label for="hts-kefqr"><span class="t">KEF Ci160QR &times;2 <span class="p">~5,889</span></span><span class="d">The original pick at its real price (2,944 each). Best-in-class dispersion; hard to justify vs the .2CR.</span></label></div>
+          <div class="cfg-opt"><input type="radio" name="hts" id="hts-skip" value="0"><label for="hts-skip"><span class="t">Skip &mdash; pre-wire only <span class="p">0</span></span><span class="d">Run cables + rough-in frames now, buy speakers later. A good 5.1 beats a compromised 5.1.2.</span></label></div>
+        </div>
+      </div>
+
+      <div class="cfg-group">
+        <h3>Subwoofer</h3>
+        <div class="cfg-opts" role="radiogroup" aria-label="Subwoofer choice">
+          <div class="cfg-opt"><input type="radio" name="sub" id="sub-svs1" value="3758" checked><label for="sub-svs1"><span class="t">SVS SB-1000 Pro <span class="p">3,758</span></span><span class="d">Sealed 12&Prime;, app DSP, ideal for a sealed 20 m&sup2; room where room gain does the deep-bass work. Confirm 230 V.</span></label></div>
+          <div class="cfg-opt"><input type="radio" name="sub" id="sub-svs2" value="5494"><label for="sub-svs2"><span class="t">SVS SB-2000 Pro <span class="p">5,494</span></span><span class="d">+1,700 buys loudness headroom, not depth. For habitual reference-level listening only.</span></label></div>
+          <div class="cfg-opt"><input type="radio" name="sub" id="sub-klipsch" value="1764"><label for="sub-klipsch"><span class="t">Klipsch R-121SW <span class="p">1,764</span></span><span class="d">Local stock, half the price &mdash; but ported, no DSP, looser. The budget escape hatch.</span></label></div>
+        </div>
+      </div>
+
+      <div class="cfg-group">
+        <h3>Bias light (behind the TV)</h3>
+        <div class="cfg-opts" role="radiogroup" aria-label="Bias light choice">
+          <div class="cfg-opt"><input type="radio" name="bias" id="bias-t2" value="969" checked><label for="bias-t2"><span class="t">Govee Envisual T2 75&ndash;85&Prime; <span class="p">969</span></span><span class="d">Camera sync, zero input lag, works with every source. Best-case room for it.</span></label></div>
+          <div class="cfg-opt"><input type="radio" name="bias" id="bias-lite" value="450"><label for="bias-lite"><span class="t">Govee Backlight 3 Lite <span class="p">450</span></span><span class="d">Listing says 75&ndash;85&Prime; but sizing is disputed &mdash; verify the box covers a 77&Prime; before buying.</span></label></div>
+          <div class="cfg-opt"><input type="radio" name="bias" id="bias-ml" value="800"><label for="bias-ml"><span class="t">MediaLight Mk2 (import) <span class="p">~800</span></span><span class="d">6500 K CRI-98, the calibrator standard for movie nights. No games sync &mdash; pure reference.</span></label></div>
+        </div>
+      </div>
+
+      <div class="cfg-group">
+        <h3>Desk light bar</h3>
+        <div class="cfg-opts" role="radiogroup" aria-label="Desk light choice">
+          <div class="cfg-opt"><input type="radio" name="desk" id="desk-benq" value="699" checked><label for="desk-benq"><span class="t">BenQ ScreenBar Pro <span class="p">699</span></span><span class="d">&ldquo;Lowest in 30 days&rdquo; at check, next-day.</span></label></div>
+          <div class="cfg-opt"><input type="radio" name="desk" id="desk-quntis" value="150"><label for="desk-quntis"><span class="t">Quntis PRO+ <span class="p">~150</span></span><span class="d">Reviewers' verdict: ~80% of the BenQ for a fifth of the price.</span></label></div>
+          <div class="cfg-opt"><input type="radio" name="desk" id="desk-halo" value="899"><label for="desk-halo"><span class="t">ScreenBar Halo 2 <span class="p">899</span></span><span class="d">Adds a rear wall-wash that doubles as desk bias light in a black corner.</span></label></div>
+        </div>
+      </div>
+
+      <div class="cfg-group">
+        <h3>Fixed items <span class="mono" style="color:var(--ink-faint); font-size:0.72rem; letter-spacing:0;">(counted in every build)</span></h3>
+        <ul class="fixed">
+          <li><span>Klipsch RP-500M II fronts</span><span class="p">1,949</span></li>
+          <li><span>Klipsch RP-500C II centre</span><span class="p">2,557</span></li>
+          <li><span>Klipsch R-41M surrounds + brackets</span><span class="p">1,367</span></li>
+          <li><span>Speaker cable 14 AWG + bananas</span><span class="p">300</span></li>
+          <li><span>2&times; RUIPRO 15 m fiber HDMI</span><span class="p">667</span></li>
+          <li><span>Cat6 runs + keystones</span><span class="p">400</span></li>
+          <li><span>APC BX1600MI-MS UPS (230 V)</span><span class="p">712</span></li>
+          <li><span>Cove LED, warm dimmable</span><span class="p">1,800</span></li>
+          <li><span>Scene lighting (Govee strips)</span><span class="p">1,200</span></li>
+          <li><span>TV wall mount</span><span class="p">700</span></li>
+          <li><span>Credenza, ventilated</span><span class="p">2,200</span></li>
+          <li><span>Blackout curtain</span><span class="p">900</span></li>
+          <li><span>Acoustic treatment (quote pending)</span><span class="p">~7,400</span></li>
+          <li><span>Stands, back-boxes, frames, sub feet</span><span class="p">~1,000</span></li>
+        </ul>
+      </div>
+
+      <div class="totalbar">
+        <div class="totalrow">
+          <span class="lbl">This build</span>
+          <span class="amt" id="cfg-total">&mdash;</span>
+        </div>
+        <div class="budgetbar" id="cfg-bar"><span></span></div>
+        <span class="headroom" id="cfg-headroom">&mdash;</span>
+        <p class="cfg-note">Picks are saved on this device. The acoustic line is an estimate until the Riyadh quotes land &mdash; everything else is a live price checked 21 Aug 2026.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tv">
+    <div class="head"><h2>Television</h2><span class="idx">LG 77&Prime; B6 &middot; verdict: keep, time the buy</span></div>
+    <div class="stack">
+      <p class="verdict"><strong>The B6 keeps the entire gaming stack of the dearer LGs</strong> &mdash; four 48 Gbps HDMI 2.1 ports, 4K120/144 VRR, ~9 ms lag &mdash; and its one real weakness, HDR peak brightness, is the thing a blacked-out room hides best. 9,499 is fair (US street parity); 8,799 is the tracked floor. The wildcards: eXtra's 2025 closeouts &mdash; 77&Prime; C5 at 7,599 and 77&Prime; G5 (flagship panel) at 9,799 &mdash; both out of stock but worth a restock alert.</p>
+      <ul class="points">
+        <li><strong>Gaming stack is B-series-complete:</strong> four full-bandwidth HDMI 2.1, 144 Hz VRR, G-Sync/FreeSync, ALLM, HGiG. The 165 Hz on C6/G6 is irrelevant on PS5 and marginal on PC.</li>
+        <li><strong>Input lag ~8.9 ms</strong> (boost mode), ~5 ms at 120 Hz &mdash; effectively identical in feel to the C6.</li>
+        <li><strong>Burn-in reality per RTINGS' 10,000-hour program:</strong> mixed gaming + video rarely damages panels; the risk case is static desktop UI. Auto-hide the taskbar, dark mode, short screen-off timer &mdash; and the black room lets you run lower OLED light, which cuts wear further.</li>
+        <li><strong>Tom's Guide measured the B6's color accuracy beating the C6's</strong> and published a piece arguing against overspending on the C6.</li>
+        <li><strong>Import makes no sense:</strong> US street = KSA price before shipping, VAT, customs, and lost local warranty.</li>
+      </ul>
+      <details>
+        <summary>Expert reviews</summary>
+        <div class="acc-body"><ul class="src">
+          <li><span class="who">Tom's Guide &middot; 4.5/5</span><a href="https://www.tomsguide.com/tvs/4k-tvs/lg-b6-oled-tv-review">B6 review</a> &mdash; ~780 nits HDR, 8.9 ms lag, full gaming feature set; rated one of 2026's best gaming TVs, with color accuracy that edged the C6 in their lab.</li>
+          <li><span class="who">Tom's Guide</span><a href="https://www.tomsguide.com/tvs/oled-tvs/dont-overspend-on-the-lg-c6-oled-the-b6-offers-great-performance-for-a-fraction-of-the-price">C6 vs B6</a> &mdash; most buyers shouldn't pay the C6 premium; it wins mainly on brightness.</li>
+          <li><span class="who">TechRadar &middot; 4.5/5</span><a href="https://www.techradar.com/televisions/lg-b6-review">B6 review</a> &mdash; excellent gaming-and-movies OLED, brightest B-series yet.</li>
+          <li><span class="who">TechRadar &middot; calibrator side-by-side</span><a href="https://www.techradar.com/televisions/i-tested-lg-newest-oled-tvs-side-by-side-and-as-a-certified-tv-calibrator-theres-one-clear-winner-for-me">B6/C6/G6 tested together</a> &mdash; C6 is the lineup's value star; G6's brightness advantage matters least in a light-controlled room.</li>
+        </ul></div>
+      </details>
+      <details>
+        <summary>Offers &amp; price history</summary>
+        <div class="acc-body"><div class="tablewrap"><table>
+          <thead><tr><th>Store</th><th>Item</th><th class="num">SAR</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><a href="https://www.amazon.sa/dp/B0H41Q2LN3">amazon.sa</a></td><td>77&Prime; B6 2026</td><td class="num">9,499</td><td><span class="pill stock">In stock</span> next-day + install</td></tr>
+            <tr><td><a href="https://www.kanbkam.com/sa/en/lg-77-inch-b6-series-4k-oled-smart-tv-oled77b66la-2026-model-144hz-vrr-refresh-rate-ai-processor-dolby-vision-atmos-B0H41Q2LN3">kanbkam tracker</a></td><td>same listing, tracked floor</td><td class="num">8,799</td><td><span class="pill dim">Target</span> White Friday</td></tr>
+            <tr><td><a href="https://www.extra.com/en-sa/search/?text=LG%20OLED%2077">eXtra</a></td><td>77&Prime; C5 2025 closeout</td><td class="num">7,599</td><td><span class="pill warn">OOS</span> restock alert &mdash; brighter panel than B6 for less</td></tr>
+            <tr><td><a href="https://www.extra.com/en-sa/search/?text=LG%20OLED%2077">eXtra</a></td><td>77&Prime; G5 2025 closeout</td><td class="num">9,799</td><td><span class="pill warn">OOS</span> flagship tandem panel for +300 over B6</td></tr>
+            <tr><td>kanbkam / eXtra</td><td>77&Prime; C6 2026</td><td class="num">~11,299</td><td><span class="pill dim">Option</span></td></tr>
+            <tr><td>amazon.sa</td><td>77&Prime; G6 2026</td><td class="num">14,219</td><td><span class="pill dim">Option</span> single 3rd-party offer</td></tr>
+            <tr><td><a href="https://www.jarir.com/sa-en/catalogsearch/result?search=LG%20OLED%2077">Jarir</a></td><td>Samsung 77&Prime; S85F</td><td class="num">7,999</td><td><span class="pill dim">Option</span> cheapest 77&Prime; OLED, no DV</td></tr>
+          </tbody>
+        </table></div></div>
+      </details>
+      <details>
+        <summary>Warnings</summary>
+        <div class="acc-body"><ul class="warnlist">
+          <li>Confirm which panel variant the KSA OLED77B66LA is (LG lists an evo B6A and a plain B6G at 77&Prime;) and that the seller carries LG Saudi warranty, not gray import.</li>
+          <li>15 m runs at 4K120 VRR silently fall back to 4K60 on bad cables &mdash; soak-test both runs before the ceiling closes.</li>
+          <li>The eXtra closeout prices carry countdown timers and vanish on restock sell-through &mdash; set kanbkam alerts rather than checking manually.</li>
+        </ul></div>
+      </details>
+    </div>
+  </section>
+
+  <section id="avr">
+    <div class="head"><h2>Receiver</h2><span class="idx">Denon X2800H &middot; verdict: keep &middot; one lane choice</span></div>
+    <div class="stack">
+      <p class="verdict"><strong>95 W into 92 dB-sensitive Klipsch in a sealed 20 m&sup2; room is more headroom than it sounds</strong> &mdash; and because both sources feed the TV, the AVR's HDMI board only ever does eARC duty, sidestepping most gaming-passthrough pain. The honest reasons to pay ~2,950 more for the X3800H are Audyssey XT32 and independent dual-sub outputs; with one sub in a treated room, the X2800H wins. One decision remains: <strong>local stock at 5,938 with KSA warranty, or the identical EU-variant at 3,865 with EU-handled warranty</strong> &mdash; the safest lane and the cheapest lane point in opposite directions, and a US law firm's investigation into Denon HDMI-board failures says pick the lane consciously.</p>
+      <ul class="points">
+        <li><strong>All 7 channels consumed by 5.1.2</strong> &mdash; buy it knowing the ceiling is 5.1.2. Any future 5.1.4 or aligned dual subs means the X3800H instead.</li>
+        <li><strong>The two sub outputs are a Y-split</strong> (same signal) &mdash; fine with one SB-1000 Pro, useless for aligning a second. If dual subs are realistically coming, the AVR pick reopens.</li>
+        <li><strong>eARC insurance stack:</strong> day-one firmware on TV and AVR, disable the ARC toggle when using eARC, switch PS5 to bitstream if dropouts appear, keep one fiber run re-routable to the AVR as a PS5 rescue lane (its 40 Gbps inputs can't carry the PC's 4K144).</li>
+        <li><strong>Runs hot:</strong> a sealed credenza is the documented failure scenario. Vented back panel or a quiet AC Infinity fan.</li>
+      </ul>
+      <details>
+        <summary>Expert reviews &amp; community</summary>
+        <div class="acc-body"><ul class="src">
+          <li><span class="who">What Hi-Fi?</span><a href="https://www.whathifi.com/reviews/denon-avr-x2800h">X2800H review</a> &mdash; rich, spacious, authoritative; a default recommendation at the price.</li>
+          <li><span class="who">Audio Science Review</span><a href="https://www.audiosciencereview.com/forum/index.php?threads/denon-avr-x3800h-review.38574/">X3800H bench</a> &mdash; the 2022 Denon family measures competent, not champion; amp section (what matters with sensitive Klipsch) held up.</li>
+          <li><span class="who">AVS Forum owners' thread</span><a href="https://www.avsforum.com/threads/official-2022-23-denon-x-series-avr-owners-thread-x2800h-x3800h-x4800h.3252409/">400+ pages</a> &mdash; platform broadly liked; eARC dropouts with some TVs are the recurring complaint, cured by firmware + disabling ARC.</li>
+          <li><span class="who">AVS Forum</span><a href="https://www.avsforum.com/threads/does-the-denon-avr-x2800-have-two-discrete-subwoofer-outputs.3302274/">sub outputs confirmed non-discrete</a> &mdash; the most-cited concrete reason to step up.</li>
+          <li><span class="who">AVForums</span><a href="https://www.avforums.com/threads/denon-x2800h-with-monitor-silver-300-5-1-2-setup.2492674/">power for 5.1.2</a> &mdash; comfortable in mid-size rooms; 92 dB Klipsch relax the requirement further.</li>
+        </ul></div>
+      </details>
+      <details>
+        <summary>Offers</summary>
+        <div class="acc-body"><div class="tablewrap"><table>
+          <thead><tr><th>Store</th><th>Item</th><th class="num">SAR</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><a href="https://www.amazon.sa/-/en/s?k=Denon+AVR-X2800H">amazon.sa</a></td><td>X2800H, local stock</td><td class="num">5,938</td><td><span class="pill stock">In stock</span> 4 left; 2nd listing 5,525</td></tr>
+            <tr><td><a href="https://www.amazon.sa/-/en/Denon-AVR-X2800H-receiver-channels-Stereo/dp/B0BDZTWKSM">amazon.sa (Amazon DE)</a></td><td>X2800H DAB, EU 230 V</td><td class="num">3,865</td><td><span class="pill stock">Live</span> tracked at 3,351; EU plug + warranty</td></tr>
+            <tr><td>amazon.sa</td><td>X3800H import</td><td class="num">~8,900</td><td><span class="pill dim">3-week</span> AVC-X3800H at 7,782 temp OOS</td></tr>
+            <tr><td>amazon.sa</td><td>X1800H (budget rung)</td><td class="num">2,961</td><td><span class="pill dim">Option</span></td></tr>
+          </tbody>
+        </table></div></div>
+      </details>
+      <details>
+        <summary>Warnings</summary>
+        <div class="acc-body"><ul class="warnlist">
+          <li>A US law firm opened an investigation (Jul 2026) into premature Denon HDMI-board failures. Most units run fine, but it makes the buying lane and a kept invoice genuinely matter. <a href="https://classlawdc.com/2026/07/17/denon-avr-hdmi-board-failure-investigation/">Source</a>.</li>
+          <li>Confirm 220&ndash;240 V on arrival whichever lane you pick; a 120 V US unit will not survive KSA mains.</li>
+          <li>Do not enclose it &mdash; overheating trips protection shutdown; owners describe exactly the sealed-gypsum-niche scenario.</li>
+        </ul></div>
+      </details>
+    </div>
+  </section>
+
+  <section id="speakers">
+    <div class="head"><h2>Speakers &middot; front stage &amp; surrounds</h2><span class="idx">Klipsch RP &middot; verdict: keep, lock in now</span></div>
+    <div class="stack">
+      <p class="verdict"><strong>Keep the RP-500M II + RP-500C II + R-41M basket.</strong> At 1,949 for a locally stocked pair, the Klipsch undercuts every credible rival in KSA while being the only option with an exactly timbre-matched centre. Measurements show gen-II is far more neutral than Klipsch's bright reputation &mdash; and your heavily damped black room absorbs what little top-end lift remains. Community A/Bs vs KEF/ELAC repeatedly land on: Klipsch for slam and cinema dynamics, the others for refinement &mdash; this is a cinema room. <strong>Stock is the risk: 4 pairs of fronts left at the deal price.</strong></p>
+      <ul class="points">
+        <li><strong>Erin's Audio Corner:</strong> gen-II is one of the most neutral speakers Klipsch has made; the only caveat is a mild 10&ndash;15 kHz lift &mdash; aim the speakers straight ahead (listen 20&ndash;30&deg; off-axis) and it tilts flat.</li>
+        <li><strong>The horn's controlled directivity throws less energy at side walls</strong> &mdash; fewer early reflections, a genuinely good match for a treated room.</li>
+        <li><strong>Centre is the dialogue channel:</strong> RP-500C II shares the exact tweeter, horn, and woofers with the fronts. It loses clarity past ~&plusmn;10&ndash;15&deg; off-axis &mdash; fine for a centered sofa, another reason to settle the layout.</li>
+        <li><strong>Placement:</strong> rear ports need 15&ndash;20 cm off the wall &mdash; plan proper stands flanking the TV, not shelf mounting.</li>
+        <li><strong>If it ever sounds hot:</strong> run Audyssey, straighten the toe-in, trim treble 1&ndash;2 dB &mdash; in that order. Don't buy different speakers over a solvable shelf.</li>
+      </ul>
+      <details>
+        <summary>Measurements &amp; community</summary>
+        <div class="acc-body"><ul class="src">
+          <li><span class="who">Erin's Audio Corner</span><a href="https://www.erinsaudiocorner.com/loudspeakers/klipsch_rp_500m_ii/">RP-500M II measured</a> &mdash; big step up from gen 1; low distortion 86&ndash;96 dB.</li>
+          <li><span class="who">Erin's Audio Corner</span><a href="https://www.erinsaudiocorner.com/loudspeakers/klipsch_500cii/">RP-500C II measured</a> &mdash; solid centre, ~2% THD at 96 dB; off-axis limits noted.</li>
+          <li><span class="who">r/hometheater</span><a href="https://www.reddit.com/r/hometheater/comments/11vf2sp/kef_or_klipsch/">KEF vs Klipsch A/B</a> &mdash; horn presentation felt more immersive for home theater.</li>
+          <li><span class="who">r/StereoAdvice</span><a href="https://www.reddit.com/r/StereoAdvice/comments/1bwdqbw/kef_q150_vs_klipsch_rp600m/">Q150 vs RP-600M</a> &mdash; Klipsch picked for full, exciting low-volume sound.</li>
+          <li><span class="who">ASR (the alternative)</span><a href="https://www.audiosciencereview.com/forum/index.php?threads/polk-signature-elite-es20-review-bookshelf-speaker.33834/">Polk ES20 measured</a> &mdash; excellent value but needs EQ to shine where the Klipsch doesn't.</li>
+        </ul></div>
+      </details>
+      <details>
+        <summary>Offers &amp; alternatives</summary>
+        <div class="acc-body"><div class="tablewrap"><table>
+          <thead><tr><th>Item</th><th class="num">SAR</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><a href="https://www.amazon.sa/-/en/Klipsch-RP-500M-II-Cerametallic-Room-Filling/dp/B09V5QVDRS">RP-500M II pair, ebony (fronts)</a></td><td class="num">1,949</td><td><span class="pill warn">4 left</span> lock in now</td></tr>
+            <tr><td><a href="https://www.amazon.sa/-/en/s?k=Klipsch+RP-500">RP-500C II centre</a></td><td class="num">2,557</td><td><span class="pill stock">Import ~1 wk</span> a dupe listing sits at 3,276 &mdash; take the 2,557</td></tr>
+            <tr><td><a href="https://www.amazon.sa/-/en/s?k=Klipsch+R-41M">R-41M pair (surrounds)</a></td><td class="num">1,167</td><td><span class="pill stock">Import</span></td></tr>
+            <tr><td>Polk ES20 pair (alt fronts)</td><td class="num">2,028</td><td><span class="pill dim">Alt</span> smoother, but centre becomes an import</td></tr>
+            <tr><td>ELAC Debut B6.2 pair (alt)</td><td class="num">2,582</td><td><span class="pill dim">Alt</span> warmest tuning, same centre problem</td></tr>
+            <tr><td>KEF Q1 Meta pair (alt)</td><td class="num">3,195</td><td><span class="pill dim">Alt</span> best imaging, +64% cost</td></tr>
+          </tbody>
+        </table></div>
+        <p>Every alternative forces a different centre to stay matched &mdash; which erases its case at KSA prices. The Klipsch basket is the only one where the matched centre is already in budget.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <section id="heights">
+    <div class="head"><h2>Atmos heights</h2><span class="idx">corrected pick: Polk RC80i &middot; install rules matter most</span></div>
+    <div class="stack">
+      <p class="verdict"><strong>The KEF price collapsed the original plan</strong> &mdash; Ci160QR is ~2,944 SAR <em>each</em>, not 1,700 a pair. New default: <strong>Polk RC80i at 1,094/pair</strong> with the aimable tweeters pointed at the seat, or KEF Ci160.2CR at 1,963 each as the Uni-Q middle path. Whatever goes in: <strong>seal the cutouts</strong>. An open speaker hole is the biggest leak in your soundproofed ceiling &mdash; back-box or intumescent fire hood, sealed with acoustic caulk, mineral wool kept loose behind the driver. And since the ceiling is fresh gypsum, cabling now is nearly free &mdash; which makes &ldquo;skip but pre-wire&rdquo; the worst-case floor, never &ldquo;no cables.&rdquo;</p>
+      <ul class="points">
+        <li><strong>Placement:</strong> with a ~2.7&ndash;3 m ceiling and ears at 1.1 m, Top Front wants the pair ~1.1&ndash;1.6 m ahead of the seat, in line with the front L/R &mdash; <a href="https://theatercalc.com/calculators/atmos-angles">calculator</a>. One pair cannot serve both the sofa and the desk: <strong>the main listening position must be decided before the ceiling is boarded.</strong></li>
+        <li><strong>Coordinate cutouts (196 mm for KEF) with the recessed-light layout and void depth</strong> &mdash; and order rough-in frames before boarding.</li>
+        <li><strong>Upfiring modules are broadly dismissed</strong> by the community as not producing the overhead effect &mdash; ceiling speakers or nothing.</li>
+        <li><strong>Do not repurpose R-41M bookshelves as heights</strong> &mdash; rear-ported, no mount; Klipsch's own answer is the CDT in-ceiling line (voice-matched, pivoting tweeter) if staying in-family.</li>
+      </ul>
+      <details>
+        <summary>Sources &amp; offers</summary>
+        <div class="acc-body"><ul class="src">
+          <li><span class="who">ASR</span><a href="https://www.audiosciencereview.com/forum/index.php?threads/polk-rc80i-in-ceiling-speaker-review.63857/">RC80i measured</a> &mdash; treble ripples, narrow directivity; tolerable for height duty, aim the tweeter.</li>
+          <li><span class="who">KEF</span><a href="https://us.kef.com/products/ci160qr">Ci160QR specs</a> &mdash; $499.99 each, 196 mm cutout, 91 mm depth, RIF160R rough-in frames.</li>
+          <li><span class="who">Smart Home Sounds</span><a href="https://www.smarthomesounds.co.uk/blog/faqs/do-in-ceiling-speakers-require-fire-hoods">fire hood FAQ</a> &mdash; hoods restore the ceiling's fire rating and double as acoustic enclosures.</li>
+          <li><span class="who">AVS Forum</span><a href="https://www.avsforum.com/threads/any-problem-going-with-cheap-in-ceiling-speakers-for-5-1-4-setup.3166332/">cheap ceilings for Atmos</a> &mdash; heights are the least critical channels; spend on the bed layer.</li>
+        </ul>
+        <div class="tablewrap"><table>
+          <thead><tr><th>Item</th><th class="num">SAR</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><a href="https://www.amazon.sa/-/en/s?k=Polk+RC80i">Polk RC80i pair</a></td><td class="num">1,094</td><td><span class="pill stock">Import ~10 d</span> was 1,283</td></tr>
+            <tr><td><a href="https://www.amazon.sa/-/en/s?k=KEF+Ci160QR">KEF Ci160.2CR (each)</a></td><td class="num">1,963</td><td><span class="pill warn">1 left</span> amazon.ae at 1,797</td></tr>
+            <tr><td>KEF Ci160QR (each)</td><td class="num">2,944</td><td><span class="pill dim">Import</span> the corrected real price</td></tr>
+            <tr><td><a href="https://www.amazon.ae/Klipsch-CDT-5650-C-II-Ceiling-Speaker/dp/B0074WWK3W">Klipsch CDT-5650-C II (each)</a></td><td class="num">check</td><td><span class="pill dim">amazon.ae</span> voice-matched alt</td></tr>
+          </tbody>
+        </table></div></div>
+      </details>
+    </div>
+  </section>
+
+  <section id="sub">
+    <div class="head"><h2>Subwoofer</h2><span class="idx">SVS SB-1000 Pro &middot; verdict: keep &middot; new price &amp; lane</span></div>
+    <div class="stack">
+      <p class="verdict"><strong>A sealed 20&ndash;24 m&sup2; room is exactly where a small sealed sub punches above its weight</strong> &mdash; room gain props up the sealed rolloff and pulls usable extension to 20 Hz at your listening levels. Audioholics measured ~101 dB at 31.5 Hz from a 33 cm cube, and the app's parametric EQ is unmatched in the class. The correction: noon's lane is dead; budget <strong>3,758&ndash;3,816 via amazon.sa</strong> &mdash; and because those listings ship from the US, <strong>confirm the unit is 230 V with the seller before paying.</strong> Skip the SB-2000 Pro; the community-preferred upgrade in small rooms is a <em>second</em> SB-1000 Pro later (which would also reopen the AVR question &mdash; the X2800H can't align a pair).</p>
+      <ul class="points">
+        <li><strong>Sealed vs ported:</strong> tighter, punchier, easier to place &mdash; the gap to ported shrinks in a small sealed room until the sealed box's speed wins.</li>
+        <li><strong>Hollow gypsum rattles:</strong> isolation feet under the sub, then a listen-and-tighten pass on the door, panels, and light trims after calibration.</li>
+        <li><strong>Calibration order:</strong> Audyssey first with sub gain at mid, then the SVS app's PEQ for the one or two peaks it leaves. Don't stack both blind.</li>
+      </ul>
+      <details>
+        <summary>Sources &amp; offers</summary>
+        <div class="acc-body"><ul class="src">
+          <li><span class="who">Audioholics</span><a href="https://www.audioholics.com/subwoofer-reviews/svs-pb-1000-pro-sb-1000-pro">measured review</a> &mdash; remarkable output for the size; ported sibling only wins ~12 dB at 20&ndash;25 Hz.</li>
+          <li><span class="who">Sound &amp; Vision</span><a href="https://www.soundandvision.com/content/svs-sb-1000-pro-and-pb-1000-pro-subwoofers-review">review</a> &mdash; fast enough for two-channel music; best-in-class app.</li>
+          <li><span class="who">SVS</span><a href="https://www.svsound.com/blogs/subwoofer-setup-and-tuning/what-is-subwoofer-room-gain">room gain explainer</a> &mdash; strongest when the longest wall is under ~6 m. That's this room.</li>
+        </ul>
+        <div class="tablewrap"><table>
+          <thead><tr><th>Store</th><th class="num">SAR</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><a href="https://www.amazon.sa/-/en/s?k=SVS+SB-1000+Pro">amazon.sa, black ash</a></td><td class="num">3,758&ndash;3,816</td><td><span class="pill stock">Import</span> confirm 230 V</td></tr>
+            <tr><td><a href="https://pult.ae/product/svs-sb-1000-pro-sealed-subwoofer-black-ash">PULT (UAE)</a></td><td class="num">~2,575</td><td><span class="pill dim">UAE</span> cheapest, but shipping-to-KSA unverified</td></tr>
+            <tr><td>SB-2000 Pro (step-up)</td><td class="num">5,494</td><td><span class="pill dim">Option</span></td></tr>
+            <tr><td>Klipsch R-121SW (escape hatch)</td><td class="num">1,764</td><td><span class="pill stock">Local</span> ported, no DSP</td></tr>
+          </tbody>
+        </table></div></div>
+      </details>
+    </div>
+  </section>
+
+  <section id="acoustics">
+    <div class="head"><h2>Acoustics</h2><span class="idx">quotes out NOW &middot; the only unpriced line</span></div>
+    <div class="stack">
+      <p class="verdict"><strong>The isolation that keeps sound in also keeps bass energy in</strong> &mdash; a sealed room booms <em>worse</em> than a leaky one, so treatment is not optional. The prescription from GIK's guidance: <strong>~20&ndash;25% wall coverage</strong> (8&ndash;12 panels of 60&times;120 cm, 10 cm mineral wool), <strong>floor-to-ceiling corner traps</strong> (front two corners minimum), thick rug + felt underlay, and ceiling panels around &mdash; never over &mdash; the Atmos speakers. Black fabric is a stocked industry standard, and in this room dark panels double as light-reflection control. <strong>Every KSA supplier is quote-based with fabrication lead time: this is the December long pole, and quotes go out now.</strong></p>
+      <ul class="points">
+        <li><strong>The mirror trick finds panel spots:</strong> helper slides a mirror along the wall; wherever a speaker appears from the seat is a reflection zone. Side walls and ceiling first, then back wall.</li>
+        <li><strong>The slat wall is finish, not treatment:</strong> felt-backed slats absorb only mids/highs (NRC 0.6&ndash;0.9 above 250 Hz, nothing below). Perfect on the <em>back</em> wall where diffusion prevents over-deadening &mdash; and a walnut slat wall is also the anti-cave design move.</li>
+        <li><strong>Amazon foam is decoration:</strong> thin wedge foam and 9 mm PET tiles do nothing below 500 Hz. Real spec: rigid mineral wool 60&ndash;100 kg/m&sup3;, 5&ndash;10 cm.</li>
+        <li><strong>DIY route exists:</strong> Saudi Rock Wool Factory slabs + wood frames + black breathable fabric = ideal spec at a fraction of finished-panel cost.</li>
+      </ul>
+      <details>
+        <summary>Sources &amp; KSA suppliers</summary>
+        <div class="acc-body"><ul class="src">
+          <li><span class="who">GIK Acoustics</span><a href="https://www.gikacoustics.com/blogs/knowledge-base/early-reflection-points">early reflections</a> &middot; <a href="https://www.gikacoustics.com/blogs/knowledge-base/designer-tips-the-importance-of-coverage-area-with-james-lindenschmidt">coverage area</a> &mdash; the method this plan follows.</li>
+          <li><span class="who">Acoustics Insider</span><a href="https://www.acousticsinsider.com/blog/stop-combining-soundproofing-and-bass-traps">soundproofing vs treatment</a> &mdash; why a sealed room needs <em>more</em> bass trapping, not less.</li>
+          <li><span class="who">Acoustic Frontiers</span><a href="https://acousticfrontiers.com/blogs/articles/the-secrets-of-bass-trap-placement">bass trap placement</a> &mdash; corners, front pair first.</li>
+          <li><span class="who">Lab data</span><a href="https://static.richelieu.com/documents/docsGr/130/073/2/1300732/1703643.pdf">slat panel absorption report</a> &mdash; confirms slats are an HF product.</li>
+          <li><span class="who">Riyadh, quote</span><a href="https://acoustic.sa/acoustic-products-saudi-arabia/sound-absorption/acoustic-fabric-panels/">acoustic.sa fabric panels</a> &mdash; ask for 50 mm minimum, black fabric, and corner traps in the same quote.</li>
+          <li><span class="who">KSA, 4&ndash;7 day delivery</span><a href="https://mmtacoustixonline.com/pages/fabric-wrapped-rockwool-acoustic-panels-in-ksa-saudi-arabia">MMT Acoustix rockwool panels</a> &mdash; ready-made lane, custom colors incl. black.</li>
+          <li><span class="who">Riyadh, quote</span><a href="https://snsarabia.com/sound-absorption-in-saudi-arabia/acoustic-fabric-panel/">SNS Arabia</a> &mdash; the benchmark second quote.</li>
+          <li><span class="who">DIY core</span><a href="https://www.saudirockwool.com/en/acoustic-panel">Saudi Rock Wool Factory</a> &mdash; 60&ndash;100 kg/m&sup3; slabs, 25&ndash;100 mm.</li>
+        </ul></div>
+      </details>
+    </div>
+  </section>
+
+  <section id="cables">
+    <div class="head"><h2>Cables &amp; signal</h2><span class="idx">RUIPRO fiber &middot; test before the ceiling closes</span></div>
+    <div class="stack">
+      <p class="verdict"><strong>At 15 m, copper HDMI 2.1 is physically impossible</strong> &mdash; certification tops out around 3 m. Both runs must be hybrid fiber (AOC). The forum-consensus pick at exactly this length and use case is <strong>RUIPRO, 333 SAR on amazon.sa</strong> (5-year warranty); the ATC-certified belt-and-braces option is <strong>Zeskit at 679</strong>. The two habits that eliminate almost every AOC horror story: <strong>respect the Source/Display direction labels</strong>, and <strong>soak-test each run at 4K120 10-bit HDR VRR for hours from both the PC and PS5 before anything closes up.</strong></p>
+      <ul class="points">
+        <li><strong>Never break the run:</strong> no wall plates, no couplers, no adapters &mdash; one unbroken cable from source to TV.</li>
+        <li><strong>Pull by the body, never the head</strong> &mdash; the optics live in the connector, and a kinked fiber is dead forever. Decide direction before pulling: Source end starts at the desk.</li>
+        <li><strong>Split-the-risk option:</strong> certified Zeskit for the fussier PC run, RUIPRO for the PS5 &mdash; ~1,013 total.</li>
+        <li><strong>USB-to-sofa:</strong> proper active extenders add under 1 ms (gaming-safe); the 25&ndash;45 SAR passive RJ45 baluns on the same search page are USB 1.1 junk. But in a 4&ndash;6 m room the dongles likely reach anyway &mdash; run a spare Cat6 in the trunking and decide later.</li>
+      </ul>
+      <details>
+        <summary>Sources &amp; offers</summary>
+        <div class="acc-body"><ul class="src">
+          <li><span class="who">AVS Forum</span><a href="https://www.avsforum.com/threads/short-list-of-certified-hdmi-cables-for-hdmi-2-1.3227668/">certified-cable registry</a> &mdash; the community-maintained shortlist.</li>
+          <li><span class="who">AVForums</span><a href="https://www.avforums.com/threads/is-the-ruipro-8k-cable-the-only-choice-if-you-want-full-hdmi-2-1-at-15m.2350182/">15 m at full HDMI 2.1</a> &mdash; RTX GPU to LG OLED over 15 m RUIPRO: the proven combination.</li>
+          <li><span class="who">AVS Forum</span><a href="https://www.avsforum.com/threads/intermittent-signal-drops-at-4k-120hz-on-hdmi-2-1-cables-connecting-from-pc-to-tv.3301453/">the failure mode to test for</a> &mdash; single-frame black flashes that only appear in long sessions.</li>
+        </ul>
+        <div class="tablewrap"><table>
+          <thead><tr><th>Item</th><th class="num">SAR</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><a href="https://www.amazon.sa/-/en/RUIPRO-Supports-Dynamic-Compatible-Projector/dp/B081SHJJ3C">RUIPRO 15 m fiber &times;2</a></td><td class="num">667</td><td><span class="pill stock">FBA</span> offers from 275 each</td></tr>
+            <tr><td><a href="https://www.amazon.sa/-/en/Zeskit-Optical-48Gbps-Compatible-Samsung/dp/B09MMTS7NW">Zeskit 15 m, ATC-certified</a></td><td class="num">679 each</td><td><span class="pill stock">~1 wk</span></td></tr>
+            <tr><td>Honeywell 15 m AOC</td><td class="num">379</td><td><span class="pill warn">1 left</span> next-day fallback</td></tr>
+            <tr><td><a href="https://www.amazon.sa/s?k=usb+extender+over+cat6+rj45">Active USB-over-Cat6 extender</a></td><td class="num">129</td><td><span class="pill dim">If needed</span> avoid passive baluns</td></tr>
+          </tbody>
+        </table></div></div>
+      </details>
+    </div>
+  </section>
+
+  <section id="lighting">
+    <div class="head"><h2>Lighting</h2><span class="idx">two jobs: bias + warm zones</span></div>
+    <div class="stack">
+      <p class="verdict"><strong>A black room with an OLED needs two different lights.</strong> Behind the panel: a neutral 6500 K bias light &mdash; OLED's perfect blacks make pupil fatigue <em>worse</em> in a dark room, and bias lighting is the standard fix that also deepens perceived contrast. Around the seating: warm 2700&ndash;3000 K dimmable zones, always behind the seating plane so nothing reflects in the glossy panel. The KSA pick is the <strong>Govee Envisual T2 75&ndash;85&Prime; (~969)</strong> &mdash; camera-based, so it never touches the 4K120 HDMI chain. The Hue route has two traps here: the KSA-stocked sync box is 4K60-only (it would break your runs), and the local gradient strip is the 65&Prime; size.</p>
+      <ul class="points">
+        <li><strong>Zone recipe from batcave builds:</strong> cove/perimeter strip + sconces or rear cans over seating (never between seat and screen) + low step lights, all dimmable, scene presets.</li>
+        <li><strong>Black-baffle recessed trims:</strong> shiny aluminum rings glare in the OLED. Warm-dim LEDs, IC-rated sealed fixtures in the insulated void.</li>
+        <li><strong>Star ceiling:</strong> your hollow void is the easy case for fiber-optic &mdash; but it's a construction-phase job (before wallpaper/finish). The budget alternative with 10&times; the star density: UV-painted mural + hidden black light.</li>
+        <li><strong>Desk:</strong> Quntis gives ~80% of the BenQ for a fifth of the price; the Halo 2's rear wall-wash doubles as desk bias light.</li>
+      </ul>
+      <details>
+        <summary>Sources &amp; offers</summary>
+        <div class="acc-body"><ul class="src">
+          <li><span class="who">MediaLight</span><a href="https://www.biaslighting.com/pages/the-oled-myth">why OLED still needs bias light</a> &mdash; the vendor case, technically argued.</li>
+          <li><span class="who">How-To Geek</span><a href="https://www.howtogeek.com/137252/govee-envisual-tv-backlight-t2-review/">Govee T2 review</a> &mdash; works with everything, adds no lag.</li>
+          <li><span class="who">Hueblog</span><a href="https://hueblog.com/2025/10/06/philips-hue-vs-govee-who-has-the-better-premium-light-strip/">Hue vs Govee head-to-head</a> &mdash; where Hue's premium is and isn't worth it.</li>
+          <li><span class="who">Super Bright LEDs</span><a href="https://www.superbrightleds.com/blog/home-theater-lighting-done-right.html">theater lighting rules</a> &mdash; the zone-design reference.</li>
+          <li><span class="who">AVS Forum</span><a href="https://www.avsforum.com/threads/how-many-lighting-zones.556557/">lighting zones thread</a> &middot; <a href="https://www.hometheatershack.com/threads/star-ceilings-painted-vs-fiber-optic.173425/">star ceilings: painted vs fiber</a></li>
+        </ul>
+        <div class="tablewrap"><table>
+          <thead><tr><th>Item</th><th class="num">SAR</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><a href="https://www.noon.com/saudi-en/govee-envisual-tv-backlight-t2-with-dual-cameras-75-85-inch-tv/Z720C4EF1622F2B729DF0Z/p/">Govee Envisual T2, 75&ndash;85&Prime;</a></td><td class="num">~969</td><td><span class="pill stock">amazon.sa / noon</span></td></tr>
+            <tr><td><a href="https://www.amazon.sa/-/en/s?k=Govee+TV+backlight+3+pro+85">Govee Backlight 3 Lite &ldquo;75&ndash;85&Prime;&rdquo;</a></td><td class="num">450</td><td><span class="pill warn">Verify size</span> listings conflict</td></tr>
+            <tr><td><a href="https://www.biaslighting.com/products/medialight-mk2-flex-6500k-cri-98-bias-lighting">MediaLight Mk2 5 m (import)</a></td><td class="num">~800 landed</td><td><span class="pill dim">US ship</span></td></tr>
+            <tr><td><a href="https://www.amazon.sa/-/en/s?k=BenQ+ScreenBar">BenQ ScreenBar Pro / Halo 2</a></td><td class="num">699 / 899</td><td><span class="pill stock">Next-day</span></td></tr>
+            <tr><td><a href="https://www.amazon.sa/-/en/Quntis-Eye-Care-Computer-Dimmable-Auto-Dimming/dp/B0B6P9J3J5">Quntis PRO+</a></td><td class="num">~150</td><td><span class="pill stock">Budget pick</span></td></tr>
+          </tbody>
+        </table></div></div>
+      </details>
+    </div>
+  </section>
+
+  <section id="blackroom">
+    <div class="head"><h2>The black room</h2><span class="idx">sheen discipline &gt; color choice</span></div>
+    <div class="stack">
+      <p class="verdict"><strong>Black is the right call &mdash; and the ceiling counts as much as the walls.</strong> Dark matte surfaces stop screen light re-lighting the image; perceived contrast and the &ldquo;floating picture&rdquo; effect improve dramatically. But sheen matters more than shade: <strong>matte only, no vinyl gloss, no satin, no metallic</strong> &mdash; a glossy black wall reflects the screen like a mirror. The anti-cave recipe for a couple's room: pure black held to the TV wall and ceiling zone, <strong>deep charcoal textured wallpaper elsewhere</strong>, the walnut slat wall as the one warm feature, brass accents, layered warm dimmable light. That combination reads <em>boutique cinema</em>, not cave.</p>
+      <ul class="points">
+        <li><strong>The hierarchy:</strong> black velvet/flock absorbs light in a different league from flat paint &mdash; batcave builders run velvet on the TV wall and first ~1.5 m of ceiling, matte paint or paper beyond.</li>
+        <li><strong>Wallpaper test:</strong> view every sample at a low angle under light before committing. Non-woven or fabric-backed textured papers (linen-look, grasscloth) have zero sheen and add slight HF damping; cheap vinyl-faced darks light up like a mirror band.</li>
+        <li><strong>The premium alternative to wallpaper:</strong> stretch-fabric track walls (Wallmate-style) &mdash; dark acoustically transparent fabric hides the panels, bass traps, and cabling behind wallpaper-crisp seams.</li>
+        <li><strong>Sequencing:</strong> velvet/flock, slat wall, in-wall fishing, panel mounts &mdash; all before wallpaper hangs.</li>
+      </ul>
+      <details>
+        <summary>Show the family &mdash; galleries &amp; build threads</summary>
+        <div class="acc-body"><ul class="src">
+          <li><span class="who">Photo gallery</span><a href="https://www.houzz.com/photos/black-floor-home-theater-ideas-phbr1-bp~t_719~a_1408-15755">Houzz: black home theaters</a> &mdash; browsable, good for agreeing on a look.</li>
+          <li><span class="who">Gallery</span><a href="https://hometheateracademy.com/dark-home-theater-designs/">15 dark theater designs</a> &mdash; the wood-against-charcoal toolkit.</li>
+          <li><span class="who">Build thread</span><a href="https://www.avsforum.com/threads/how-i-blackened-my-home-theater-with-velvet-evolving-from-common-mancave-into-a-batcave.3236212/">mancave &rarr; batcave with velvet</a> &mdash; documented, with photos.</li>
+          <li><span class="who">Build thread</span><a href="https://www.avsforum.com/threads/the-little-black-box-theater.3112262/page-2">The Little Black Box Theater</a> &mdash; shows why accent lighting keeps a black room from feeling like a void.</li>
+          <li><span class="who">The debate</span><a href="https://www.avsforum.com/threads/bat-cavers-flat-black-paint-vs-black-velvet.834325/">flat paint vs velvet</a> &middot; <a href="https://www.avsforum.com/threads/oled-ht-room-dark-vs-light-walls.3269580/">dark walls for OLED</a></li>
+          <li><span class="who">Fabric-wall reference</span><a href="https://acousticgeometry.com/products/wallmate-stretch-wall-system/">Wallmate system</a> &middot; <a href="https://www.mycinematech.com/design/acoustic-wall-fabric-collection/">CinemaTech fabric collection</a></li>
+        </ul></div>
+      </details>
+      <details>
+        <summary>KSA sourcing</summary>
+        <div class="acc-body"><ul class="src">
+          <li><span class="who">Local, installs free</span><a href="https://www.sedarglobal.com/ksa-en/wallpaper">Sedar</a> &mdash; textured non-woven darks at ~142&ndash;167 SAR/roll with free measurement and installation. A 4&times;5&ndash;6 m room needs roughly 10&ndash;14 rolls.</li>
+          <li><span class="who">Premium showrooms</span><a href="https://saudikenz.com/">Saudi Kenz</a> (Riyadh/Jeddah) &mdash; fabric-backed and grasscloth darks; see samples under light.</li>
+          <li><span class="who">GCC slat wall</span><a href="https://akuwoodpanel.ae/collections/acoustic-slat-wall-panels">Aku Woodpanel (UAE)</a> &mdash; walnut slats on black felt, 240&times;60 cm.</li>
+          <li><span class="who">Budget lane</span><a href="https://www.amazon.sa/-/en/b?ie=UTF8&amp;node=16620562031">amazon.sa wallpaper</a> &mdash; low-angle light test on arrival, before hanging.</li>
+        </ul></div>
+      </details>
+    </div>
+  </section>
+
+  <section id="calendar">
+    <div class="head"><h2>Buy calendar</h2><span class="idx">lock now vs gamble</span></div>
+    <div class="timeline">
+      <div class="trow"><span class="when">This week</span><div class="what">
+        <h3>Lock the thin-stock items</h3>
+        <p>RP-500M II fronts (4 pairs left), RP-500C II centre, the chosen Denon lane (local listing: 4 left), APC UPS (3 left). These prices are already at deal levels &mdash; White Friday will not beat them, and stock-out is the real risk.</p>
+      </div></div>
+      <div class="trow"><span class="when">This week</span><div class="what">
+        <h3>Send the acoustic quotes</h3>
+        <p>acoustic.sa + SNS Arabia, same spec to both: 8&ndash;12 panels 60&times;120&times;10 cm black fabric, 2&ndash;4 floor-to-ceiling corner traps. Fabrication lead time is the December long pole.</p>
+      </div></div>
+      <div class="trow"><span class="when">Sept</span><div class="what">
+        <h3>Order the imports &amp; soak-test cables</h3>
+        <p>SVS sub (confirm 230 V), ceiling speakers + rough-in frames + fire hoods, both fiber cables. Test each cable at 4K120 10-bit HDR VRR from both machines for hours &mdash; <em>before</em> the ceiling closes over them.</p>
+      </div></div>
+      <div class="trow"><span class="when">Oct&ndash;Nov</span><div class="what">
+        <h3>Construction sequence</h3>
+        <p>Ceiling cutouts + back-boxes &rarr; in-wall/ceiling cable runs &rarr; velvet/flock TV wall zone &rarr; slat wall &rarr; panel mounts &rarr; <strong>then</strong> wallpaper &rarr; then the TV mount goes on the finished wall.</p>
+      </div></div>
+      <div class="trow"><span class="when">Nov 20&ndash;30</span><div class="what">
+        <h3>White Friday: the TV, and only the TV</h3>
+        <p>Target ~8,799 on the B6 (the tracked floor), and watch the eXtra C5/G5 closeout restocks &mdash; a 77&Prime; G5 at 9,799 beats the B6 outright. Buy in the window; do not drift into December. Headline &ldquo;70% off&rdquo; banners are against inflated list prices &mdash; trust the kanbkam floors, not the percentages.</p>
+      </div></div>
+      <div class="trow"><span class="when">Dec</span><div class="what">
+        <h3>Calibrate, then hunt rattles</h3>
+        <p>Rug and panels in first, then Audyssey from the actual seat, then the SVS app for what's left. Finish with a listen-and-tighten pass &mdash; sealed-room pressure will find the door, loose gypsum, and light trims.</p>
+      </div></div>
+    </div>
+  </section>
+
+  <section id="open">
+    <div class="head"><h2>Open questions</h2><span class="idx">decide with the photos</span></div>
+    <ul class="check">
+      <li><strong>Main listening position: sofa or desk?</strong> One Atmos pair can't serve both. Everything from ceiling cutouts to Audyssey hangs on this &mdash; it must be decided before the ceiling work.</li>
+      <li><strong>Ceiling void depth</strong> &mdash; the KEF/Polk need ~91 mm plus back-box; coordinate with the recessed-light layout.</li>
+      <li><strong>B6 panel variant &amp; warranty</strong> &mdash; is the KSA OLED77B66LA the evo B6A or plain B6G, and does the seller carry LG Saudi warranty?</li>
+      <li><strong>Denon lane</strong> &mdash; local warranty at 5,938 or EU variant at 3,865? (The 2,000 SAR difference roughly funds the KEF ceiling upgrade.)</li>
+      <li><strong>Acoustic quotes</strong> &mdash; the only unpriced line; ~7,400 estimated, could swing either way.</li>
+      <li><strong>Wallpaper samples</strong> &mdash; matte non-woven only; low-angle light test before buying rolls.</li>
+      <li><strong>PULT-to-KSA shipping</strong> &mdash; if it genuinely ships, the sub drops ~1,200 SAR; verify before assuming.</li>
+      <li><strong>Room photos + exact dimensions</strong> &mdash; still the gate for the final layout drawing and the 77 vs 83 question.</li>
+    </ul>
+  </section>
+
+  <footer>
+    Compiled from an 11-agent research sweep on 21 Aug 2026: RTINGS, Tom's Guide, TechRadar, What Hi-Fi?, Erin's Audio Corner, Audio Science Review, Audioholics, Sound &amp; Vision, AVS Forum, AVForums, Reddit, GIK Acoustics, and live listings on amazon.sa, noon, eXtra, Jarir, Samma3a, kanbkam, and GCC dealers. All takeaways are paraphrased; links go to the sources. Prices move &mdash; treat anything older than a week as a starting point, and confirm at checkout. Companions: the <em>Media Room Build Sheet</em> (order links) and <em>Fitting a Finished Room</em> (install explainers).
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var BUDGET = 50000;
+  var FIXED = 1949 + 2557 + 1367 + 300 + 667 + 400 + 712 + 1800 + 1200 + 700 + 2200 + 900 + 7400 + 1000;
+  var GROUPS = ['tv', 'avr', 'hts', 'sub', 'bias', 'desk'];
+  var fmt = function (n) { return n.toLocaleString('en-US') + ' SAR'; };
+
+  function currentTotal() {
+    var t = FIXED;
+    GROUPS.forEach(function (g) {
+      var el = document.querySelector('input[name="' + g + '"]:checked');
+      if (el) t += parseInt(el.value, 10);
+    });
+    return t;
+  }
+
+  function render() {
+    var t = currentTotal();
+    var head = BUDGET - t;
+    var totalEl = document.getElementById('cfg-total');
+    var barEl = document.getElementById('cfg-bar');
+    var headEl = document.getElementById('cfg-headroom');
+    totalEl.textContent = fmt(t);
+    var pct = Math.min(100, (t / BUDGET) * 100);
+    barEl.querySelector('span').style.width = pct + '%';
+    barEl.classList.toggle('over', t > BUDGET);
+    headEl.textContent = head >= 0
+      ? fmt(head) + ' headroom of the 50,000 budget'
+      : fmt(-head) + ' OVER the 50,000 budget';
+    var pt = document.getElementById('plate-total');
+    var ph = document.getElementById('plate-headroom');
+    if (pt) pt.textContent = fmt(t);
+    if (ph) ph.textContent = head >= 0 ? fmt(head) : '−' + fmt(-head);
+  }
+
+  function save() {
+    var picks = {};
+    GROUPS.forEach(function (g) {
+      var el = document.querySelector('input[name="' + g + '"]:checked');
+      if (el) picks[g] = el.id;
+    });
+    try { localStorage.setItem('blackbox-picks', JSON.stringify(picks)); } catch (e) {}
+  }
+
+  function load() {
+    try {
+      var raw = localStorage.getItem('blackbox-picks');
+      if (!raw) return;
+      var picks = JSON.parse(raw);
+      Object.keys(picks).forEach(function (g) {
+        var el = document.getElementById(picks[g]);
+        if (el) el.checked = true;
+      });
+    } catch (e) {}
+  }
+
+  document.querySelectorAll('.cfg-opt input').forEach(function (el) {
+    el.addEventListener('change', function () { render(); save(); });
+  });
+
+  load();
+  render();
+})();
+</script>
