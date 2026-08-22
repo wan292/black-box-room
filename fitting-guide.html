@@ -325,6 +325,11 @@ footer {
 
       <p>What they are: a round speaker, roughly 16&nbsp;cm across, that sits <em>inside</em> the ceiling with only its grille showing. Flush with the surface. From below it looks like a downlight. Their job is Atmos &mdash; rain, a helicopter, footsteps on the floor above &mdash; sound that should come from over your head rather than around you.</p>
 
+      <div class="callout">
+        <h3>Your ~20 cm void: confirmed, it fits</h3>
+        <p>These speakers need about <strong>9&ndash;10 cm of depth</strong> behind the gypsum (KEF Ci160QR: 91 mm; Polk RC80i: ~99 mm). Twenty centimetres is double that &mdash; enough for the speaker <em>and</em> the sealed back-box that protects your soundproofing. Position: the two cutouts go in the flat tray field, <strong>1.1&ndash;1.6 m ahead of the sofa toward the TV</strong>, spaced to line up with the front left and right speakers &mdash; and clear of the cove strips and downlight pairs. The exact marks come off the plan once the tape measure confirms the room.</p>
+      </div>
+
       <figure>
         <div class="figbox">
           <svg viewBox="0 0 720 310" role="img" aria-label="Cross-section of the ceiling: a concrete slab on top, an empty void beneath it, and a gypsum ceiling below that. Two in-ceiling speakers sit in cut holes in the gypsum with their bodies up inside the void. Two speaker cables run from them through the void, across to the wall, and down inside the wall to the AV receiver in the room below.">
@@ -530,7 +535,8 @@ footer {
 
             <path class="d-faint" d="M668 488 A 70 70 0 0 1 738 418"></path>
             <line class="d-thin" x1="738" y1="418" x2="738" y2="488" stroke-dasharray="4 3"></line>
-            <text class="d-sub" x="660" y="510">padded door &#10003;</text>
+            <polygon points="672,414 738,414 738,486 672,486" class="d-zone"></polygon>
+            <text class="d-sub" x="660" y="510">padded door at the corner &#10003; &mdash; entry zone stays clear</text>
 
             <line class="d-thin" x1="60" y1="530" x2="740" y2="530" marker-end="url(#p-ah)" marker-start="url(#p-ah)"></line>
             <text class="d-sub" x="400" y="522" text-anchor="middle">6 m &times; 4 m &mdash; tape measure still to confirm</text>
@@ -679,6 +685,66 @@ footer {
         </div>
         <figcaption>Thin lines are the sound you want &mdash; straight from speaker to ear. Brass lines are the same sound arriving late off the walls, smearing what you just heard. The panels catch the second one.</figcaption>
       </figure>
+
+      <h3>The panel map for your room &mdash; specific spots, never whole walls</h3>
+      <p>This is the question that matters: <strong>you do not cover walls. You catch bounces.</strong> Each panel exists to absorb one specific reflection on its way from a speaker to your ears. Once those spots are covered &mdash; roughly 20&ndash;25% of the wall area &mdash; more panels stop helping and start making the room feel unnaturally dead. Most of your black paint stays visible; the panels read as a few deliberate fabric rectangles.</p>
+
+      <figure>
+        <div class="figbox">
+          <svg viewBox="0 0 800 520" role="img" aria-label="Panel map for the six by four metre room. Three panels on the wall directly behind the sofa, two panels on the TV wall between the speakers and the corners, one panel on the door wall at the mirror point, floor-to-ceiling bass traps in both TV-wall corners plus the windows-side rear corner, and the full-wall curtain acting as the treatment for the windows wall. About eight panels and three traps in total.">
+            <defs>
+              <pattern id="pm-h" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="0" y2="6" stroke="#A09A8C" stroke-width="1.4"></line>
+              </pattern>
+            </defs>
+
+            <rect x="60" y="70" width="680" height="380" class="d-room"></rect>
+
+            <rect x="310" y="72" width="180" height="12" class="d-solid"></rect>
+            <text class="d-sub" x="400" y="100" text-anchor="middle">TV</text>
+            <rect x="300" y="360" width="200" height="80" class="d-box"></rect>
+            <text class="d-sub" x="400" y="404" text-anchor="middle">SOFA</text>
+            <polygon points="592,72 738,72 738,240 672,240 672,130 592,130" class="d-box"></polygon>
+            <text class="d-sub" x="705" y="160" text-anchor="middle">DESK</text>
+
+            <rect x="140" y="74" width="70" height="12" fill="url(#pm-h)" stroke="currentColor" stroke-width="1"></rect>
+            <text class="d-tag" x="175" y="106" text-anchor="middle">2</text>
+            <rect x="516" y="74" width="70" height="12" fill="url(#pm-h)" stroke="currentColor" stroke-width="1"></rect>
+            <text class="d-tag" x="551" y="106" text-anchor="middle">3</text>
+
+            <rect x="250" y="436" width="80" height="12" fill="url(#pm-h)" stroke="currentColor" stroke-width="1"></rect>
+            <rect x="360" y="436" width="80" height="12" fill="url(#pm-h)" stroke="currentColor" stroke-width="1"></rect>
+            <rect x="470" y="436" width="80" height="12" fill="url(#pm-h)" stroke="currentColor" stroke-width="1"></rect>
+            <text class="d-tag" x="400" y="428" text-anchor="middle">1</text>
+
+            <rect x="726" y="250" width="12" height="80" fill="url(#pm-h)" stroke="currentColor" stroke-width="1"></rect>
+            <text class="d-tag" x="712" y="294" text-anchor="end">4</text>
+
+            <line class="d-dash" x1="76" y1="80" x2="76" y2="440"></line>
+            <text class="d-sub" x="90" y="260">curtain wall &mdash;</text>
+            <text class="d-sub" x="90" y="276">the double curtain</text>
+            <text class="d-sub" x="90" y="292">IS the treatment here</text>
+
+            <polygon points="60,70 60,120 110,70" fill="url(#pm-h)" stroke="currentColor" stroke-width="1"></polygon>
+            <polygon points="740,70 740,120 690,70" fill="url(#pm-h)" stroke="currentColor" stroke-width="1"></polygon>
+            <polygon points="60,450 60,400 110,450" fill="url(#pm-h)" stroke="currentColor" stroke-width="1"></polygon>
+            <text class="d-tag" x="128" y="94">T</text>
+            <text class="d-tag" x="672" y="94" text-anchor="end">T</text>
+            <text class="d-tag" x="128" y="436">T</text>
+
+            <text class="d-sub" x="400" y="490" text-anchor="middle">1 = 3 panels behind the sofa &middot; 2 + 3 = TV-wall pair &middot; 4 = door-wall mirror point &middot; T = corner bass traps</text>
+            <text class="d-sub" x="400" y="508" text-anchor="middle">total: ~8 panels (120&times;60&times;10 cm) + 3 floor-to-ceiling traps &asymp; 22% of the walls</text>
+          </svg>
+        </div>
+        <figcaption>Your room's actual prescription. The most important three panels are the ones behind the sofa &mdash; that wall sits half a metre behind your ears. The windows wall needs nothing extra: the double curtain does its job.</figcaption>
+      </figure>
+
+      <ul class="plain">
+        <li><strong>Height rule:</strong> panel centres at seated ear height &mdash; mount them so the panel spans roughly 0.6 to 1.8 m off the floor. Not near the ceiling, not near the skirting.</li>
+        <li><strong>Order of importance:</strong> the three behind the sofa first, then the two TV-wall corner traps, then the rest. If the budget squeezes, that first group is 70% of the result.</li>
+        <li><strong>The exact spots</strong> get fine-tuned with the mirror trick above once the sofa is in &mdash; the map shows the zones; the mirror finds the centimetres.</li>
+        <li><strong>What to ask the supplier for:</strong> &ldquo;8 fabric-wrapped rockwool panels, 120&times;60&times;10 cm, black fabric, plus 3 floor-to-ceiling corner bass traps&rdquo; &mdash; that sentence is the whole quote request for acoustic.sa and SNS Arabia.</li>
+      </ul>
 
       <p class="ask">&ldquo;The rug &mdash; is it a specific rug I have to get?&rdquo;</p>
 
